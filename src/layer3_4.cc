@@ -412,10 +412,15 @@ void Layer3::push_block(const L2Block& l2block) {
   uint16_t silch = field(info_bits, 0, 4);
 
   if (silch == 0x8) {
+    //std:: cout << "SeCh   X ";
     service_message_.push_block(SechBlock(info_bits));
 
-    if (service_message_.is_complete())
+    if (service_message_.is_complete()) {
       print_line(service_message_.to_json());
+    } else {
+      //Bits data = Bits(info_bits.begin() + 8, info_bits.end());
+      //std::cout << BitsToHexString(data) << std::endl;
+    }
 
   } else if (silch == 0x9) {
     /*printf("SMCh ");
@@ -424,15 +429,29 @@ void Layer3::push_block(const L2Block& l2block) {
     if (short_message_.is_complete())
       print_line(short_message_.to_json());*/
 
+    //std::cout << "SMCh   X ";
+    //Bits data = Bits(info_bits.begin() + 8, info_bits.end());
+    //std::cout << BitsToHexString(data) << std::endl;
   } else if (silch == 0xA) {
+    //std::cout << "LMCh   X ";
     long_message_.push_block(LongBlock(info_bits));
 
-    if (long_message_.is_complete())
+    if (long_message_.is_complete()) {
       print_line(long_message_.to_json());
+    } else {
+      //Bits data = Bits(info_bits.begin() + 8, info_bits.end());
+      //std::cout << BitsToHexString(data) << std::endl;
+    }
 
   } else if (silch == 0xB) {
-    //bool is_realtime = field(info_bits, 4, 1);
+    //std::cout << "BMCh ";
+
+    bool is_realtime = field(info_bits, 4, 1);
+    //std::cout << (is_realtime ? "R" : " ") << " ";
+
     int subchannel = field(info_bits, 5, 3);
+    //std::cout << subchannel << " ";
+
     if (subchannel == 0x0) {
       Bits data;
       data = Bits(info_bits.begin() + 8, info_bits.end());
@@ -440,10 +459,17 @@ void Layer3::push_block(const L2Block& l2block) {
 
       json["block_app"]["l3data"] = BitsToHexString(data);
       print_line(json);
+    } else {
+      Bits data = Bits(info_bits.begin(), info_bits.end());
+      for (const auto &bit : data) {
+        std::cout << unsigned(bit);
+      }
+      std::cout << std::endl;
     }
-    //printf("subch:%d ", subchannel);
   } else {
-
+    //std::cout << "OtCh   X ";
+    //Bits data = Bits(info_bits.begin() + 8, info_bits.end());
+    //std::cout << BitsToHexString(data) << std::endl;
   }
 }
 

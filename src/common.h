@@ -34,18 +34,20 @@ enum eOutputType {
 
 struct Options {
   Options() : feed_thru(false), show_partial(false),
-              just_exit(false), timestamp(false), bler(false),
+              just_exit(false), timestamp(false), bler(false), output(false),
               samplerate(kTargetSampleRate_Hz),
               input_type(INPUT_MPX_STDIN), output_type(OUTPUT_JSON) {}
   bool feed_thru;
   bool show_partial;
   bool just_exit;
   bool timestamp;
+  bool output;
   bool bler;
   float samplerate;
   eInputType input_type;
   eOutputType output_type;
   std::string sndfilename;
+  std::string output_filename;
   std::string time_format;
 };
 

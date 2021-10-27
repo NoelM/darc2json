@@ -18,6 +18,7 @@
 
 #include <cassert>
 #include <map>
+#include <iostream>
 
 #include "src/util.h"
 
@@ -93,6 +94,13 @@ int L2Block::BicNum() const {
 
 Bits L2Block::information_bits() const {
   return Bits(bits_.begin(), bits_.begin() + 176);
+}
+
+char* L2Block::information_bits_char(char* buff) const {
+  for (int i = 0; i < 176; i++) {
+    buff[i] = bits_[i];
+  }
+  return buff;
 }
 
 bool L2Block::crc_ok() {

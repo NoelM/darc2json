@@ -51,6 +51,7 @@ class L2Block {
   int BicNum() const;
   bool crc_ok();
   Bits information_bits() const;
+  char* information_bits_char(char* buffer) const;
 
  private:
   eBic bic_;

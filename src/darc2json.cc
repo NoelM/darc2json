@@ -17,6 +17,7 @@
  */
 #include <getopt.h>
 #include <iostream>
+#include <fstream>
 
 #include "config.h"
 #include "src/common.h"
@@ -45,6 +46,8 @@ void PrintUsage() {
     "-f, --file FILENAME    Use an audio file as MPX input. All formats\n"
     "                       readable by libsndfile should work.\n"
     "\n"
+    "-o, --output FILENAME  Outputs all valid blocks in binary format.\n"
+    "\n"
     "-r, --samplerate RATE  Set stdin sample frequency in Hz. Will resample\n"
     "                       (slow) if this differs from 171000 Hz.\n"
     "\n"
@@ -70,6 +73,7 @@ Options GetOptions(int argc, char** argv) {
     { "feed-through",  no_argument, 0, 'e'},
     { "bler",          no_argument, 0, 'E'},
     { "file",          1,           0, 'f'},
+    { "output",        1,           0, 'o'},
     { "samplerate",    1,           0, 'r'},
     { "timestamp",     1,           0, 't'},
     { "version",       no_argument, 0, 'v'},
@@ -79,7 +83,7 @@ Options GetOptions(int argc, char** argv) {
   int option_index = 0;
   int option_char;
 
-  while ((option_char = getopt_long(argc, argv, "eEf:r:t:v",
+  while ((option_char = getopt_long(argc, argv, "eEf:o:r:t:v",
                                     long_options,
          &option_index)) >= 0) {
     switch (option_char) {
@@ -98,6 +102,10 @@ Options GetOptions(int argc, char** argv) {
                   << '\n';
         options.just_exit = true;
 #endif
+        break;
+      case 'o':
+        options.output = true;
+        options.output_filename = std::string(optarg);
         break;
       case 'p':
         options.show_partial = true;
@@ -145,6 +153,11 @@ int main(int argc, char** argv) {
   if (options.just_exit)
     return EXIT_FAILURE;
 
+  std::ofstream binary_file;
+  char buffer[176];
+  if (options.output)
+    binary_file.open(options.output_filename, std::ios::out | std::ios::binary);
+
   darc2json::Layer2 layer2;
   darc2json::Layer3 layer3(options);
 
@@ -152,9 +165,15 @@ int main(int argc, char** argv) {
   while (!subc.eof()) {
     std::vector<darc2json::L2Block> blocks = layer2.PushBit(subc.NextBit());
     for (darc2json::L2Block l2block : blocks) {
+      std::cout << "decoded block" << std::endl;
+      if (options.output)
+        binary_file.write(l2block.information_bits_char(buffer), 176);
       layer3.push_block(l2block);
     }
   }
+
+  if (options.output)
+    binary_file.close();
 
   return EXIT_SUCCESS;
 }
