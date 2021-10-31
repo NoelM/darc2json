@@ -154,9 +154,10 @@ int main(int argc, char** argv) {
     return EXIT_FAILURE;
 
   std::ofstream binary_file;
-  char buffer[176];
-  if (options.output)
+  char buffer[44];
+  if (options.output) {
     binary_file.open(options.output_filename, std::ios::out | std::ios::binary);
+  }
 
   darc2json::Layer2 layer2;
   darc2json::Layer3 layer3(options);
@@ -165,9 +166,11 @@ int main(int argc, char** argv) {
   while (!subc.eof()) {
     std::vector<darc2json::L2Block> blocks = layer2.PushBit(subc.NextBit());
     for (darc2json::L2Block l2block : blocks) {
-      std::cout << "decoded block" << std::endl;
-      if (options.output)
-        binary_file.write(l2block.information_bits_char(buffer), 176);
+      if (options.output) {
+        int writtenBytes = l2block.get_timestamped_block(buffer);
+        binary_file.write(buffer, writtenBytes);
+      }
+
       layer3.push_block(l2block);
     }
   }

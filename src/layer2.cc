@@ -16,9 +16,8 @@
  */
 #include "src/layer2.h"
 
-#include <cassert>
 #include <map>
-#include <iostream>
+#include <chrono>
 
 #include "src/util.h"
 
@@ -50,6 +49,19 @@ eBic BicFor(uint16_t word) {
     return BIC3;
   else
     return BIC4;
+}
+
+uint16_t eBicFor(eBic bic) {
+  switch (bic) {
+    case BIC1:
+      return kBic1;
+    case BIC2:
+      return kBic2;
+    case BIC3:
+      return kBic3;
+    case BIC4:
+      return kBic4;
+  }
 }
 
 Descrambler::Descrambler() : bit_counter_(0) {
@@ -96,11 +108,27 @@ Bits L2Block::information_bits() const {
   return Bits(bits_.begin(), bits_.begin() + 176);
 }
 
-char* L2Block::information_bits_char(char* buff) const {
-  for (int i = 0; i < 176; i++) {
-    buff[i] = bits_[i];
+int L2Block::get_timestamped_block(char* buff) const {
+  int bytesWritten = 0;
+
+  uint64_t timeUs = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now().time_since_epoch()).count();
+  std::memcpy(buff, &timeUs, 8);
+  bytesWritten += 8;
+
+  uint16_t bic = eBicFor(bic_);
+  std::memcpy(&buff[bytesWritten], &bic, 2);
+  bytesWritten += 2;
+  
+  for (int byteId = 0; byteId < 34; byteId++) {
+    uint8_t byteBuff = 0;
+    for (int bitId = 0; bitId < 8; bitId++)
+      byteBuff += bits_[8*byteId + bitId] << bitId;
+
+    std::memcpy(&buff[bytesWritten], &byteBuff, 1);
+    bytesWritten += 1;
   }
-  return buff;
+
+  return bytesWritten;
 }
 
 bool L2Block::crc_ok() {
