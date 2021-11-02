@@ -37,12 +37,9 @@ char printChar(uint8_t byte) {
   return ' ';
 }
 
-char byteChar(uint8_t* bytes) {
-  uint16_t word;
-  std::memcpy(&word, bytes, 2);
-
+char wordChar(uint16_t word) {
   unsigned char value = 0;
-  for (int inc = 0, wPos = 5; wPos < 12; wPos++, inc++) {
+  for (int inc = 0, wPos = 6; wPos < 13; wPos++, inc++) {
     value += ((word & (1 << wPos)) == 0 ? 0 : 1) << inc;
   }
 
@@ -63,7 +60,7 @@ int sprintLineHeader(char* line, uint64_t timeUs, int bic, uint8_t* bytes, bool 
   return sprintf(line, "%12lld %1d %2X %3d %c ", timeUs, bic, bytes[0], bytes[1], sync ? 'S' : ' ');
 }
 
-int sprintLineWord(char* line, uint64_t timeUs, int bic, uint8_t* bytes) {
+int sprintLineWord(char* line, uint64_t timeUs, int bic, uint8_t* bytes, uint64_t* wordCounter) {
   int padding = sprintLineHeader(line, timeUs, bic, bytes, true);
   int written = padding;
 
@@ -72,6 +69,7 @@ int sprintLineWord(char* line, uint64_t timeUs, int bic, uint8_t* bytes) {
 
   for (int i = 2; i < 22; i += 2) {
     std::memcpy(&word, &bytes[i], 2);
+    wordCounter[word]++;
     getWordRepr(wordRepr, word);
 
     if (i > 2) {
@@ -83,6 +81,8 @@ int sprintLineWord(char* line, uint64_t timeUs, int bic, uint8_t* bytes) {
 
     std::memcpy(&line[written], wordRepr, 16);
     written += 16;
+
+    written += sprintf(&line[written], " %c", wordChar(word));
 
     line[written] = '\n';
     written++;
@@ -107,5 +107,26 @@ int sprintLinePlain(char* line, uint64_t timeUs, int bic, uint8_t *bytes, bool s
 
   line[written] = '\0';
   return written;
+}
+
+void sortCounter(uint64_t* counter, uint64_t* order, uint64_t len) {
+  for (uint64_t i = 0; i < len; i++) order[i] = i;
+
+  uint64_t posi;
+  uint64_t posj;
+  uint64_t swap;
+
+  for (uint64_t i = 0; i < len; i++) {
+    for (uint64_t j = i+1; j < len; j++) {
+      posi = order[i];
+      posj = order[j];
+
+      if (counter[posi] < counter[posj]) {
+        swap = order[i];
+        order[i] = order[j];
+        order[j] = swap;
+      }
+    }
+  }
 }
 

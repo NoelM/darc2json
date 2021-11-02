@@ -29,6 +29,10 @@ int main(int argc, char** argv) {
 
   std::string filename = std::string(argv[1]);
   std::ifstream binaryFile(argv[1], std::ios::out | std::ios::binary);  
+  
+  uint64_t wordCounter[0x10000];
+  for (int i = 0; i < 0x10000; i++)
+    wordCounter[i] = 0;
 
   uint16_t bic;
   uint8_t  channel;
@@ -74,13 +78,13 @@ int main(int argc, char** argv) {
     // Print depending on sync
     if (lineId == prevLineId + 1) {
       if (sync) {
-        written = sprintLineWord(string, timeUs, ebic, info); 
+        written = sprintLineWord(string, timeUs, ebic, info, wordCounter); 
         printf("%s", string);
       } else {
-        written = sprintLineWord(string, timeUs, prevEbic, prevInfo); 
+        written = sprintLineWord(string, timeUs, prevEbic, prevInfo, wordCounter);
         printf("%s", string);
 
-        written = sprintLineWord(string, timeUs, ebic, info); 
+        written = sprintLineWord(string, timeUs, ebic, info, wordCounter);
         printf("%s", string);
 
         sync = true;
@@ -94,8 +98,18 @@ int main(int argc, char** argv) {
     }
   }
 
-  //std::cout << "STATS" << std::endl;
-  //std::cout << "BIC1 " << bicCounters[0] << " -- BIC2 " << bicCounters[1] << " -- BIC3 " << bicCounters[2] << " -- BIC4 " << bicCounters[3] << std::endl;
+  uint64_t counterOrder[0x10000];
+  sortCounter(wordCounter, counterOrder, 0x10000);
+ 
+  char wordString[17];
+  for (int i = 0; i < 0x10000; i++) {
+    uint64_t pos = counterOrder[i];
+    if (wordCounter[pos] > 0) {
+      getWordRepr(wordString, uint16_t(pos));
+      wordString[16]= '\0';
+      printf("%5lld   %10lld   %s\n", pos, wordCounter[pos], wordString);
+    }
+  }
 
   return 0;
 }
