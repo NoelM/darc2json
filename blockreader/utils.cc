@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <cstring>
 
-bool parityCheck(uint8_t byte) {
+bool byteParity(uint8_t byte) {
   int nbOne = 0;
 
   for (int i = 0; i < 8; i++) {
@@ -12,13 +12,10 @@ bool parityCheck(uint8_t byte) {
 }
 
 uint8_t removeParityBit(uint8_t byte) {
-  if (parityCheck(byte))
-    return byte & 0b01111111;
-
-  return byte;
+  return byte & 0b01111111;
 }
 
-uint8_t reverseEndianess(uint8_t byte) {
+uint8_t reverseEndianness(uint8_t byte) {
   uint8_t reversed = 0;
   for (int i = 0; i < 8; i++) {
     if ((byte & (1 << i)) != 0)
@@ -27,23 +24,13 @@ uint8_t reverseEndianess(uint8_t byte) {
   return reversed;
 }
 
-char printChar(uint8_t byte) {
-  if (parityCheck(byte))
-    byte = byte & 0b01111111;
-
-  if (byte >= 0x20 && byte < 0x7F)
-    return char(byte);
-
-  return ' ';
-}
-
-char wordChar(uint16_t word) {
+int wordPayload(char* line, uint16_t word) {
   unsigned char value = 0;
-  for (int inc = 0, wPos = 6; wPos < 13; wPos++, inc++) {
+  for (int inc = 7, wPos = 4; wPos < 12; wPos++, inc--) {
     value += ((word & (1 << wPos)) == 0 ? 0 : 1) << inc;
   }
 
-  return (value >= 0x20 && value <= 0x7E) ? value : ' ';
+  return sprintf(line, "  %2X  %c", value, (value >= 0x20 && value <= 0x7E) ? value : ' ');
 }
 
 void getByteRepr(char* repr, uint8_t byte) {
@@ -57,7 +44,9 @@ void getWordRepr(char* repr, uint16_t word) {
 }
 
 int sprintLineHeader(char* line, uint64_t timeUs, int bic, uint8_t* bytes, bool sync) {
-  return sprintf(line, "%12lld %1d %2X %3d %c ", timeUs, bic, bytes[0], bytes[1], sync ? 'S' : ' ');
+  uint8_t counter = bytes[1] & 0b01111111;
+  bool    active  = (bytes[1] & 0b10000000) != 0;
+  return sprintf(line, "%12lld %1d %2X %3d %c %c ", timeUs, bic, bytes[0], counter, active ? 'A' : ' ', sync ? 'S' : ' ');
 }
 
 int sprintLineWord(char* line, uint64_t timeUs, int bic, uint8_t* bytes, uint64_t* wordCounter) {
@@ -82,7 +71,7 @@ int sprintLineWord(char* line, uint64_t timeUs, int bic, uint8_t* bytes, uint64_
     std::memcpy(&line[written], wordRepr, 16);
     written += 16;
 
-    written += sprintf(&line[written], " %c", wordChar(word));
+    written += wordPayload(&line[written], word);
 
     line[written] = '\n';
     written++;
@@ -96,7 +85,7 @@ int sprintLinePlain(char* line, uint64_t timeUs, int bic, uint8_t *bytes, bool s
   int written = sprintLineHeader(line, timeUs, bic, bytes, sync); 
 
   char byteRepr[8];
-  for (int i = 2; i < 22; i++) {
+  for (int i = 22; i < 22; i++) {
     getByteRepr(byteRepr, bytes[i]);
     
     std::memcpy(&line[written], byteRepr, 8);
@@ -109,6 +98,7 @@ int sprintLinePlain(char* line, uint64_t timeUs, int bic, uint8_t *bytes, bool s
   return written;
 }
 
+// Terrible sort algorithm, fixed N^2 complexity :ok_hand:
 void sortCounter(uint64_t* counter, uint64_t* order, uint64_t len) {
   for (uint64_t i = 0; i < len; i++) order[i] = i;
 
