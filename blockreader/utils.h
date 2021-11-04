@@ -1,3 +1,6 @@
+#ifndef BR_UTILS_H_
+#define BR_UTILS_H_
+
 #include <stdint.h>
 
 enum eBic { BIC1, BIC2, BIC3, BIC4 };
@@ -32,4 +35,6 @@ int sprintLineWord(char* line, uint64_t timeUs, int bic, uint8_t* bytes, uint64_
 int sprintLinePlain(char* line, uint64_t timeUs, int bic, uint8_t *bytes, bool sync);
 
 void sortCounter(uint64_t* counter, uint64_t* order, uint64_t len);
+
+#endif
 

@@ -54,7 +54,6 @@ int main(int argc, char** argv) {
     lineId     = info[1];
 
     // Print depending on sync
-    /*
     if (lineId == prevLineId + 1) {
       if (sync) {
         sprintLineWord(string, timeUs, ebic, info, wordCounter);
@@ -74,10 +73,12 @@ int main(int argc, char** argv) {
       }
       sprintLinePlain(string, timeUs, BicFor(bic) + 1, info, sync);
       printf("%s", string);
-    }*/
+    }
 
+    /*
     sprintLinePlain(string, timeUs, BicFor(bic) + 1, info, sync);
     printf("%s", string);
+    */
   }
 
   /*
