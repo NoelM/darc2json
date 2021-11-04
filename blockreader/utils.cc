@@ -40,13 +40,13 @@ void getByteRepr(char* repr, uint8_t byte) {
 
 void getWordRepr(char* repr, uint16_t word) {
   // MIRROR
-  for (int i = 8; i < 16; i++)
-    repr[i-8] = ((word & (1 << i)) == 0) ? '_' : '#';
-  for (int i = 0; i < 8; i++)
-    repr[i+8] = ((word & (1 << i)) == 0) ? '_' : '#';
+  //for (int i = 8; i < 16; i++)
+  //  repr[i-8] = ((word & (1 << i)) == 0) ? '_' : '#';
+  //for (int i = 0; i < 8; i++)
+  //  repr[i+8] = ((word & (1 << i)) == 0) ? '_' : '#';
   // CLASSIC
-  //for (int i = 0; i < 16; i++)
-  // repr[i] = ((word & (1 << i)) == 0) ? '_' : '#';
+  for (int i = 0; i < 16; i++)
+   repr[i] = ((word & (1 << i)) == 0) ? '_' : '#';
 }
 
 int sprintLineHeader(char* line, uint64_t timeUs, int bic, uint8_t* bytes, bool sync) {

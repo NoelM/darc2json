@@ -51,7 +51,7 @@ int main(int argc, char** argv) {
     std::memcpy(&info, &buffer[10], 22);
 
     prevLineId = lineId;
-    lineId     = info[1];
+    lineId     = info[1] & (0b01111111);
 
     // Print depending on sync
     if (lineId == prevLineId + 1) {
@@ -74,14 +74,8 @@ int main(int argc, char** argv) {
       sprintLinePlain(string, timeUs, BicFor(bic) + 1, info, sync);
       printf("%s", string);
     }
-
-    /*
-    sprintLinePlain(string, timeUs, BicFor(bic) + 1, info, sync);
-    printf("%s", string);
-    */
   }
 
-  /*
   uint64_t counterOrder[0x10000];
   sortCounter(wordCounter, counterOrder, 0x10000);
  
@@ -98,7 +92,6 @@ int main(int argc, char** argv) {
       printf("%5lld   %10lld   %s%s\n", pos, wordCounter[pos], wordString, payload);
     }
   }
-  */
 
   return 0;
 }
