@@ -12,9 +12,9 @@ int main(int argc, char** argv) {
   std::string filename = std::string(argv[1]);
   std::ifstream binaryFile(argv[1], std::ios::out | std::ios::binary);  
   
-  uint64_t wordCounter[0x10000];
+  uint64_t reprCounter[0x10000];
   for (int i = 0; i < 0x10000; i++)
-    wordCounter[i] = 0;
+    reprCounter[i] = 0;
 
   uint16_t bic;
   bool     sync = false;
@@ -53,16 +53,22 @@ int main(int argc, char** argv) {
     prevLineId = lineId;
     lineId     = info[1] & (0b01111111);
 
+    bool groupByWord = false;
+
     // Print depending on sync
     if (lineId == prevLineId + 1) {
       if (sync) {
-        sprintLineWord(string, timeUs, ebic, info, wordCounter);
-        printf("%s", string);
-      } else {
-        sprintLineWord(string, prevTimeUs, prevEbic, prevInfo, wordCounter);
+        if(groupByWord) sprintLineWord(string, timeUs, ebic, info, reprCounter);
+        else sprintLineByte(string, timeUs, ebic, info, reprCounter);
         printf("%s", string);
 
-        sprintLineWord(string, timeUs, ebic, info, wordCounter);
+      } else {
+        if(groupByWord) sprintLineWord(string, prevTimeUs, prevEbic, prevInfo, reprCounter);
+        else sprintLineByte(string, prevTimeUs, prevEbic, prevInfo, reprCounter);
+        printf("%s", string);
+
+        if(groupByWord) sprintLineWord(string, timeUs, ebic, info, reprCounter);
+        else sprintLineByte(string, timeUs, ebic, info, reprCounter);
         printf("%s", string);
 
         sync = true;
@@ -77,21 +83,37 @@ int main(int argc, char** argv) {
   }
 
   uint64_t counterOrder[0x10000];
-  sortCounter(wordCounter, counterOrder, 0x10000);
- 
+  sortCounter(reprCounter, counterOrder, 0x10000);
+
+  /* FOR WORD = 16b
   char wordString[17];
   char payload[8];
   for (int i = 0; i < 0x10000; i++) {
     uint64_t pos = counterOrder[i];
-    if (wordCounter[pos] > 0) {
+    if (reprCounter[pos] > 0) {
       getWordRepr(wordString, uint16_t(pos));
       wordString[16]= '\0';
 
       wordPayload(payload, uint16_t(pos));
 
-      printf("%5lld   %10lld   %s%s\n", pos, wordCounter[pos], wordString, payload);
+      printf("%5lld   %10lld   %s%s\n", pos, reprCounter[pos], wordString, payload);
     }
   }
+  */
 
+  // FOR BYTES = 8b
+  char byteString[17];
+  char payload[30];
+  for (int i = 0; i < 0x10000; i++) {
+    uint64_t pos = counterOrder[i];
+    if (reprCounter[pos] > 0) {
+      getByteRepr(byteString, uint16_t(pos));
+      byteString[8]= '\0';
+
+      bytePayload(payload, uint8_t(pos));
+
+      printf("%5lld   %10lld   %s%s\n", pos, reprCounter[pos], byteString, payload);
+    }
+  }
   return 0;
 }
