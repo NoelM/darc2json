@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <fstream>
+#include <cstring>
 
 #include "utils.h"
 

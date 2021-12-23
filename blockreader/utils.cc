@@ -56,9 +56,16 @@ void getWordRepr(char* repr, uint16_t word) {
 }
 
 int sprintLineHeader(char* line, uint64_t timeUs, int bic, uint8_t* bytes, bool sync) {
+
+  // First info byte, L-3 header
+  uint8_t logChan = bytes[0] & 0b00001111;
+  uint8_t decoder = (bytes[0] & 0b00010000) >> 4;
+  uint8_t subChan = (bytes[0] & 0b11100000) >> 5;
+
   uint8_t counter = bytes[1] & 0b01111111;
   bool    active  = (bytes[1] & 0b10000000) != 0;
-  return sprintf(line, "%12lld %1d %2X %3d %c %c ", timeUs, bic, bytes[0], counter, active ? 'A' : ' ', sync ? 'S' : ' ');
+
+  return sprintf(line, "%12lld [%1d] [%1X %1X %1X] %3d %c %c ", timeUs, bic, logChan, decoder, subChan, counter, active ? 'A' : ' ', sync ? 'S' : ' ');
 }
 
 int sprintLineWord(char* line, uint64_t timeUs, int bic, uint8_t* bytes, uint64_t* wordCounter) {
@@ -99,7 +106,7 @@ int sprintLineByte(char* line, uint64_t timeUs, int bic, uint8_t* bytes, uint64_
 
   char byteRepr[8];
 
-  for (int i = 0; i < 22; i++) {
+  for (int i = 2; i < 22; i++) {
     wordCounter[bytes[i]]++;
     getByteRepr(byteRepr, bytes[i]);
 
