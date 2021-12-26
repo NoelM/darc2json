@@ -110,7 +110,7 @@ int sprintLineByte(char* line, uint64_t timeUs, int bic, uint8_t* bytes, uint64_
     wordCounter[bytes[i]]++;
     getByteRepr(byteRepr, bytes[i]);
 
-    if (i > 0) {
+    if (i > 2) {
       for (int j = 0; j < padding; j++) {
         line[written] = ' ';
         written++;
