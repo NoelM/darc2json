@@ -1,6 +1,6 @@
-CC=g++
+CC=gcc
 CFLAGS=-I.
-DEPS = utils.h line.h
+DEPS = utils.o line.h
 OBJ = blockreader.o utils.o line.o
 
 %.o: %.c $(DEPS)

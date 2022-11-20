@@ -2,14 +2,9 @@
 #define BR_UTILS_H_
 
 #include <stdint.h>
+#include <stdbool.h>
 
-enum eBic { BIC1, BIC2, BIC3, BIC4 };
-const uint16_t kBic1 = 0x135E;
-const uint16_t kBic2 = 0x74A6;
-const uint16_t kBic3 = 0xA791;
-const uint16_t kBic4 = 0xC875;
-
-eBic BicFor(uint16_t word);
+int BicFor(uint16_t word);
 
 bool byteParity(uint8_t byte);
 
