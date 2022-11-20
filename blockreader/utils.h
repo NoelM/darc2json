@@ -9,16 +9,7 @@ const uint16_t kBic2 = 0x74A6;
 const uint16_t kBic3 = 0xA791;
 const uint16_t kBic4 = 0xC875;
 
-eBic BicFor(uint16_t word) {
-  if (word == kBic1)
-    return BIC1;
-  else if (word == kBic2)
-    return BIC2;
-  else if (word == kBic3)
-    return BIC3;
-  else
-    return BIC4;
-}
+eBic BicFor(uint16_t word);
 
 bool byteParity(uint8_t byte);
 
@@ -35,6 +26,7 @@ int sprintLineHeader(char* line, uint64_t timeUs, int bic, uint8_t* bytes, bool 
 int sprintLineWord(char* line, uint64_t timeUs, int bic, uint8_t* bytes, uint64_t* wordCounter);
 int sprintLineByte(char* line, uint64_t timeUs, int bic, uint8_t* bytes, uint64_t* wordCounter);
 int sprintLinePlain(char* line, uint64_t timeUs, int bic, uint8_t *bytes, bool sync);
+int sprintLineHex(char* line, uint64_t timeUs, int bic, uint8_t *bytes, bool sync);
 
 void sortCounter(uint64_t* counter, uint64_t* order, uint64_t len);
 

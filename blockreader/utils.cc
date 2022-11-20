@@ -2,7 +2,20 @@
 #include <stdio.h>
 #include <cstring>
 
+#include "utils.h"
+
 const uint8_t VALUES[12] = {0x00, 0x4B, 0xFF, 0x1, 0xDD, 0x21, 0x41, 0xC1, 0x81, 0x61, 0xA1, 0xE1};
+
+eBic BicFor(uint16_t word) {
+  if (word == kBic1)
+    return BIC1;
+  else if (word == kBic2)
+    return BIC2;
+  else if (word == kBic3)
+    return BIC3;
+  else
+    return BIC4;
+}
 
 bool isRemarkable(uint8_t byte) {
   for (int i = 0; i < 12; i++)
@@ -139,6 +152,24 @@ int sprintLinePlain(char* line, uint64_t timeUs, int bic, uint8_t *bytes, bool s
     
     std::memcpy(&line[written], byteRepr, 8);
     written += 8;
+
+    line[written] = ' ';
+    written++;
+  }
+  line[written] = '\n';
+  written++;
+
+  line[written] = '\0';
+  return written;
+}
+
+int sprintLineHex(char* line, uint64_t timeUs, int bic, uint8_t *bytes, bool sync) {
+  int written = sprintLineHeader(line, timeUs, bic, bytes, sync); 
+
+  char byteRepr[8];
+  for (int i = 2; i < 22; i++) {
+    
+    written += sprintf(&line[written], "%2X ", bytes[i]);
   }
   line[written] = '\n';
   written++;

@@ -3,10 +3,11 @@
 #include <fstream>
 #include <cstring>
 
-#include "utils.h"
+#include "line.h"
 
 int main(int argc, char** argv) {
   if (argc == 1) {
+    printf("usage ./blockreader [binary block]");
     return 0;
   }
 
@@ -33,10 +34,25 @@ int main(int argc, char** argv) {
   char string[1024];
   char buffer[44];
 
+  struct Line line;
+  allocLine(&line);
+
   while (binaryFile.good()) {
     // Read binary line
     binaryFile.read(buffer, 44);
 
+    decodeLine(&line, buffer);
+    if (line.decodeIndicator) {
+      continue;
+    }
+
+    if (line.activeBit) {
+      printf("\n");
+    }
+
+    sprintHex(&line, buffer);
+    printf("%s", buffer);
+/*
     // Swap and copy time
     prevTimeUs = timeUs;
     std::memcpy(&timeUs, &buffer, 8);
@@ -55,6 +71,9 @@ int main(int argc, char** argv) {
     lineId     = info[1] & (0b01111111);
 
     bool groupByWord = false;
+
+    sprintLineHex(string, timeUs, BicFor(bic) + 1, info, sync);
+    printf("%s", string);
 
     // Print depending on sync
     if (lineId == prevLineId + 1) {
@@ -81,10 +100,11 @@ int main(int argc, char** argv) {
       sprintLinePlain(string, timeUs, BicFor(bic) + 1, info, sync);
       printf("%s", string);
     }
+    */
   }
 
-  uint64_t counterOrder[0x10000];
-  sortCounter(reprCounter, counterOrder, 0x10000);
+  //uint64_t counterOrder[0x10000];
+  //sortCounter(reprCounter, counterOrder, 0x10000);
 
   /* FOR WORD = 16b
   char wordString[17];
@@ -103,6 +123,7 @@ int main(int argc, char** argv) {
   */
 
   // FOR BYTES = 8b
+  /*
   char byteString[17];
   char payload[30];
   for (int i = 0; i < 0x10000; i++) {
@@ -116,5 +137,7 @@ int main(int argc, char** argv) {
       printf("%5lld   %10lld   %s%s\n", pos, reprCounter[pos], byteString, payload);
     }
   }
+  */
+
   return 0;
 }
