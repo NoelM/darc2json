@@ -19,7 +19,7 @@ struct Line
     uint8_t* raw;
 };
 
-struct Line* allocLine(struct Line* line);
+void allocLine(struct Line* line);
 int decodeLine(struct Line* line, char* raw);
 int sprintHeader(struct Line* line, char* buffer);
 int sprintHex(struct Line* line, char* buffer);
