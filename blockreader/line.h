@@ -13,8 +13,8 @@ struct Line
     uint8_t  decodeIndicator;
     uint8_t  subChannel;
 
-    uint8_t  localCounter;
-    uint8_t  activeBit;
+    uint8_t  lineId;
+    uint8_t  blockSync;
 
     uint8_t* raw;
 };

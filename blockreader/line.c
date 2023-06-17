@@ -7,7 +7,6 @@
 
 void allocLine(struct Line* line) {
     line->raw = (uint8_t*) malloc(LINE_LEN * sizeof(uint8_t));
-    return line;
 }
 
 int decodeLine(struct Line* line, char* raw) {
@@ -45,10 +44,10 @@ int decodeLine(struct Line* line, char* raw) {
     // and a sync bit which indicates the begining of the frame
 
     // 0:6 (7) bits code a Local Counter, to identify lines of a frame   
-    line->localCounter    =  raw[11] & 0b01111111;
+    line->lineId    =  raw[11] & 0b01111111;
 
     // 7th bit codes a sync bit
-    line->activeBit       = (raw[11] & 0b10000000) != 0;
+    line->blockSync       = (raw[11] & 0b10000000) != 0;
 
     memcpy(line->raw, raw, LINE_LEN);
 
@@ -62,8 +61,8 @@ int sprintHeader(struct Line* line, char* buffer) {
         line->logicChannel,
         line->decodeIndicator, 
         line->subChannel, 
-        line->localCounter, 
-        line->activeBit ? 'A' : ' ');
+        line->lineId, 
+        line->blockSync ? 'A' : ' ');
 }
 
 int sprintHex(struct Line* line, char* buffer) {
