@@ -1,8 +1,10 @@
 # Match DARC (page, slot) boards against IDFM estimated-timetable polls.
-# usage: match.py blockreader_output.txt api_dir arrets.csv [paris|all] [tolerance_s]
+# usage: match.py blockreader_output.txt api_dir arrets.csv [paris|all] [tolerance_s] [current_mapping.json]
 #   arrets.csv: IDFM stop reference (data.iledefrance-mobilites.fr, dataset "arrets", ';' separated)
 #   paris (default): only bus stops whose commune is Paris; all: every bus stop
 # Prints the matches and writes them to stops.json in the current directory.
+# With a current mapping, also writes audit.json: for each mapped pair, how many snapshots
+# its own stop+line agreed with the slot ("hits") out of those where the slot showed two times ("tried").
 # Score of a (slot, stop+line) pair = number of distinct vehicle journeys of that stop+line
 # whose expected time the slot showed (as next or following) within the tolerance.
 import sys, re, gzip, csv, glob, collections, bisect
@@ -72,6 +74,15 @@ for slot, k, n, n2, tr, h in sorted(ok):
 
 # Mapping for the web app: {"PPPP:S": {"stop", "line", "direction", "stop_id"}}
 import json
-out = {f"{slot[0]}:{slot[1]}": {"stop": stop_of(k[0])[0], "line": meta[k][0], "direction": meta[k][1], "stop_id": k[0].split(':')[3]}
+out = {f"{slot[0]}:{slot[1]}": {"stop": stop_of(k[0])[0], "line": meta[k][0], "direction": meta[k][1], "stop_id": k[0].split(':')[3], "line_ref": k[1].split(':')[3]}
        for slot, k, n, n2, tr, h in sorted(ok)}
 json.dump(out, open('stops.json', 'w'), ensure_ascii=False, indent=1)
+
+if len(sys.argv) > 6:
+    audit = {}
+    for key, e in json.load(open(sys.argv[6])).items():
+        page, n = key.split(':'); slot = (page, int(n))
+        if 'line_ref' not in e or slot not in tried: continue
+        k = (f"STIF:StopPoint:Q:{e['stop_id']}:", f"STIF:Line::{e['line_ref']}:")
+        audit[key] = {"hits": len(hit[slot].get(k, ())), "tried": tried[slot]}
+    json.dump(audit, open('audit.json', 'w'), indent=1)

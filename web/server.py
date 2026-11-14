@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Live DARC bus-board viewer: rtl_fm (or a replay file) -> darcrx -> blockreader -> HTTP."""
-import argparse, collections, json, os, re, signal, struct, subprocess, sys, threading, time
+import unicodedata, argparse, collections, json, os, re, signal, struct, subprocess, sys, threading, time
+import urllib.request, urllib.parse
 from datetime import datetime
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from zoneinfo import ZoneInfo
@@ -15,6 +16,10 @@ RTL_FM = 'rtl_fm -M fm -l 0 -A std -p 0 -s 228k -g 19 -F 9 -f 101.5M'.split()
 FS = darcrx.FS
 SEG, OVL = 4 * FS, 1 * FS      # new samples per pass, extra samples so a block cut at the edge is seen whole
 PARIS = ZoneInfo('Europe/Paris')
+STARTED = time.time()
+FREQ_MHZ = RTL_FM[RTL_FM.index('-f') + 1].rstrip('M')
+API_URL = 'https://prim.iledefrance-mobilites.fr/marketplace/stop-monitoring?MonitoringRef=STIF:StopPoint:Q:%s:'
+API_TTL, API_TIMEOUT = 60, 5
 LINE = re.compile(r'(\d\d):(\d\d):(\d\d)\s+p([0-9A-F]{4}) s(\d+)\s+(.{19}) (.{19})\s*$')
 
 lock = threading.Lock()
@@ -139,17 +144,91 @@ def api_state():
                 w = dict(w)
                 if 'sod' in w:
                     ahead = wrap(w['sod'] - sn)
+                    w['seconds'] = ahead
                     w['minutes'] = int(ahead // 60)
                     w['local'] = datetime.fromtimestamp(stream_wall + ahead, PARIS).strftime('%H:%M')
                 cols.append(w)
             out.append(dict(key=key, page=key[:4], slot=int(key[5:]), updated_ago=round(now - s['received']),
                             columns=cols))
+        stops = load_stops()
         recv = dict(mode=state['mode'], blocks_per_s=round(rate, 1), total_blocks=state['total'],
                     last_block_ago=round(now - state['last_block'], 1) if state['last_block'] else None,
-                    error=state['error'], finished=state['done'])
+                    error=state['error'], finished=state['done'], uptime_s=round(now - STARTED),
+                    freq_mhz=FREQ_MHZ if state['mode'] == 'live' else None,
+                    slots_received=len(slots),
+                    slots_with_times=sum(any('sod' in w for w in s['words']) for s in slots.values()),
+                    identified_total=len(stops), identified_received=sum(k in slots for k in stops),
+                    api_available=bool(os.environ.get('IDFM_API_KEY')))
+        if state['mode'] == 'live' and state['frame_sod'] is not None:
+            # stream clock of the last decoded frame minus our clock when it arrived (includes ~5-8 s pipeline lag)
+            recv['clock_offset_s'] = wrap(state['frame_sod'] - state['frame_wall'] % 86400)
         if sn is not None:
             recv['stream_time_local'] = datetime.fromtimestamp(stream_wall, PARIS).strftime('%H:%M:%S')
-    return dict(receiver=recv, slots=out, stops=load_stops())
+    return dict(receiver=recv, slots=out, stops=stops)
+
+
+def norm(s):
+    s = unicodedata.normalize('NFD', s or '')
+    return re.sub(r'[^a-z0-9]+', ' ', ''.join(c for c in s if not unicodedata.combining(c)).lower()).strip()
+
+
+api_cache = {}        # stop_id -> (fetched_at, visits list or None on failure)
+api_lock = threading.Lock()
+def stop_visits(stop_id):
+    """MonitoredStopVisit list for a stop point, cached API_TTL s (failures too); None if unavailable."""
+    with api_lock:
+        hit = api_cache.get(stop_id)
+        if hit and time.time() - hit[0] < API_TTL: return hit[1]
+        print('api fetch', stop_id, flush=True)
+        try:
+            req = urllib.request.Request(API_URL % urllib.parse.quote(stop_id, safe=''),
+                                         headers={'apiKey': os.environ['IDFM_API_KEY']})
+            with urllib.request.urlopen(req, timeout=API_TIMEOUT) as r:
+                d = json.load(r)
+            visits = d['Siri']['ServiceDelivery']['StopMonitoringDelivery'][0]['MonitoredStopVisit']
+        except Exception as e:
+            print('api error', stop_id, type(e).__name__, flush=True)
+            visits = None
+        api_cache[stop_id] = (time.time(), visits)
+        return visits
+
+
+def first(lst):
+    return lst[0]['value'] if lst else ''
+
+
+def compare(keys):
+    """Per watched slot key with a stop_id: the API's next two times on the same clock as the radio's."""
+    stops = load_stops()
+    with lock:
+        sn = stream_now()
+        now = time.time()
+        stream_wall = now + wrap(sn - now % 86400) if sn is not None else now
+    out = {}
+    for k in keys:
+        e = stops.get(k) or {}
+        if not e.get('stop_id'): continue
+        if not os.environ.get('IDFM_API_KEY'): out[k] = dict(status='nokey'); continue
+        visits = stop_visits(e['stop_id'])
+        if visits is None: out[k] = dict(status='unavailable'); continue
+        want = norm(e.get('direction'))
+        if not want: out[k] = dict(status='nodirection'); continue
+        hits = []
+        for v in visits:
+            j = v['MonitoredVehicleJourney']
+            names = [norm(first(j.get('DirectionName'))), norm(first(j.get('DestinationName')))]
+            c = j.get('MonitoredCall', {})
+            t = c.get('ExpectedArrivalTime') or c.get('ExpectedDepartureTime')
+            if t and want in names:
+                ahead = datetime.fromisoformat(t.replace('Z', '+00:00')).timestamp() - stream_wall
+                hits.append((ahead, j['LineRef']['value']))
+        hits.sort()
+        hits = [h for h in hits if h[0] >= 0]
+        times = [dict(seconds=a, minutes=int(a // 60), local=datetime.fromtimestamp(stream_wall + a, PARIS).strftime('%H:%M'))
+                 for a, _ in hits[:2]]
+        # shortcut: the API gives no public line number, so two lines with the same direction name at one stop mix
+        out[k] = dict(status='ok' if times else 'none', times=times, ambiguous=len({l for _, l in hits}) > 1)
+    return out
 
 
 _stops_cache = (None, {})
@@ -199,6 +278,9 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         if self.path == '/api/state': self.send(200, api_state())
+        elif self.path.startswith('/api/compare?'):
+            q = urllib.parse.parse_qs(urllib.parse.urlparse(self.path).query)
+            self.send(200, compare([k for k in ','.join(q.get('keys', [])).split(',') if KEY.match(k)]))
         elif self.path == '/api/stops': self.send(200, load_stops())
         elif self.path in ('/', '/index.html'):
             with open(os.path.join(HERE, 'index.html'), 'rb') as f: self.send(200, f.read(), 'text/html')

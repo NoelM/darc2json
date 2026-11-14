@@ -28,6 +28,11 @@ Display lag is about 5–8 s (4 s segments). Stop with Ctrl-C.
 ## API
 `GET /api/state` (receiver status, all slots, stops), `GET /api/stops`, `PUT /api/stops/PPPP:S` (JSON body),
 `DELETE /api/stops/PPPP:S`. Watched slots are kept in the browser (localStorage).
+`GET /api/compare?keys=PPPP:S,...` returns the IDFM real-time API's next two times for those slots that have a `stop_id`.
+It needs the environment variable `IDFM_API_KEY` (set before starting the server; the key stays on the server). Without it the
+app works and shows the comparison as unavailable. Each stop point is fetched at most once per 60 s, only for stops on a board.
+Visits are matched to a slot by comparing its `direction` with the visit's DirectionName or DestinationName (accents and case ignored);
+the API has no public line number, so two lines with the same direction at one stop are mixed (shown with a "?").
 
 "Last change" on a slot is when its content last changed: blockreader prints a slot only when it changes,
 so an unchanged slot that is rebroadcast every ~30 s does not refresh it. Arrival minutes stay correct regardless.

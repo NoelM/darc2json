@@ -3,1363 +3,1877 @@
   "stop": "La Muette - Boulainvilliers",
   "line": "52",
   "direction": "Parc de Saint-Cloud",
-  "stop_id": "25410"
- },
- "0015:2": {
-  "stop": "Mairie",
-  "line": "120",
-  "direction": "Nogent-Sur-Marne <RER>",
-  "stop_id": "37612"
- },
- "0015:4": {
-  "stop": "Aristide Briand",
-  "line": "174",
-  "direction": "Saint-Ouen <RER>",
-  "stop_id": "25830"
- },
- "0015:7": {
-  "stop": "Vache Noire - Centre Commercial",
-  "line": "323",
-  "direction": "Châtillon - Montrouge - Métro",
-  "stop_id": "27299"
- },
- "0015:8": {
-  "stop": "Arsenal",
-  "line": "244",
-  "direction": "Rueil-Malmaison <RER>",
-  "stop_id": "8257"
+  "stop_id": "25410",
+  "line_ref": "C01090"
  },
  "0015:13": {
   "stop": "Place Mermoz",
   "line": "277",
   "direction": "Asnières - Bords de Seine",
-  "stop_id": "24312"
+  "stop_id": "24312",
+  "line_ref": "C02744"
+ },
+ "0015:2": {
+  "stop": "Mairie",
+  "line": "120",
+  "direction": "Nogent-Sur-Marne <RER>",
+  "stop_id": "37612",
+  "line_ref": "C01149"
+ },
+ "0015:22": {
+  "stop": "Porte de Montreuil",
+  "line": "57",
+  "direction": "Laplace <RER>",
+  "stop_id": "24731",
+  "line_ref": "C01094"
+ },
+ "0015:23": {
+  "stop": "Rue de Billancourt",
+  "line": "52",
+  "direction": "Opéra - Rue Halevy",
+  "stop_id": "25419",
+  "line_ref": "C01090"
  },
  "0015:28": {
   "stop": "Rue du Point du Jour",
   "line": "126",
   "direction": "Parc de Saint-Cloud",
-  "stop_id": "24040"
+  "stop_id": "24040",
+  "line_ref": "C01155"
  },
  "0015:29": {
   "stop": "Mairie du 15e",
   "line": "88",
   "direction": "Montsouris - Tombe Issoire",
-  "stop_id": "25748"
+  "stop_id": "25748",
+  "line_ref": "C01120"
  },
  "0015:30": {
   "stop": "Mairie du 15e",
   "line": "70",
   "direction": "Sèvres-Lecourbe",
-  "stop_id": "25748"
+  "stop_id": "25748",
+  "line_ref": "C01106"
+ },
+ "0015:31": {
+  "stop": "Le Parc",
+  "line": "212",
+  "direction": "CROUS",
+  "stop_id": "21141",
+  "line_ref": "C01226"
  },
  "0015:36": {
   "stop": "Gare d'Asnières",
   "line": "277",
   "direction": "Asnières - Bords de Seine",
-  "stop_id": "24305"
+  "stop_id": "24305",
+  "line_ref": "C02744"
  },
  "0015:37": {
   "stop": "Mairie",
   "line": "220",
   "direction": "Bry-Sur-Marne <RER>",
-  "stop_id": "40117"
+  "stop_id": "40117",
+  "line_ref": "C01232"
+ },
+ "0015:4": {
+  "stop": "Aristide Briand",
+  "line": "174",
+  "direction": "Saint-Ouen <RER>",
+  "stop_id": "25830",
+  "line_ref": "C01195"
+ },
+ "0015:40": {
+  "stop": "Gare d'Argenteuil",
+  "line": "272",
+  "direction": "Gare de Sartrouville - <RER>",
+  "stop_id": "40000",
+  "line_ref": "C01254"
  },
  "0015:42": {
   "stop": "Aristide Briand",
   "line": "143",
   "direction": "La Courneuve - Aubervilliers <RER>",
-  "stop_id": "27653"
+  "stop_id": "27653",
+  "line_ref": "C01168"
  },
  "0015:44": {
   "stop": "Mairie",
   "line": "277",
   "direction": "Asnières - Bords de Seine",
-  "stop_id": "24303"
+  "stop_id": "24303",
+  "line_ref": "C02744"
  },
  "0015:47": {
   "stop": "Place Roosevelt",
   "line": "213",
   "direction": "Bois de l'Étang - Université",
-  "stop_id": "37826"
+  "stop_id": "37826",
+  "line_ref": "C01227"
+ },
+ "0015:49": {
+  "stop": "Voltaire Lumières",
+  "line": "277",
+  "direction": "Nanterre - Anatole France",
+  "stop_id": "7880",
+  "line_ref": "C02744"
+ },
+ "0015:5": {
+  "stop": "Aristide Briand",
+  "line": "94",
+  "direction": "Gare Montparnasse",
+  "stop_id": "25830",
+  "line_ref": "C01125"
+ },
+ "0015:55": {
+  "stop": "Ermitage",
+  "line": "259",
+  "direction": "Nanterre - Papeteries",
+  "stop_id": "23801",
+  "line_ref": "C02000"
  },
  "0015:56": {
   "stop": "Val André",
   "line": "259",
   "direction": "Nanterre - Papeteries",
-  "stop_id": "32303"
+  "stop_id": "32303",
+  "line_ref": "C02000"
  },
  "0015:57": {
   "stop": "Bas Prunay",
   "line": "259",
   "direction": "Nanterre - Papeteries",
-  "stop_id": "423173"
+  "stop_id": "423173",
+  "line_ref": "C02000"
  },
  "0015:58": {
   "stop": "Gare d'Asnières",
   "line": "277",
   "direction": "Nanterre - Anatole France",
-  "stop_id": "8123"
+  "stop_id": "8123",
+  "line_ref": "C02744"
  },
  "0015:59": {
   "stop": "Place de Belgique / Bécon les Bruyères",
   "line": "167",
   "direction": "Pont de Levallois - Bécon",
-  "stop_id": "8082"
+  "stop_id": "8082",
+  "line_ref": "C01189"
  },
  "0015:61": {
   "stop": "Saint-Exupéry",
   "line": "301",
   "direction": "Gare de Val de Fontenay",
-  "stop_id": "29473"
+  "stop_id": "29473",
+  "line_ref": "C01272"
  },
  "0015:62": {
   "stop": "Rue du Bac - René Char",
   "line": "68",
   "direction": "Châtillon - Montrouge - Métro",
-  "stop_id": "35143"
+  "stop_id": "35143",
+  "line_ref": "C01104"
  },
  "0015:65": {
   "stop": "Jean Monnet",
   "line": "68",
   "direction": "Gare de Denfert-Rochereau",
-  "stop_id": "22996"
+  "stop_id": "22996",
+  "line_ref": "C01104"
  },
  "0015:68": {
   "stop": "Gare de Bellevue",
   "line": "169",
   "direction": "Pont de Sèvres",
-  "stop_id": "37228"
+  "stop_id": "37228",
+  "line_ref": "C01190"
+ },
+ "0015:7": {
+  "stop": "Vache Noire - Centre Commercial",
+  "line": "323",
+  "direction": "Châtillon - Montrouge - Métro",
+  "stop_id": "27299",
+  "line_ref": "C01287"
+ },
+ "0015:71": {
+  "stop": "Cimetière de Clamart",
+  "line": "189",
+  "direction": "Georges Pompidou",
+  "stop_id": "8170",
+  "line_ref": "C01210"
  },
  "0015:72": {
   "stop": "Cimetière de Clamart",
   "line": "190",
   "direction": "Église",
-  "stop_id": "8170"
+  "stop_id": "8170",
+  "line_ref": "C01211"
  },
  "0015:74": {
   "stop": "Longchamp - GoodPlanet",
   "line": "244",
   "direction": "Rueil-Malmaison <RER>",
-  "stop_id": "8256"
+  "stop_id": "8256",
+  "line_ref": "C01240"
  },
  "0015:75": {
   "stop": "Général Leclerc - Victor Hugo",
   "line": "173",
   "direction": "Porte de Clichy",
-  "stop_id": "41808"
+  "stop_id": "41808",
+  "line_ref": "C01194"
  },
  "0015:76": {
   "stop": "Général Leclerc - Victor Hugo",
   "line": "74",
   "direction": "Châtelet",
-  "stop_id": "41808"
+  "stop_id": "41808",
+  "line_ref": "C01109"
  },
  "0015:78": {
   "stop": "Verdun",
   "line": "118",
   "direction": "Château de Vincennes",
-  "stop_id": "37055"
+  "stop_id": "37055",
+  "line_ref": "C01147"
+ },
+ "0015:8": {
+  "stop": "Arsenal",
+  "line": "244",
+  "direction": "Rueil-Malmaison <RER>",
+  "stop_id": "8257",
+  "line_ref": "C01240"
  },
  "0017:0": {
   "stop": "Pavillon Halévy",
   "line": "259",
   "direction": "Nanterre - Papeteries",
-  "stop_id": "488604"
+  "stop_id": "488604",
+  "line_ref": "C02000"
  },
  "0017:11": {
   "stop": "Val Fleury RER",
   "line": "289",
   "direction": "Porte de Saint-Cloud - Métro",
-  "stop_id": "37034"
+  "stop_id": "37034",
+  "line_ref": "C01264"
  },
  "0017:12": {
   "stop": "Val Fleury RER",
   "line": "169",
   "direction": "Hôpital Européen Georges Pompidou",
-  "stop_id": "37034"
+  "stop_id": "37034",
+  "line_ref": "C01190"
  },
  "0017:14": {
   "stop": "Rue du Fort",
   "line": "323",
   "direction": "Issy - Val de Seine",
-  "stop_id": "25370"
+  "stop_id": "25370",
+  "line_ref": "C01287"
  },
  "0017:15": {
   "stop": "Rue du Fort",
   "line": "169",
   "direction": "Hôpital Européen Georges Pompidou",
-  "stop_id": "25370"
+  "stop_id": "25370",
+  "line_ref": "C01190"
  },
  "0017:16": {
   "stop": "Mairie d'Issy",
   "line": "323",
   "direction": "Issy - Val de Seine",
-  "stop_id": "37261"
+  "stop_id": "37261",
+  "line_ref": "C01287"
  },
  "0017:17": {
   "stop": "Mairie d'Issy",
   "line": "169",
   "direction": "Hôpital Européen Georges Pompidou",
-  "stop_id": "37261"
+  "stop_id": "37261",
+  "line_ref": "C01190"
  },
  "0017:18": {
   "stop": "Mairie d'Issy",
   "line": "290",
   "direction": "Issy - Val de Seine",
-  "stop_id": "37261"
+  "stop_id": "37261",
+  "line_ref": "C01265"
  },
  "0017:20": {
   "stop": "Marché de Saint-Denis - Tramway",
   "line": "255",
   "direction": "Les Prévoyants",
-  "stop_id": "40026"
+  "stop_id": "40026",
+  "line_ref": "C01246"
  },
  "0017:22": {
   "stop": "Marché de Saint-Denis - Tramway",
   "line": "253",
-  "direction": "Moulin Neuf",
-  "stop_id": "40026"
+  "direction": "Porte de Paris - Stade de France",
+  "stop_id": "40026",
+  "line_ref": "C01245"
+ },
+ "0017:25": {
+  "stop": "La Machine",
+  "line": "259",
+  "direction": "Nanterre - Papeteries",
+  "stop_id": "488601",
+  "line_ref": "C02000"
  },
  "0017:28": {
   "stop": "La Passerelle",
   "line": "259",
   "direction": "Saint-Germain-En-Laye <RER>",
-  "stop_id": "423188"
+  "stop_id": "423188",
+  "line_ref": "C02000"
  },
  "0017:29": {
   "stop": "Pavillon Halévy",
   "line": "259",
   "direction": "Saint-Germain-En-Laye <RER>",
-  "stop_id": "488605"
+  "stop_id": "488605",
+  "line_ref": "C02000"
+ },
+ "0017:31": {
+  "stop": "Jeanne d'Arc",
+  "line": "169",
+  "direction": "Hôpital Européen Georges Pompidou",
+  "stop_id": "37866",
+  "line_ref": "C01190"
+ },
+ "0017:32": {
+  "stop": "Jeanne d'Arc",
+  "line": "389",
+  "direction": "Georges Pompidou",
+  "stop_id": "37866",
+  "line_ref": "C01315"
  },
  "0017:36": {
   "stop": "Saint-Michel",
   "line": "27",
-  "direction": "Luxembourg",
-  "stop_id": "470702"
+  "direction": "Gare Saint-Lazare",
+  "stop_id": "470702",
+  "line_ref": "C01077"
+ },
+ "0017:38": {
+  "stop": "Saint-Michel",
+  "line": "87",
+  "direction": "Invalides",
+  "stop_id": "470702",
+  "line_ref": "C01119"
  },
  "0017:45": {
   "stop": "Roger Salengro",
   "line": "123",
   "direction": "Mairie d'Issy",
-  "stop_id": "39568"
+  "stop_id": "39568",
+  "line_ref": "C01152"
  },
  "0017:48": {
   "stop": "Jaurès",
   "line": "259",
   "direction": "Saint-Germain-En-Laye <RER>",
-  "stop_id": "423159"
+  "stop_id": "423159",
+  "line_ref": "C02000"
  },
  "0017:49": {
   "stop": "Ermitage",
   "line": "259",
-  "direction": "Saint-Germain-En-Laye <RER>",
-  "stop_id": "8266"
+  "direction": "Rueil - Ville",
+  "stop_id": "8266",
+  "line_ref": "C02000"
  },
  "0017:53": {
   "stop": "Mairie",
   "line": "256",
   "direction": "Gare d'Enghien-les-Bains",
-  "stop_id": "14386"
+  "stop_id": "14386",
+  "line_ref": "C01247"
+ },
+ "0017:54": {
+  "stop": "Mairie",
+  "line": "337",
+  "direction": "Zone Artisanale du Moutier",
+  "stop_id": "14386",
+  "line_ref": "C01756"
+ },
+ "0017:59": {
+  "stop": "Gare de Bois-Colombes",
+  "line": "178",
+  "direction": "Vieux Chemin de Saint-Denis - Centre Commercial",
+  "stop_id": "8388",
+  "line_ref": "C01199"
  },
  "0017:60": {
   "stop": "Cuvier",
   "line": "318",
   "direction": "Raymond Queneau - Route de Noisy",
-  "stop_id": "24734"
+  "stop_id": "24734",
+  "line_ref": "C01281"
  },
  "0017:61": {
   "stop": "Mairie",
   "line": "144",
   "direction": "La Défense (voie Perronet Nord)",
-  "stop_id": "36777"
+  "stop_id": "36777",
+  "line_ref": "C01169"
+ },
+ "0017:67": {
+  "stop": "Grands Champs",
+  "line": "183",
+  "direction": "Marché International de Rungis",
+  "stop_id": "27516",
+  "line_ref": "C01204"
  },
  "0017:71": {
   "stop": "Zone Industrielle Nord",
   "line": "261",
-  "direction": "Gare de Saint-Gratien",
-  "stop_id": "22430"
+  "direction": "Gare de Franconville",
+  "stop_id": "22430",
+  "line_ref": "C01249"
  },
  "0017:73": {
   "stop": "Rue des Presles",
   "line": "361",
   "direction": "Gare de Pierrefitte - Stains <RER>",
-  "stop_id": "8347"
- },
- "0018:4": {
-  "stop": "Concorde",
-  "line": "72",
-  "direction": "Parc de Saint-Cloud",
-  "stop_id": "10299"
+  "stop_id": "8347",
+  "line_ref": "C01305"
  },
  "0018:12": {
   "stop": "Michelet - Parc des Expositions",
   "line": "152",
   "direction": "Porte de la Villette",
-  "stop_id": "36570"
+  "stop_id": "36570",
+  "line_ref": "C01176"
  },
  "0018:14": {
   "stop": "République - François Mitterrand",
   "line": "74",
   "direction": "Châtelet",
-  "stop_id": "24062"
+  "stop_id": "24062",
+  "line_ref": "C01109"
  },
  "0018:23": {
   "stop": "Route de la Terrasse",
   "line": "77",
   "direction": "Gare de Joinville-le-Pont",
-  "stop_id": "463669"
+  "stop_id": "463669",
+  "line_ref": "C02251"
  },
  "0018:28": {
   "stop": "Calais",
   "line": "272",
   "direction": "Gare d'Argenteuil",
-  "stop_id": "7435"
+  "stop_id": "7435",
+  "line_ref": "C01254"
  },
  "0018:33": {
   "stop": "Colbert",
   "line": "378",
   "direction": "Les Courtilles",
-  "stop_id": "8081"
+  "stop_id": "8081",
+  "line_ref": "C01311"
  },
  "0018:37": {
   "stop": "Concorde - Royale",
   "line": "84",
   "direction": "Rue du Bac - René Char",
-  "stop_id": "10298"
+  "stop_id": "10298",
+  "line_ref": "C01116"
  },
  "0018:38": {
   "stop": "Concorde - Royale",
   "line": "94",
   "direction": "Gare Montparnasse",
-  "stop_id": "10298"
+  "stop_id": "10298",
+  "line_ref": "C01125"
+ },
+ "0018:4": {
+  "stop": "Concorde",
+  "line": "72",
+  "direction": "Porte de Saint-Cloud",
+  "stop_id": "10299",
+  "line_ref": "C01107"
  },
  "0018:40": {
   "stop": "Beauregard",
   "line": "297",
   "direction": "Place Charles Steber",
-  "stop_id": "40794"
+  "stop_id": "40794",
+  "line_ref": "C01270"
  },
  "0018:41": {
   "stop": "Beauregard",
   "line": "299",
   "direction": "Place Lucien Boilleau",
-  "stop_id": "40794"
+  "stop_id": "40794",
+  "line_ref": "C01271"
  },
  "0018:42": {
   "stop": "Jean Borderel",
   "line": "140",
   "direction": "Gare d'Argenteuil",
-  "stop_id": "7429"
+  "stop_id": "7429",
+  "line_ref": "C01166"
  },
  "0018:46": {
   "stop": "Breteuil",
   "line": "86",
   "direction": "Champs de Mars",
-  "stop_id": "26349"
+  "stop_id": "26349",
+  "line_ref": "C01118"
  },
  "0018:52": {
   "stop": "Moulin de la Galette",
   "line": "40",
   "direction": "Le Peletier",
-  "stop_id": "22800"
+  "stop_id": "22800",
+  "line_ref": "C02254"
+ },
+ "0018:56": {
+  "stop": "Gare de Pontault (Place Beilstein)",
+  "line": "209",
+  "direction": "Villiers-Sur-Marne - le Plessis-Trévise <RER>",
+  "stop_id": "472739",
+  "line_ref": "C02437"
  },
  "0018:57": {
   "stop": "Issy - Val de Seine",
   "line": "323",
   "direction": "Châtillon - Montrouge",
-  "stop_id": "24657"
+  "stop_id": "24657",
+  "line_ref": "C01287"
  },
  "0018:58": {
   "stop": "Solférino",
   "line": "235",
   "direction": "Gabriel Péri - Métro",
-  "stop_id": "9285"
+  "stop_id": "9285",
+  "line_ref": "C01235"
  },
  "0018:59": {
   "stop": "Solférino",
   "line": "366",
   "direction": "Asnières - Bords de Seine",
-  "stop_id": "9285"
+  "stop_id": "9285",
+  "line_ref": "C01306"
  },
  "0018:67": {
   "stop": "Rennes - Raspail",
   "line": "89",
   "direction": "Gare de Vanves - Malakoff",
-  "stop_id": "479696"
+  "stop_id": "479696",
+  "line_ref": "C01121"
  },
  "0018:68": {
   "stop": "Charcot - Zola",
   "line": "187",
   "direction": "Porte d'Orléans",
-  "stop_id": "23390"
+  "stop_id": "23390",
+  "line_ref": "C01208"
  },
  "0018:69": {
   "stop": "Charcot - Zola",
   "line": "184",
   "direction": "Pasteur",
-  "stop_id": "23390"
+  "stop_id": "23390",
+  "line_ref": "C01205"
  },
  "0018:73": {
   "stop": "Rue de la Station",
   "line": "165",
   "direction": "Asnières - 18 Juin 1940",
-  "stop_id": "39589"
+  "stop_id": "39589",
+  "line_ref": "C01187"
  },
  "025B:0": {
   "stop": "Général de Gaulle",
   "line": "318",
   "direction": "Raymond Queneau - Route de Noisy",
-  "stop_id": "26331"
+  "stop_id": "26331",
+  "line_ref": "C01281"
  },
  "025B:1": {
   "stop": "Général de Gaulle",
   "line": "102",
-  "direction": "Gallieni",
-  "stop_id": "26331"
- },
- "025B:2": {
-  "stop": "Beauséjour",
-  "line": "304",
-  "direction": "Les Courtilles",
-  "stop_id": "8067"
- },
- "025B:3": {
-  "stop": "Beauséjour",
-  "line": "378",
-  "direction": "Les Courtilles",
-  "stop_id": "8067"
- },
- "025B:5": {
-  "stop": "Parc Industriel Centre",
-  "line": "270",
-  "direction": "Villiers le Bel - Gonesse - Arnouville <RER>",
-  "stop_id": "23841"
- },
- "025B:6": {
-  "stop": "Avenue des Erables",
-  "line": "270",
-  "direction": "La Cerisaie",
-  "stop_id": "426453"
- },
- "025B:7": {
-  "stop": "Cucheron",
-  "line": "319",
-  "direction": "Marché International de Rungis",
-  "stop_id": "29341"
- },
- "025B:8": {
-  "stop": "Villemilan",
-  "line": "319",
-  "direction": "Marché International de Rungis",
-  "stop_id": "29050"
+  "direction": "Gambetta - Mairie du 20e",
+  "stop_id": "26331",
+  "line_ref": "C01131"
  },
  "025B:16": {
   "stop": "Les Moulins - Camping",
   "line": "241",
   "direction": "Porte d'Auteuil - Métro",
-  "stop_id": "36834"
+  "stop_id": "36834",
+  "line_ref": "C01239"
+ },
+ "025B:2": {
+  "stop": "Beauséjour",
+  "line": "304",
+  "direction": "Les Courtilles",
+  "stop_id": "8067",
+  "line_ref": "C01275"
  },
  "025B:20": {
   "stop": "Quatre Routes",
   "line": "304",
   "direction": "Les Courtilles",
-  "stop_id": "26486"
+  "stop_id": "26486",
+  "line_ref": "C01275"
  },
  "025B:21": {
   "stop": "Quatre Routes",
   "line": "378",
   "direction": "Les Courtilles",
-  "stop_id": "26486"
+  "stop_id": "26486",
+  "line_ref": "C01311"
  },
  "025B:22": {
   "stop": "Jules Guesde",
   "line": "165",
   "direction": "Porte de Champerret",
-  "stop_id": "36334"
+  "stop_id": "36334",
+  "line_ref": "C01187"
  },
  "025B:23": {
   "stop": "Place Jean Jaurès",
   "line": "244",
   "direction": "Rueil-Malmaison <RER>",
-  "stop_id": "28806"
+  "stop_id": "28806",
+  "line_ref": "C01240"
  },
  "025B:24": {
   "stop": "Place Jean Jaurès",
   "line": "241",
   "direction": "Rueil-Malmaison <RER>",
-  "stop_id": "28806"
+  "stop_id": "28806",
+  "line_ref": "C01239"
+ },
+ "025B:3": {
+  "stop": "Beauséjour",
+  "line": "378",
+  "direction": "Les Courtilles",
+  "stop_id": "8067",
+  "line_ref": "C01311"
  },
  "025B:30": {
   "stop": "Aristide Briand",
   "line": "94",
   "direction": "Pont de Levallois - Bécon - Métro",
-  "stop_id": "8120"
+  "stop_id": "8120",
+  "line_ref": "C01125"
  },
  "025B:31": {
   "stop": "Luxembourg",
   "line": "27",
-  "direction": "Luxembourg",
-  "stop_id": "27069"
+  "direction": "Gare Saint-Lazare",
+  "stop_id": "27069",
+  "line_ref": "C01077"
  },
  "025B:32": {
   "stop": "Luxembourg",
   "line": "21",
-  "direction": "Saint-Michel - Saint-Germain",
-  "stop_id": "27069"
+  "direction": "Porte de Saint-Ouen - Hôpital Bichat",
+  "stop_id": "27069",
+  "line_ref": "C01073"
  },
  "025B:33": {
   "stop": "Bineau - Château",
   "line": "82",
-  "direction": "École Militaire",
-  "stop_id": "23507"
+  "direction": "Luxembourg",
+  "stop_id": "23507",
+  "line_ref": "C01114"
  },
  "025B:38": {
   "stop": "Louvre - Rivoli",
   "line": "21",
   "direction": "Stade Charléty - Porte de Gentilly",
-  "stop_id": "37354"
+  "stop_id": "37354",
+  "line_ref": "C01073"
  },
  "025B:41": {
   "stop": "Davout - Lagny",
   "line": "215",
   "direction": "Vincennes <RER> - République",
-  "stop_id": "463435"
+  "stop_id": "463435",
+  "line_ref": "C01229"
  },
  "025B:44": {
   "stop": "Victor Hugo",
   "line": "191",
   "direction": "Val Fleury <RER>",
-  "stop_id": "28163"
+  "stop_id": "28163",
+  "line_ref": "C01212"
  },
  "025B:46": {
   "stop": "8 mai 1945",
   "line": "244",
   "direction": "Rueil-Malmaison <RER>",
-  "stop_id": "36760"
+  "stop_id": "36760",
+  "line_ref": "C01240"
+ },
+ "025B:47": {
+  "stop": "8 mai 1945",
+  "line": "241",
+  "direction": "Place de la Paix",
+  "stop_id": "36760",
+  "line_ref": "C01239"
+ },
+ "025B:5": {
+  "stop": "Parc Industriel Centre",
+  "line": "270",
+  "direction": "Villiers le Bel - Gonesse - Arnouville <RER>",
+  "stop_id": "23841",
+  "line_ref": "C01253"
  },
  "025B:50": {
   "stop": "Sous-Préfecture - Roseraie",
   "line": "172",
   "direction": "Hôpital Henri Mondor",
-  "stop_id": "27293"
+  "stop_id": "27293",
+  "line_ref": "C01193"
  },
  "025B:51": {
   "stop": "Sous-Préfecture - Roseraie",
   "line": "184",
   "direction": "Porte d'Italie - Hélène Boucher",
-  "stop_id": "27293"
+  "stop_id": "27293",
+  "line_ref": "C01205"
  },
  "025B:52": {
   "stop": "Sous-Préfecture - Roseraie",
   "line": "192",
   "direction": "Marché International de Rungis",
-  "stop_id": "27293"
+  "stop_id": "27293",
+  "line_ref": "C01213"
  },
  "025B:57": {
   "stop": "Georges Foureau",
   "line": "206",
   "direction": "Gare de Noisy-le-Grand - Mont d'Est",
-  "stop_id": "36364"
+  "stop_id": "36364",
+  "line_ref": "C01221"
  },
  "025B:58": {
   "stop": "Georges Foureau",
   "line": "207",
   "direction": "Gare de Noisy-le-Grand - Mont d'Est",
-  "stop_id": "36364"
+  "stop_id": "36364",
+  "line_ref": "C01222"
+ },
+ "025B:59": {
+  "stop": "Maurice Berteaux - Tramway",
+  "line": "206",
+  "direction": "Gare de Noisy-le-Grand - Mont d'Est",
+  "stop_id": "36365",
+  "line_ref": "C01221"
+ },
+ "025B:6": {
+  "stop": "Avenue des Erables",
+  "line": "270",
+  "direction": "La Cerisaie",
+  "stop_id": "426453",
+  "line_ref": "C01253"
  },
  "025B:60": {
   "stop": "Maurice Berteaux - Tramway",
   "line": "207",
   "direction": "Gare de Noisy-le-Grand - Mont d'Est",
-  "stop_id": "36365"
+  "stop_id": "36365",
+  "line_ref": "C01222"
  },
  "025B:63": {
   "stop": "La Dame Blanche",
   "line": "206",
   "direction": "Gare de Noisy-le-Grand - Mont d'Est",
-  "stop_id": "36374"
+  "stop_id": "36374",
+  "line_ref": "C01221"
  },
  "025B:64": {
   "stop": "La Dame Blanche",
   "line": "207",
   "direction": "Gare de Noisy-le-Grand - Mont d'Est",
-  "stop_id": "36374"
+  "stop_id": "36374",
+  "line_ref": "C01222"
  },
  "025B:65": {
   "stop": "Rue de Bernau",
   "line": "306",
   "direction": "Gare de Noisy-le-Grand - Mont d'Est",
-  "stop_id": "39523"
+  "stop_id": "39523",
+  "line_ref": "C01276"
  },
- "025B:68": {
-  "stop": "Michel Debré",
-  "line": "39",
-  "direction": "Gare du Nord",
-  "stop_id": "20123"
+ "025B:66": {
+  "stop": "Rue de Bernau",
+  "line": "106",
+  "direction": "Gare de Joinville-le-Pont",
+  "stop_id": "39523",
+  "line_ref": "C01135"
  },
  "025B:69": {
   "stop": "Michel Debré",
   "line": "96",
   "direction": "Porte des Lilas",
-  "stop_id": "20123"
+  "stop_id": "20123",
+  "line_ref": "C01127"
+ },
+ "025B:7": {
+  "stop": "Cucheron",
+  "line": "319",
+  "direction": "Marché International de Rungis",
+  "stop_id": "29341",
+  "line_ref": "C01282"
  },
  "025B:71": {
   "stop": "Victor Hugo - Poincaré",
   "line": "82",
-  "direction": "École Militaire",
-  "stop_id": "23506"
+  "direction": "Luxembourg",
+  "stop_id": "23506",
+  "line_ref": "C01114"
  },
  "025B:72": {
   "stop": "Place Charras",
   "line": "176",
   "direction": "Pont de Neuilly - Métro",
-  "stop_id": "24325"
+  "stop_id": "24325",
+  "line_ref": "C01197"
  },
  "025B:73": {
   "stop": "La Machine",
   "line": "259",
   "direction": "Saint-Germain-En-Laye <RER>",
-  "stop_id": "423168"
+  "stop_id": "423168",
+  "line_ref": "C02000"
+ },
+ "025B:76": {
+  "stop": "Mairie",
+  "line": "268",
+  "direction": "Église / Mairie de Villiers-le-Bel",
+  "stop_id": "39645",
+  "line_ref": "C01251"
+ },
+ "025B:8": {
+  "stop": "Villemilan",
+  "line": "319",
+  "direction": "Marché International de Rungis",
+  "stop_id": "29050",
+  "line_ref": "C01282"
  },
  "0263:0": {
   "stop": "Division Leclerc - Brosselette",
   "line": "195",
   "direction": "Pierre Sémard - Châtillon-Montrouge",
-  "stop_id": "417843"
+  "stop_id": "417843",
+  "line_ref": "C01215"
  },
- "0263:5": {
-  "stop": "Église Saint-Pierre",
-  "line": "43",
-  "direction": "Hippodrome de Longchamp",
-  "stop_id": "27345"
- },
- "0263:6": {
-  "stop": "Église Saint-Pierre",
-  "line": "82",
-  "direction": "Hôpital Américain",
-  "stop_id": "27345"
- },
- "0263:7": {
-  "stop": "Rue des Olivettes",
-  "line": "388",
-  "direction": "Porte d'Orléans",
-  "stop_id": "27710"
- },
- "0263:8": {
-  "stop": "Rue des Olivettes",
-  "line": "162",
-  "direction": "Parc Maison Blanche",
-  "stop_id": "27710"
+ "0263:1": {
+  "stop": "Division Leclerc - Brosselette",
+  "line": "394",
+  "direction": "Issy - Val de Seine <RER>",
+  "stop_id": "417843",
+  "line_ref": "C01319"
  },
  "0263:17": {
   "stop": "La Berthie",
   "line": "272",
   "direction": "Gare d'Argenteuil",
-  "stop_id": "7580"
+  "stop_id": "7580",
+  "line_ref": "C01254"
  },
  "0263:20": {
   "stop": "Faculté de Pharmacie",
   "line": "194",
   "direction": "Sophie Barat",
-  "stop_id": "420455"
+  "stop_id": "420455",
+  "line_ref": "C01214"
  },
  "0263:23": {
   "stop": "Rue des Grillons",
   "line": "294",
   "direction": "Pierre Sémard - Châtillon-Montrouge",
-  "stop_id": "10335"
+  "stop_id": "10335",
+  "line_ref": "C01268"
  },
  "0263:24": {
   "stop": "Carnot - Aristide Briand",
   "line": "197",
   "direction": "Avenue Saint-Marc",
-  "stop_id": "28524"
+  "stop_id": "28524",
+  "line_ref": "C01217"
  },
  "0263:26": {
   "stop": "Mairie",
   "line": "190",
   "direction": "Église",
-  "stop_id": "37915"
+  "stop_id": "37915",
+  "line_ref": "C01211"
  },
  "0263:27": {
   "stop": "Mairie",
   "line": "191",
   "direction": "Porte de Vanves",
-  "stop_id": "37915"
+  "stop_id": "37915",
+  "line_ref": "C01212"
+ },
+ "0263:29": {
+  "stop": "12 février 1934",
+  "line": "388",
+  "direction": "Gare de Bourg-la-Reine",
+  "stop_id": "8187",
+  "line_ref": "C01314"
  },
  "0263:30": {
   "stop": "12 février 1934",
   "line": "194",
   "direction": "Sophie Barat",
-  "stop_id": "8187"
+  "stop_id": "8187",
+  "line_ref": "C01214"
  },
  "0263:40": {
   "stop": "Tour d'Auvergne",
   "line": "304",
   "direction": "Les Courtilles",
-  "stop_id": "8254"
+  "stop_id": "8254",
+  "line_ref": "C01275"
  },
  "0263:41": {
   "stop": "Tour d'Auvergne",
   "line": "235",
   "direction": "Gabriel Péri - Métro",
-  "stop_id": "8254"
+  "stop_id": "8254",
+  "line_ref": "C01235"
  },
  "0263:47": {
   "stop": "Victor Hugo - Jean Jaurès",
   "line": "173",
   "direction": "Porte de Clichy",
-  "stop_id": "22515"
+  "stop_id": "22515",
+  "line_ref": "C01194"
  },
  "0263:48": {
   "stop": "Victor Hugo - Jean Jaurès",
   "line": "74",
   "direction": "Châtelet",
-  "stop_id": "22515"
+  "stop_id": "22515",
+  "line_ref": "C01109"
+ },
+ "0263:5": {
+  "stop": "Église Saint-Pierre",
+  "line": "43",
+  "direction": "Hippodrome de Longchamp",
+  "stop_id": "27345",
+  "line_ref": "C01086"
  },
  "0263:50": {
   "stop": "Gardes - Vaugirard",
   "line": "389",
   "direction": "Georges Pompidou",
-  "stop_id": "41629"
+  "stop_id": "41629",
+  "line_ref": "C01315"
  },
  "0263:57": {
   "stop": "Beethoven",
   "line": "164",
   "direction": "Porte de Champerret",
-  "stop_id": "7419"
+  "stop_id": "7419",
+  "line_ref": "C01186"
  },
  "0263:59": {
   "stop": "Pyramide de Juvisy",
   "line": "285",
   "direction": "Porte de l'Essonne",
-  "stop_id": "472891"
+  "stop_id": "472891",
+  "line_ref": "C01262"
+ },
+ "0263:6": {
+  "stop": "Église Saint-Pierre",
+  "line": "82",
+  "direction": "Hôpital Américain",
+  "stop_id": "27345",
+  "line_ref": "C01114"
  },
  "0263:67": {
   "stop": "Marx Dormoy",
   "line": "285",
   "direction": "Porte de l'Essonne",
-  "stop_id": "35883"
+  "stop_id": "35883",
+  "line_ref": "C01262"
+ },
+ "0263:7": {
+  "stop": "Rue des Olivettes",
+  "line": "388",
+  "direction": "Porte d'Orléans",
+  "stop_id": "27710",
+  "line_ref": "C01314"
  },
  "0263:73": {
   "stop": "Louvre - Rivoli",
   "line": "72",
-  "direction": "Parc de Saint-Cloud",
-  "stop_id": "41777"
+  "direction": "Porte de Saint-Cloud",
+  "stop_id": "41777",
+  "line_ref": "C01107"
+ },
+ "0263:8": {
+  "stop": "Rue des Olivettes",
+  "line": "162",
+  "direction": "Parc Maison Blanche",
+  "stop_id": "27710",
+  "line_ref": "C01184"
  },
  "0267:0": {
   "stop": "Collange",
   "line": "165",
   "direction": "Asnières - 18 Juin 1940",
-  "stop_id": "28488"
- },
- "0267:9": {
-  "stop": "D'Estienne d'Orves - Division Leclerc",
-  "line": "194",
-  "direction": "Sophie Barat",
-  "stop_id": "23219"
+  "stop_id": "28488",
+  "line_ref": "C01187"
  },
  "0267:10": {
   "stop": "D'Estienne d'Orves - Division Leclerc",
   "line": "162",
   "direction": "Villejuif - Louis Aragon",
-  "stop_id": "23219"
+  "stop_id": "23219",
+  "line_ref": "C01184"
+ },
+ "0267:11": {
+  "stop": "D'Estienne d'Orves - Division Leclerc",
+  "line": "195",
+  "direction": "Pierre Sémard - Châtillon-Montrouge",
+  "stop_id": "23219",
+  "line_ref": "C01215"
  },
  "0267:12": {
   "stop": "Alma - Baudin",
   "line": "275",
   "direction": "Pont de Levallois - Bécon - Métro",
-  "stop_id": "25945"
+  "stop_id": "25945",
+  "line_ref": "C01256"
  },
  "0267:13": {
   "stop": "Alma - Baudin",
   "line": "277",
   "direction": "Asnières - Bords de Seine",
-  "stop_id": "25945"
+  "stop_id": "25945",
+  "line_ref": "C02744"
  },
  "0267:15": {
   "stop": "Gramme",
   "line": "140",
   "direction": "Mairie de Saint-Ouen - Dhalenne",
-  "stop_id": "7881"
+  "stop_id": "7881",
+  "line_ref": "C01166"
  },
  "0267:16": {
   "stop": "Gramme",
   "line": "165",
   "direction": "Porte de Champerret",
-  "stop_id": "7881"
+  "stop_id": "7881",
+  "line_ref": "C01187"
+ },
+ "0267:19": {
+  "stop": "Pompidou",
+  "line": "144",
+  "direction": "Rueil-Malmaison <RER>",
+  "stop_id": "7931",
+  "line_ref": "C01169"
  },
  "0267:21": {
   "stop": "Mairie de Saint-Ouen - Dhalenne",
   "line": "237",
   "direction": "Gare d'Epinay-Sur-Seine",
-  "stop_id": "41963"
+  "stop_id": "41963",
+  "line_ref": "C01236"
+ },
+ "0267:22": {
+  "stop": "Jardin Parisien - Hôpital Béclère",
+  "line": "390",
+  "direction": "Gare de Bourg-la-Reine",
+  "stop_id": "493404",
+  "line_ref": "C01316"
  },
  "0267:23": {
   "stop": "Jardin Parisien - Hôpital Béclère",
   "line": "189",
   "direction": "Porte de Saint-Cloud - Métro",
-  "stop_id": "493404"
+  "stop_id": "493404",
+  "line_ref": "C01210"
  },
  "0267:24": {
   "stop": "Jardin Parisien - Hôpital Béclère",
   "line": "190",
   "direction": "Mairie d'Issy",
-  "stop_id": "493404"
+  "stop_id": "493404",
+  "line_ref": "C01211"
  },
  "0267:28": {
   "stop": "Cimetière Intercommunal",
   "line": "390",
   "direction": "Gare de Bourg-la-Reine",
-  "stop_id": "22620"
+  "stop_id": "22620",
+  "line_ref": "C01316"
+ },
+ "0267:29": {
+  "stop": "Cimetière Intercommunal",
+  "line": "189",
+  "direction": "Porte de Saint-Cloud - Métro",
+  "stop_id": "22620",
+  "line_ref": "C01210"
  },
  "0267:31": {
   "stop": "Cimetière Intercommunal",
   "line": "190",
   "direction": "Mairie d'Issy",
-  "stop_id": "22620"
+  "stop_id": "22620",
+  "line_ref": "C01211"
  },
  "0267:32": {
   "stop": "Jules Ferry",
   "line": "113",
   "direction": "Nogent-Sur-Marne <RER>",
-  "stop_id": "26405"
+  "stop_id": "26405",
+  "line_ref": "C01142"
  },
  "0267:51": {
   "stop": "Bourguignons",
   "line": "178",
   "direction": "Vieux Chemin de Saint-Denis - Centre Commercial",
-  "stop_id": "7865"
+  "stop_id": "7865",
+  "line_ref": "C01199"
  },
  "0267:58": {
   "stop": "Fleury",
   "line": "169",
   "direction": "Hôpital Européen Georges Pompidou",
-  "stop_id": "8095"
+  "stop_id": "8095",
+  "line_ref": "C01190"
  },
  "0267:59": {
   "stop": "Fleury",
   "line": "190",
   "direction": "Mairie d'Issy",
-  "stop_id": "8095"
+  "stop_id": "8095",
+  "line_ref": "C01211"
  },
  "0267:60": {
   "stop": "Fleury",
   "line": "290",
   "direction": "Issy - Val de Seine",
-  "stop_id": "8095"
+  "stop_id": "8095",
+  "line_ref": "C01265"
  },
  "0267:62": {
   "stop": "Fontenay-sous-Bois RER",
   "line": "124",
   "direction": "Château de Vincennes",
-  "stop_id": "28748"
+  "stop_id": "28748",
+  "line_ref": "C01153"
  },
  "0267:64": {
   "stop": "Emile Zola",
   "line": "187",
   "direction": "Fresnes les Groux",
-  "stop_id": "28588"
+  "stop_id": "28588",
+  "line_ref": "C01208"
  },
  "0267:65": {
   "stop": "Emile Zola",
   "line": "184",
   "direction": "Porte d'Italie - Hélène Boucher",
-  "stop_id": "28588"
+  "stop_id": "28588",
+  "line_ref": "C01205"
+ },
+ "0267:67": {
+  "stop": "La Cavée",
+  "line": "390",
+  "direction": "Europe Sud",
+  "stop_id": "2288",
+  "line_ref": "C01316"
  },
  "0267:68": {
   "stop": "La Cavée",
   "line": "195",
   "direction": "Pierre Sémard - Châtillon-Montrouge",
-  "stop_id": "2288"
+  "stop_id": "2288",
+  "line_ref": "C01215"
  },
  "0267:73": {
   "stop": "Paix - Verdun",
   "line": "164",
   "direction": "Collège Claude Monet",
-  "stop_id": "23742"
+  "stop_id": "23742",
+  "line_ref": "C01186"
  },
  "0267:74": {
   "stop": "Paix - Verdun",
   "line": "163",
   "direction": "Nanterre - Préfecture <RER>",
-  "stop_id": "23742"
+  "stop_id": "23742",
+  "line_ref": "C01185"
  },
  "0267:75": {
   "stop": "Paix - Verdun",
   "line": "175",
   "direction": "Les Bruyères",
-  "stop_id": "23742"
+  "stop_id": "23742",
+  "line_ref": "C01196"
  },
- "026B:4": {
-  "stop": "Condorcet",
-  "line": "272",
-  "direction": "Gare de Sartrouville - <RER>",
-  "stop_id": "7677"
+ "0267:9": {
+  "stop": "D'Estienne d'Orves - Division Leclerc",
+  "line": "194",
+  "direction": "Sophie Barat",
+  "stop_id": "23219",
+  "line_ref": "C01214"
  },
- "026B:6": {
-  "stop": "Pasteur - Meuniers",
-  "line": "388",
-  "direction": "Gare de Bourg-la-Reine",
-  "stop_id": "22872"
+ "026B:12": {
+  "stop": "Avenue des Martyrs",
+  "line": "113",
+  "direction": "Nogent-Sur-Marne <RER>",
+  "stop_id": "36310",
+  "line_ref": "C01142"
  },
- "026B:7": {
-  "stop": "Pasteur - Meuniers",
-  "line": "188",
-  "direction": "Rosenberg",
-  "stop_id": "22872"
- },
- "026B:9": {
-  "stop": "Parc du Tremblay",
-  "line": "116",
-  "direction": "Montreuil-Boissière-Acacia",
-  "stop_id": "41423"
+ "026B:13": {
+  "stop": "Avenue des Martyrs",
+  "line": "213",
+  "direction": "Bois de l'Étang - Université",
+  "stop_id": "36310",
+  "line_ref": "C01227"
  },
  "026B:17": {
   "stop": "Mairie",
   "line": "187",
   "direction": "Porte d'Orléans",
-  "stop_id": "22860"
+  "stop_id": "22860",
+  "line_ref": "C01208"
  },
  "026B:18": {
   "stop": "Mairie",
   "line": "184",
   "direction": "Pasteur",
-  "stop_id": "22860"
+  "stop_id": "22860",
+  "line_ref": "C01205"
+ },
+ "026B:19": {
+  "stop": "Mairie",
+  "line": "396",
+  "direction": "Gare de la Croix de Berny",
+  "stop_id": "22860",
+  "line_ref": "C01321"
+ },
+ "026B:2": {
+  "stop": "Marché de Puteaux",
+  "line": "144",
+  "direction": "Rueil-Malmaison <RER>",
+  "stop_id": "2149",
+  "line_ref": "C01169"
  },
  "026B:23": {
   "stop": "Concorde - Royale",
   "line": "42",
-  "direction": "Gare Saint-Lazare",
-  "stop_id": "8316"
+  "direction": "Concorde - Royale",
+  "stop_id": "8316",
+  "line_ref": "C01085"
  },
  "026B:24": {
   "stop": "Concorde - Royale",
   "line": "45",
   "direction": "France-Asie",
-  "stop_id": "8316"
+  "stop_id": "8316",
+  "line_ref": "C02244"
  },
  "026B:30": {
   "stop": "Michel Debré",
   "line": "70",
-  "direction": "Sèvres-Lecourbe",
-  "stop_id": "28673"
+  "direction": "Hôtel de Ville",
+  "stop_id": "28673",
+  "line_ref": "C01106"
  },
  "026B:32": {
   "stop": "Michel Debré",
   "line": "63",
   "direction": "Jardin d'Acclimatation",
-  "stop_id": "26749"
+  "stop_id": "26749",
+  "line_ref": "C01099"
  },
  "026B:33": {
   "stop": "Michel Debré",
   "line": "70",
   "direction": "Porte de Passy",
-  "stop_id": "26749"
+  "stop_id": "26749",
+  "line_ref": "C01106"
  },
  "026B:34": {
   "stop": "Michel Debré",
   "line": "84",
   "direction": "Alsace",
-  "stop_id": "26749"
+  "stop_id": "26749",
+  "line_ref": "C01116"
  },
  "026B:35": {
   "stop": "Michel Debré",
   "line": "86",
   "direction": "Champs de Mars",
-  "stop_id": "26749"
+  "stop_id": "26749",
+  "line_ref": "C01118"
  },
  "026B:36": {
   "stop": "Stade de Vanves",
   "line": "189",
   "direction": "Georges Pompidou",
-  "stop_id": "427995"
+  "stop_id": "427995",
+  "line_ref": "C01210"
  },
  "026B:38": {
   "stop": "Stade de Vanves",
   "line": "59",
   "direction": "Gare de Clamart",
-  "stop_id": "427995"
+  "stop_id": "427995",
+  "line_ref": "C02245"
  },
  "026B:39": {
   "stop": "Stade de Vanves",
   "line": "189",
   "direction": "Porte de Saint-Cloud - Métro",
-  "stop_id": "19707"
+  "stop_id": "19707",
+  "line_ref": "C01210"
+ },
+ "026B:4": {
+  "stop": "Condorcet",
+  "line": "272",
+  "direction": "Gare de Sartrouville - <RER>",
+  "stop_id": "7677",
+  "line_ref": "C01254"
  },
  "026B:41": {
   "stop": "Stade de Vanves",
   "line": "59",
   "direction": "Place d'Italie",
-  "stop_id": "19707"
+  "stop_id": "19707",
+  "line_ref": "C02245"
  },
  "026B:42": {
   "stop": "Rue de Châtillon",
   "line": "189",
   "direction": "Porte de Saint-Cloud - Métro",
-  "stop_id": "477809"
+  "stop_id": "477809",
+  "line_ref": "C01210"
  },
  "026B:44": {
   "stop": "Rue de Châtillon",
   "line": "59",
   "direction": "Place d'Italie",
-  "stop_id": "477809"
+  "stop_id": "477809",
+  "line_ref": "C02245"
+ },
+ "026B:45": {
+  "stop": "Lycée Louis Armand",
+  "line": "39",
+  "direction": "Frères Voisin",
+  "stop_id": "25718",
+  "line_ref": "C01084"
  },
  "026B:50": {
   "stop": "Cardinal Lemoine",
   "line": "47",
-  "direction": "Châtelet",
-  "stop_id": "37119"
+  "direction": "Place d'Italie - Italie 2",
+  "stop_id": "37119",
+  "line_ref": "C01088"
+ },
+ "026B:6": {
+  "stop": "Pasteur - Meuniers",
+  "line": "388",
+  "direction": "Gare de Bourg-la-Reine",
+  "stop_id": "22872",
+  "line_ref": "C01314"
  },
  "026B:64": {
   "stop": "Les Moulins - Camping",
   "line": "244",
   "direction": "Rueil-Malmaison <RER>",
-  "stop_id": "26082"
+  "stop_id": "26082",
+  "line_ref": "C01240"
  },
  "026B:66": {
   "stop": "Les Moulins - Camping",
   "line": "241",
   "direction": "Rueil-Malmaison <RER>",
-  "stop_id": "26082"
+  "stop_id": "26082",
+  "line_ref": "C01239"
  },
  "026B:68": {
   "stop": "Curton",
   "line": "173",
   "direction": "La Courneuve - 8 Mai 1945",
-  "stop_id": "27343"
+  "stop_id": "27343",
+  "line_ref": "C01194"
  },
  "026B:69": {
   "stop": "Curton",
   "line": "74",
   "direction": "Berges de Seine",
-  "stop_id": "27343"
+  "stop_id": "27343",
+  "line_ref": "C01109"
+ },
+ "026B:7": {
+  "stop": "Pasteur - Meuniers",
+  "line": "188",
+  "direction": "Rosenberg",
+  "stop_id": "22872",
+  "line_ref": "C01209"
  },
  "026B:70": {
   "stop": "Jaurès - Barbusse",
   "line": "174",
   "direction": "La Défense (voie Perronet Sud)",
-  "stop_id": "24434"
+  "stop_id": "24434",
+  "line_ref": "C01195"
  },
  "026B:71": {
   "stop": "Jaurès - Barbusse",
   "line": "54",
   "direction": "Porte d'Aubervilliers",
-  "stop_id": "24434"
+  "stop_id": "24434",
+  "line_ref": "C01092"
  },
  "026B:72": {
   "stop": "Jaurès - Barbusse",
   "line": "341",
   "direction": "Charles de Gaulle - Étoile",
-  "stop_id": "24434"
+  "stop_id": "24434",
+  "line_ref": "C01294"
  },
  "026B:76": {
   "stop": "Jaurès - Barbusse",
   "line": "174",
   "direction": "Saint-Ouen <RER>",
-  "stop_id": "416693"
+  "stop_id": "416693",
+  "line_ref": "C01195"
  },
  "026B:77": {
   "stop": "Jaurès - Barbusse",
   "line": "341",
   "direction": "Porte de Clignancourt - Croisset",
-  "stop_id": "416693"
+  "stop_id": "416693",
+  "line_ref": "C01294"
  },
- "0270:5": {
-  "stop": "Espace Michel Simon",
-  "line": "303",
-  "direction": "Avenue de Rosny",
-  "stop_id": "25885"
- },
- "0270:6": {
-  "stop": "Espace Michel Simon",
-  "line": "310",
-  "direction": "Gare de Noisy-le-Grand - Mont d'Est",
-  "stop_id": "25885"
- },
- "0270:7": {
-  "stop": "Espace Michel Simon",
-  "line": "320",
-  "direction": "Gare de Noisy - Champs",
-  "stop_id": "25885"
+ "026B:9": {
+  "stop": "Parc du Tremblay",
+  "line": "116",
+  "direction": "Montreuil-Boissière-Acacia",
+  "stop_id": "41423",
+  "line_ref": "C01145"
  },
  "0270:17": {
   "stop": "Bucarest",
   "line": "95",
   "direction": "Porte de Montmartre",
-  "stop_id": "9105"
+  "stop_id": "9105",
+  "line_ref": "C01126"
  },
  "0270:18": {
   "stop": "Bucarest",
   "line": "80",
   "direction": "Mairie du 18e - Jules Joffrin",
-  "stop_id": "9105"
+  "stop_id": "9105",
+  "line_ref": "C01112"
  },
  "0270:20": {
   "stop": "Les Graviers",
   "line": "258",
   "direction": "La Jonchère",
-  "stop_id": "36795"
+  "stop_id": "36795",
+  "line_ref": "C01248"
  },
  "0270:21": {
   "stop": "Les Graviers",
   "line": "159",
   "direction": "Cité du Vieux Pont",
-  "stop_id": "36795"
+  "stop_id": "36795",
+  "line_ref": "C01182"
+ },
+ "0270:22": {
+  "stop": "Les Graviers",
+  "line": "360",
+  "direction": "Hôpital de Garches",
+  "stop_id": "36795",
+  "line_ref": "C01304"
  },
  "0270:24": {
   "stop": "Lycée Jean Jaurès",
   "line": "121",
   "direction": "Château de Villemomble",
-  "stop_id": "27051"
+  "stop_id": "27051",
+  "line_ref": "C01150"
  },
  "0270:25": {
   "stop": "Lycée Jean Jaurès",
   "line": "102",
   "direction": "Gare de Rosny - Bois-Perrier",
-  "stop_id": "27051"
+  "stop_id": "27051",
+  "line_ref": "C01131"
  },
  "0270:26": {
   "stop": "Lycée Jean Jaurès",
   "line": "202",
   "direction": "Montreuil-Boissière-Acacia",
-  "stop_id": "27051"
+  "stop_id": "27051",
+  "line_ref": "C02714"
+ },
+ "0270:5": {
+  "stop": "Espace Michel Simon",
+  "line": "303",
+  "direction": "Avenue de Rosny",
+  "stop_id": "25885",
+  "line_ref": "C01274"
+ },
+ "0270:6": {
+  "stop": "Espace Michel Simon",
+  "line": "310",
+  "direction": "Gare de Noisy-le-Grand - Mont d'Est",
+  "stop_id": "25885",
+  "line_ref": "C01278"
+ },
+ "0270:7": {
+  "stop": "Espace Michel Simon",
+  "line": "320",
+  "direction": "Gare de Noisy - Champs",
+  "stop_id": "25885",
+  "line_ref": "C01283"
  },
  "027A:37": {
   "stop": "Cimetière",
   "line": "189",
   "direction": "Porte de Saint-Cloud - Métro",
-  "stop_id": "12406"
+  "stop_id": "12406",
+  "line_ref": "C01210"
  },
  "027A:38": {
   "stop": "Cimetière",
   "line": "190",
   "direction": "Mairie d'Issy",
-  "stop_id": "12406"
+  "stop_id": "12406",
+  "line_ref": "C01211"
  },
  "027A:71": {
   "stop": "Louvre - Rivoli",
   "line": "21",
   "direction": "Porte de Saint-Ouen - Hôpital Bichat",
-  "stop_id": "422499"
+  "stop_id": "422499",
+  "line_ref": "C01073"
  },
  "027A:72": {
   "stop": "Louvre - Rivoli",
   "line": "67",
   "direction": "Palais Royal - Musée du Louvre",
-  "stop_id": "422499"
+  "stop_id": "422499",
+  "line_ref": "C01103"
  },
  "0288:1": {
   "stop": "Ile Saint Germain",
   "line": "389",
   "direction": "Hôtel de Ville",
-  "stop_id": "25889"
- },
- "0288:2": {
-  "stop": "Chézy",
-  "line": "164",
-  "direction": "Collège Claude Monet",
-  "stop_id": "39587"
- },
- "0288:3": {
-  "stop": "Chézy",
-  "line": "163",
-  "direction": "Nanterre - Préfecture <RER>",
-  "stop_id": "39587"
- },
- "0288:4": {
-  "stop": "Bineau - Château",
-  "line": "164",
-  "direction": "Collège Claude Monet",
-  "stop_id": "23759"
- },
- "0288:5": {
-  "stop": "Bineau - Château",
-  "line": "163",
-  "direction": "Nanterre - Préfecture <RER>",
-  "stop_id": "23759"
- },
- "0288:6": {
-  "stop": "Ile de la Jatte",
-  "line": "164",
-  "direction": "Collège Claude Monet",
-  "stop_id": "7761"
- },
- "0288:7": {
-  "stop": "Ile de la Jatte",
-  "line": "163",
-  "direction": "Nanterre - Préfecture <RER>",
-  "stop_id": "7761"
+  "stop_id": "25889",
+  "line_ref": "C01315"
  },
  "0288:12": {
   "stop": "Bourguignons",
   "line": "140",
   "direction": "Gare d'Argenteuil",
-  "stop_id": "27724"
+  "stop_id": "27724",
+  "line_ref": "C01166"
  },
  "0288:13": {
   "stop": "Bourguignons",
   "line": "140",
   "direction": "Mairie de Saint-Ouen - Dhalenne",
-  "stop_id": "26859"
+  "stop_id": "26859",
+  "line_ref": "C01166"
  },
  "0288:14": {
   "stop": "Ile de la Jatte",
   "line": "164",
   "direction": "Porte de Champerret",
-  "stop_id": "36812"
+  "stop_id": "36812",
+  "line_ref": "C01186"
  },
  "0288:15": {
   "stop": "Ile de la Jatte",
   "line": "163",
   "direction": "Porte de Clichy",
-  "stop_id": "36812"
+  "stop_id": "36812",
+  "line_ref": "C01185"
  },
  "0288:16": {
   "stop": "Inkermann - Bineau",
   "line": "164",
   "direction": "Porte de Champerret",
-  "stop_id": "23761"
+  "stop_id": "23761",
+  "line_ref": "C01186"
  },
  "0288:17": {
   "stop": "Inkermann - Bineau",
   "line": "163",
   "direction": "Porte de Clichy",
-  "stop_id": "23761"
+  "stop_id": "23761",
+  "line_ref": "C01185"
+ },
+ "0288:2": {
+  "stop": "Chézy",
+  "line": "164",
+  "direction": "Collège Claude Monet",
+  "stop_id": "39587",
+  "line_ref": "C01186"
  },
  "0288:28": {
   "stop": "Fleurus",
   "line": "83",
   "direction": "Porte d'Ivry",
-  "stop_id": "27125"
+  "stop_id": "27125",
+  "line_ref": "C01115"
+ },
+ "0288:3": {
+  "stop": "Chézy",
+  "line": "163",
+  "direction": "Nanterre - Préfecture <RER>",
+  "stop_id": "39587",
+  "line_ref": "C01185"
  },
  "0288:31": {
   "stop": "Église de Saint-Cloud",
   "line": "360",
   "direction": "La Défense (voie Perronet Sud)",
-  "stop_id": "29272"
+  "stop_id": "29272",
+  "line_ref": "C01304"
+ },
+ "0288:4": {
+  "stop": "Bineau - Château",
+  "line": "164",
+  "direction": "Collège Claude Monet",
+  "stop_id": "23759",
+  "line_ref": "C01186"
+ },
+ "0288:40": {
+  "stop": "Bourgain - Général Gallieni",
+  "line": "190",
+  "direction": "Église",
+  "stop_id": "24641",
+  "line_ref": "C01211"
  },
  "0288:41": {
   "stop": "Neptune",
   "line": "306",
   "direction": "Gare de Saint-Maur - Créteil",
-  "stop_id": "39683"
+  "stop_id": "39683",
+  "line_ref": "C01276"
+ },
+ "0288:5": {
+  "stop": "Bineau - Château",
+  "line": "163",
+  "direction": "Nanterre - Préfecture <RER>",
+  "stop_id": "23759",
+  "line_ref": "C01185"
+ },
+ "0288:6": {
+  "stop": "Ile de la Jatte",
+  "line": "164",
+  "direction": "Collège Claude Monet",
+  "stop_id": "7761",
+  "line_ref": "C01186"
  },
  "0288:60": {
   "stop": "Ile Saint Germain",
   "line": "289",
   "direction": "Porte de Saint-Cloud - Métro",
-  "stop_id": "25889"
+  "stop_id": "25889",
+  "line_ref": "C01264"
  },
  "0288:61": {
   "stop": "Ile Saint Germain",
   "line": "123",
   "direction": "Porte d'Auteuil - Métro",
-  "stop_id": "25889"
+  "stop_id": "25889",
+  "line_ref": "C01152"
  },
  "0288:62": {
   "stop": "Ile Saint Germain",
   "line": "260",
   "direction": "Boulogne Billancourt Gambetta",
-  "stop_id": "25889"
+  "stop_id": "25889",
+  "line_ref": "C02027"
+ },
+ "0288:67": {
+  "stop": "Les Fontenelles",
+  "line": "159",
+  "direction": "La Défense (voie Perronet Sud)",
+  "stop_id": "8002",
+  "line_ref": "C01182"
+ },
+ "0288:7": {
+  "stop": "Ile de la Jatte",
+  "line": "163",
+  "direction": "Nanterre - Préfecture <RER>",
+  "stop_id": "7761",
+  "line_ref": "C01185"
  },
  "0288:73": {
   "stop": "Fouilleuse",
   "line": "141",
   "direction": "Lycée de Rueil",
-  "stop_id": "39357"
+  "stop_id": "39357",
+  "line_ref": "C01167"
+ },
+ "0291:16": {
+  "stop": "Petit Robinson",
+  "line": "172",
+  "direction": "Gare de Bourg-la-Reine",
+  "stop_id": "27287",
+  "line_ref": "C01193"
  },
  "0291:22": {
   "stop": "Parc de Saint-Cloud",
   "line": "175",
   "direction": "Porte de Saint-Cloud",
-  "stop_id": "37783"
+  "stop_id": "37783",
+  "line_ref": "C01196"
  },
  "0291:27": {
   "stop": "Rue du Val d'Or",
   "line": "175",
   "direction": "Les Bruyères",
-  "stop_id": "8132"
+  "stop_id": "8132",
+  "line_ref": "C01196"
+ },
+ "0291:28": {
+  "stop": "Gare d'Antony",
+  "line": "297",
+  "direction": "Place Charles Steber",
+  "stop_id": "22887",
+  "line_ref": "C01270"
  },
  "0291:45": {
   "stop": "Collège",
   "line": "297",
   "direction": "Place Charles Steber",
-  "stop_id": "427517"
+  "stop_id": "427517",
+  "line_ref": "C01270"
  },
  "0291:46": {
   "stop": "Collège",
   "line": "299",
   "direction": "Place Lucien Boilleau",
-  "stop_id": "427517"
+  "stop_id": "427517",
+  "line_ref": "C01271"
  },
  "0291:60": {
   "stop": "Gallieni",
   "line": "165",
   "direction": "Asnières - 18 Juin 1940",
-  "stop_id": "2273"
+  "stop_id": "2273",
+  "line_ref": "C01187"
  },
  "0291:64": {
   "stop": "Victor Hugo",
   "line": "191",
   "direction": "Porte de Vanves",
-  "stop_id": "28166"
+  "stop_id": "28166",
+  "line_ref": "C01212"
  },
  "0292:12": {
   "stop": "L'Avenir",
   "line": "299",
   "direction": "Place Lucien Boilleau",
-  "stop_id": "2378"
+  "stop_id": "2378",
+  "line_ref": "C01271"
  },
  "0292:15": {
   "stop": "Pierre Brossolette",
   "line": "299",
   "direction": "Place Lucien Boilleau",
-  "stop_id": "28822"
+  "stop_id": "28822",
+  "line_ref": "C01271"
  },
  "0292:18": {
   "stop": "Gabriel Fontaine",
   "line": "299",
   "direction": "Place Lucien Boilleau",
-  "stop_id": "37236"
+  "stop_id": "37236",
+  "line_ref": "C01271"
+ },
+ "0292:21": {
+  "stop": "Pierre Brossolette",
+  "line": "299",
+  "direction": "Porte d'Orléans - Ernest Reyer",
+  "stop_id": "28821",
+  "line_ref": "C01271"
  },
  "0292:23": {
   "stop": "Pierre Loti",
   "line": "299",
   "direction": "Porte d'Orléans - Ernest Reyer",
-  "stop_id": "2382"
+  "stop_id": "2382",
+  "line_ref": "C01271"
  },
  "0292:30": {
   "stop": "Stresemann",
   "line": "241",
   "direction": "Rueil-Malmaison <RER>",
-  "stop_id": "36781"
+  "stop_id": "36781",
+  "line_ref": "C01239"
  },
  "0292:31": {
   "stop": "Stresemann",
   "line": "144",
   "direction": "La Défense (voie Perronet Nord)",
-  "stop_id": "36781"
+  "stop_id": "36781",
+  "line_ref": "C01169"
+ },
+ "0292:32": {
+  "stop": "Victorien Sardou",
+  "line": "241",
+  "direction": "Place de la Paix",
+  "stop_id": "39358",
+  "line_ref": "C01239"
  },
  "0292:33": {
   "stop": "Victorien Sardou",
   "line": "141",
   "direction": "La Défense (voie Perronet Sud)",
-  "stop_id": "39358"
+  "stop_id": "39358",
+  "line_ref": "C01167"
+ },
+ "0292:5": {
+  "stop": "Freycinet",
+  "line": "304",
+  "direction": "Nanterre - Place de la Boule",
+  "stop_id": "39715",
+  "line_ref": "C01275"
+ },
+ "0292:6": {
+  "stop": "Freycinet",
+  "line": "378",
+  "direction": "Nanterre - Ville <RER>",
+  "stop_id": "39715",
+  "line_ref": "C01311"
  },
  "029C:19": {
   "stop": "Charles Pranard",
   "line": "320",
   "direction": "Gare de Noisy - Champs",
-  "stop_id": "36465"
+  "stop_id": "36465",
+  "line_ref": "C01283"
  },
  "029C:21": {
   "stop": "Centre Bus",
   "line": "113",
-  "direction": "Mairie",
-  "stop_id": "25997"
+  "direction": "Terre Ciel",
+  "stop_id": "25997",
+  "line_ref": "C01142"
+ },
+ "029C:22": {
+  "stop": "Centre Bus",
+  "line": "203",
+  "direction": "Bougainville",
+  "stop_id": "25997",
+  "line_ref": "C01220"
  },
  "029C:23": {
   "stop": "Centre Bus",
@@ -1371,852 +1885,1267 @@
   "stop": "Égalité",
   "line": "106",
   "direction": "Gare de Joinville-le-Pont",
-  "stop_id": "39520"
+  "stop_id": "39520",
+  "line_ref": "C01135"
  },
  "02A5:51": {
   "stop": "Place de la Paix",
   "line": "244",
   "direction": "Rueil-Malmaison <RER>",
-  "stop_id": "28531"
+  "stop_id": "28531",
+  "line_ref": "C01240"
  },
  "02A5:53": {
   "stop": "Place de la Paix",
   "line": "144",
   "direction": "Rueil-Malmaison <RER>",
-  "stop_id": "28531"
+  "stop_id": "28531",
+  "line_ref": "C01169"
  },
  "02A5:54": {
   "stop": "Place de la Paix",
   "line": "241",
   "direction": "Rueil-Malmaison <RER>",
-  "stop_id": "28531"
+  "stop_id": "28531",
+  "line_ref": "C01239"
  },
- "02B5:6": {
-  "stop": "Les Chardonnerettes",
-  "line": "269",
-  "direction": "Mairie / Hôtel de Ville",
-  "stop_id": "8533"
+ "02B5:1": {
+  "stop": "Pierre Brossolette",
+  "line": "145",
+  "direction": "Gare de Val de Fontenay",
+  "stop_id": "7941",
+  "line_ref": "C01170"
  },
  "02B5:19": {
   "stop": "Les Carreaux",
   "line": "268",
-  "direction": "Saint-Denis - Université",
-  "stop_id": "8281"
+  "direction": "Gare de Pierrefitte - Stains <RER>",
+  "stop_id": "8281",
+  "line_ref": "C01251"
+ },
+ "02B5:20": {
+  "stop": "Les Carreaux",
+  "line": "270",
+  "direction": "La Cerisaie",
+  "stop_id": "8281",
+  "line_ref": "C01253"
  },
  "02B5:21": {
   "stop": "Louis Perrein",
   "line": "268",
-  "direction": "Saint-Denis - Université",
-  "stop_id": "10071"
+  "direction": "Gare de Pierrefitte - Stains <RER>",
+  "stop_id": "10071",
+  "line_ref": "C01251"
+ },
+ "02B5:22": {
+  "stop": "Louis Perrein",
+  "line": "270",
+  "direction": "La Cerisaie",
+  "stop_id": "10071",
+  "line_ref": "C01253"
  },
  "02B5:23": {
   "stop": "Cité des Indes",
   "line": "272",
   "direction": "Gare de Sartrouville - <RER>",
-  "stop_id": "7692"
+  "stop_id": "7692",
+  "line_ref": "C01254"
+ },
+ "02B5:24": {
+  "stop": "Victoires",
+  "line": "29",
+  "direction": "Gare Saint-Lazare",
+  "stop_id": "29438",
+  "line_ref": "C01079"
+ },
+ "02B5:35": {
+  "stop": "Mairie",
+  "line": "297",
+  "direction": "Place Charles Steber",
+  "stop_id": "27817",
+  "line_ref": "C01270"
+ },
+ "02B5:5": {
+  "stop": "Les Chardonnerettes",
+  "line": "268",
+  "direction": "Église / Mairie de Villiers-le-Bel",
+  "stop_id": "8533",
+  "line_ref": "C01251"
+ },
+ "02B5:6": {
+  "stop": "Les Chardonnerettes",
+  "line": "269",
+  "direction": "Mairie / Hôtel de Ville",
+  "stop_id": "8533",
+  "line_ref": "C01252"
  },
  "02B5:63": {
   "stop": "Hippodrome de Longchamp",
   "line": "241",
   "direction": "Porte d'Auteuil - Métro",
-  "stop_id": "36831"
+  "stop_id": "36831",
+  "line_ref": "C01239"
+ },
+ "02B5:64": {
+  "stop": "Hôpital Ambroise Paré",
+  "line": "241",
+  "direction": "Rueil-Malmaison <RER>",
+  "stop_id": "36839",
+  "line_ref": "C01239"
+ },
+ "02B5:67": {
+  "stop": "Issy RER",
+  "line": "123",
+  "direction": "Porte d'Auteuil - Métro",
+  "stop_id": "22550",
+  "line_ref": "C01152"
  },
  "02BE:11": {
   "stop": "Fleury",
   "line": "169",
   "direction": "Pont de Sèvres",
-  "stop_id": "37807"
+  "stop_id": "37807",
+  "line_ref": "C01190"
  },
  "02BE:12": {
   "stop": "Rue de l'Egalité",
   "line": "128",
   "direction": "Porte d'Orléans",
-  "stop_id": "35147"
+  "stop_id": "35147",
+  "line_ref": "C01157"
  },
  "02BE:15": {
   "stop": "Hébert - Gare",
   "line": "189",
   "direction": "Porte de Saint-Cloud - Métro",
-  "stop_id": "36159"
+  "stop_id": "36159",
+  "line_ref": "C01210"
  },
  "02BE:62": {
   "stop": "Val Fleury RER",
   "line": "289",
   "direction": "Georges Pompidou",
-  "stop_id": "37845"
+  "stop_id": "37845",
+  "line_ref": "C01264"
  },
  "02BE:68": {
   "stop": "Pont de Levallois - Bécon",
   "line": "167",
   "direction": "Piscine - Patinoire",
-  "stop_id": "7866"
+  "stop_id": "7866",
+  "line_ref": "C01189"
  },
- "02CB:3": {
-  "stop": "Les Boullereaux - Champigny RER",
-  "line": "106",
-  "direction": "Gare de Joinville-le-Pont",
-  "stop_id": "39519"
- },
- "02CB:4": {
-  "stop": "Les Boullereaux - Champigny RER",
-  "line": "110",
-  "direction": "Villiers-Sur-Marne - le Plessis-Trévise <RER>",
-  "stop_id": "39519"
- },
- "02CB:5": {
-  "stop": "République - Alexandre Fourny",
-  "line": "110",
-  "direction": "Gare de Joinville-le-Pont",
-  "stop_id": "22458"
- },
- "02CB:6": {
-  "stop": "République - Alexandre Fourny",
-  "line": "116",
-  "direction": "Gare de Champigny - Saint-Maur",
-  "stop_id": "22458"
+ "02BE:9": {
+  "stop": "Cimetière Parisien",
+  "line": "151",
+  "direction": "Jouhaux - Blum",
+  "stop_id": "28277",
+  "line_ref": "C01175"
  },
  "02CB:12": {
   "stop": "Centre Administratif",
   "line": "292",
   "direction": "Zac les Gâtines - Capitaine Jean d'Hers",
-  "stop_id": "8304"
+  "stop_id": "8304",
+  "line_ref": "C01267"
  },
  "02CB:13": {
   "stop": "Route de Bry - Aristide Briand",
   "line": "306",
   "direction": "Gare de Saint-Maur - Créteil",
-  "stop_id": "26033"
+  "stop_id": "26033",
+  "line_ref": "C01276"
  },
  "02CB:14": {
   "stop": "Route de Bry - Aristide Briand",
   "line": "210",
   "direction": "Villiers-Sur-Marne - le Plessis-Trévise <RER>",
-  "stop_id": "26033"
+  "stop_id": "26033",
+  "line_ref": "C01224"
+ },
+ "02CB:15": {
+  "stop": "Square des Allobroges",
+  "line": "206",
+  "direction": "Gare de Noisy-le-Grand - Mont d'Est",
+  "stop_id": "36384",
+  "line_ref": "C01221"
  },
  "02CB:16": {
   "stop": "Square des Allobroges",
   "line": "207",
   "direction": "Gare de Noisy-le-Grand - Mont d'Est",
-  "stop_id": "36384"
+  "stop_id": "36384",
+  "line_ref": "C01222"
  },
  "02CB:17": {
   "stop": "Square des Allobroges",
   "line": "306",
   "direction": "Gare de Noisy-le-Grand - Mont d'Est",
-  "stop_id": "36384"
+  "stop_id": "36384",
+  "line_ref": "C01276"
+ },
+ "02CB:3": {
+  "stop": "Les Boullereaux - Champigny RER",
+  "line": "106",
+  "direction": "Gare de Joinville-le-Pont",
+  "stop_id": "39519",
+  "line_ref": "C01135"
+ },
+ "02CB:4": {
+  "stop": "Les Boullereaux - Champigny RER",
+  "line": "110",
+  "direction": "Villiers-Sur-Marne - le Plessis-Trévise <RER>",
+  "stop_id": "39519",
+  "line_ref": "C01139"
+ },
+ "02CB:5": {
+  "stop": "République - Alexandre Fourny",
+  "line": "110",
+  "direction": "Gare de Joinville-le-Pont",
+  "stop_id": "22458",
+  "line_ref": "C01139"
  },
  "02CB:52": {
   "stop": "Château Landon",
   "line": "26",
   "direction": "Cours de Vincennes",
-  "stop_id": "8423"
+  "stop_id": "8423",
+  "line_ref": "C01076"
+ },
+ "02CB:6": {
+  "stop": "République - Alexandre Fourny",
+  "line": "116",
+  "direction": "Gare de Champigny - Saint-Maur",
+  "stop_id": "22458",
+  "line_ref": "C01145"
  },
  "02CB:64": {
   "stop": "Rosenberg",
   "line": "162",
   "direction": "Parc Maison Blanche",
-  "stop_id": "27707"
+  "stop_id": "27707",
+  "line_ref": "C01184"
  },
  "02CB:65": {
   "stop": "Rosenberg",
   "line": "388",
   "direction": "Porte d'Orléans",
-  "stop_id": "27707"
+  "stop_id": "27707",
+  "line_ref": "C01314"
  },
  "02CB:74": {
   "stop": "Damrémont - Marcadet",
   "line": "95",
   "direction": "Porte de Vanves - Place Simard",
-  "stop_id": "24889"
+  "stop_id": "24889",
+  "line_ref": "C01126"
+ },
+ "02D9:16": {
+  "stop": "Aristide Briand",
+  "line": "165",
+  "direction": "Porte de Champerret",
+  "stop_id": "36333",
+  "line_ref": "C01187"
  },
  "02D9:17": {
   "stop": "Saint-Pierre du Gros Caillou",
   "line": "69",
   "direction": "Champs de Mars",
-  "stop_id": "26296"
+  "stop_id": "26296",
+  "line_ref": "C01105"
  },
  "02D9:24": {
   "stop": "Gâtine RN3",
   "line": "147",
   "direction": "Avenue Ronsard",
-  "stop_id": "37434"
+  "stop_id": "37434",
+  "line_ref": "C01172"
+ },
+ "02D9:25": {
+  "stop": "Gâtine RN3",
+  "line": "146",
+  "direction": "Les Bosquets",
+  "stop_id": "37434",
+  "line_ref": "C01171"
  },
  "02D9:30": {
   "stop": "Place Churchill",
   "line": "213",
   "direction": "Bois de l'Étang - Université",
-  "stop_id": "10079"
+  "stop_id": "10079",
+  "line_ref": "C01227"
+ },
+ "02D9:49": {
+  "stop": "Fontenay - Houdan",
+  "line": "192",
+  "direction": "Marché International de Rungis",
+  "stop_id": "29852",
+  "line_ref": "C01213"
+ },
+ "02D9:65": {
+  "stop": "Lycée de Rueil",
+  "line": "141",
+  "direction": "La Défense (voie Perronet Sud)",
+  "stop_id": "8531",
+  "line_ref": "C01167"
  },
  "02D9:66": {
   "stop": "Voie des Laitières",
   "line": "396",
   "direction": "Marché International de Rungis",
-  "stop_id": "25219"
+  "stop_id": "25219",
+  "line_ref": "C01321"
  },
  "02F0:46": {
   "stop": "Croix de Chavaux - Rouget de Lisle",
   "line": "115",
-  "direction": "Croix de Chavaux - Rouget de Lisle",
-  "stop_id": "36974"
+  "direction": "Château de Vincennes",
+  "stop_id": "36974",
+  "line_ref": "C01144"
  },
  "02F0:47": {
   "stop": "Croix de Chavaux - Rouget de Lisle",
   "line": "102",
   "direction": "Gambetta - Mairie du 20e",
-  "stop_id": "36974"
+  "stop_id": "36974",
+  "line_ref": "C01131"
  },
  "02F0:48": {
   "stop": "Croix de Chavaux - Rouget de Lisle",
   "line": "122",
   "direction": "Gallieni",
-  "stop_id": "36974"
+  "stop_id": "36974",
+  "line_ref": "C01151"
  },
  "02F0:49": {
   "stop": "Croix de Chavaux - Rouget de Lisle",
   "line": "202",
   "direction": "Porte de Montreuil",
-  "stop_id": "36974"
+  "stop_id": "36974",
+  "line_ref": "C02714"
+ },
+ "02F0:51": {
+  "stop": "Maurice Utrillo",
+  "line": "164",
+  "direction": "Porte de Champerret",
+  "stop_id": "483245",
+  "line_ref": "C01186"
  },
  "02F0:52": {
   "stop": "Bérionne",
   "line": "164",
   "direction": "Porte de Champerret",
-  "stop_id": "427944"
+  "stop_id": "427944",
+  "line_ref": "C01186"
  },
  "02F5:1": {
   "stop": "Paul de Kock",
   "line": "245",
   "direction": "Église de Pantin - Métro",
-  "stop_id": "25965"
+  "stop_id": "25965",
+  "line_ref": "C02713"
  },
  "02F5:28": {
   "stop": "Mathurins",
   "line": "391",
   "direction": "Gare de Vanves - Malakoff",
-  "stop_id": "24176"
+  "stop_id": "24176",
+  "line_ref": "C01317"
  },
  "02F5:42": {
   "stop": "Rue du Bac - René Char",
   "line": "68",
   "direction": "Place de Clichy",
-  "stop_id": "26293"
+  "stop_id": "26293",
+  "line_ref": "C01104"
+ },
+ "02F5:50": {
+  "stop": "Gambetta",
+  "line": "323",
+  "direction": "Issy - Val de Seine",
+  "stop_id": "479951",
+  "line_ref": "C01287"
  },
  "02F5:51": {
   "stop": "Rue Froide",
   "line": "391",
   "direction": "Gare de Vanves - Malakoff",
-  "stop_id": "29274"
+  "stop_id": "29274",
+  "line_ref": "C01317"
  },
  "02F5:55": {
   "stop": "Rue de Jouy",
   "line": "96",
   "direction": "Porte des Lilas",
-  "stop_id": "37546"
+  "stop_id": "37546",
+  "line_ref": "C01127"
  },
  "02F5:65": {
   "stop": "Paul de Kock",
   "line": "145",
   "direction": "Église de Pantin - Métro",
-  "stop_id": "25965"
+  "stop_id": "25965",
+  "line_ref": "C01170"
  },
  "0300:13": {
   "stop": "Hôpital La Roseraie",
   "line": "170",
   "direction": "Porte des Lilas",
-  "stop_id": "37301"
+  "stop_id": "37301",
+  "line_ref": "C01191"
  },
  "0300:14": {
   "stop": "Hôpital La Roseraie",
   "line": "249",
   "direction": "Porte des Lilas",
-  "stop_id": "37301"
+  "stop_id": "37301",
+  "line_ref": "C01241"
  },
  "0300:15": {
   "stop": "Hôpital La Roseraie",
   "line": "150",
   "direction": "Porte de la Villette",
-  "stop_id": "37301"
+  "stop_id": "37301",
+  "line_ref": "C01174"
  },
  "0300:29": {
   "stop": "Félix Faure",
   "line": "88",
   "direction": "Montsouris - Tombe Issoire",
-  "stop_id": "25759"
+  "stop_id": "25759",
+  "line_ref": "C01120"
  },
  "0300:30": {
   "stop": "Félix Faure",
   "line": "70",
   "direction": "Sèvres-Lecourbe",
-  "stop_id": "25759"
+  "stop_id": "25759",
+  "line_ref": "C01106"
  },
  "0300:33": {
   "stop": "Pont Neuf - Quai des Grands Augustins",
   "line": "58",
   "direction": "Châtelet",
-  "stop_id": "22319"
+  "stop_id": "22319",
+  "line_ref": "C01095"
  },
  "0300:34": {
   "stop": "Pont Neuf - Quai des Grands Augustins",
   "line": "70",
   "direction": "Hôtel de Ville",
-  "stop_id": "22319"
+  "stop_id": "22319",
+  "line_ref": "C01106"
  },
  "0300:65": {
   "stop": "Général de Gaulle",
   "line": "131",
   "direction": "Porte d'Italie - Hélène Boucher",
-  "stop_id": "7846"
+  "stop_id": "7846",
+  "line_ref": "C01159"
  },
  "0300:66": {
   "stop": "Général de Gaulle",
   "line": "396",
   "direction": "Gare de la Croix de Berny",
-  "stop_id": "7846"
+  "stop_id": "7846",
+  "line_ref": "C01321"
+ },
+ "0300:72": {
+  "stop": "Malnoue - Ancien Monastère",
+  "line": "212",
+  "direction": "Centre Commercial",
+  "stop_id": "26847",
+  "line_ref": "C01226"
+ },
+ "0300:73": {
+  "stop": "Malnoue - Ancien Monastère",
+  "line": "312",
+  "direction": "Gare de Noisy-Champs - Descartes",
+  "stop_id": "26847",
+  "line_ref": "C01279"
  },
  "0300:75": {
   "stop": "Malnoue - Place Auguste Legemble",
   "line": "312",
   "direction": "Gare de Noisy-Champs - Descartes",
-  "stop_id": "22468"
+  "stop_id": "22468",
+  "line_ref": "C01279"
  },
- "0309:2": {
-  "stop": "Église de Gournay",
-  "line": "213",
-  "direction": "Bois de l'Étang - Université",
-  "stop_id": "15619"
+ "0300:77": {
+  "stop": "Malnoue - Bois des Souches",
+  "line": "312",
+  "direction": "Gare de Noisy-Champs - Descartes",
+  "stop_id": "22467",
+  "line_ref": "C01279"
  },
- "0309:8": {
-  "stop": "Église",
-  "line": "303",
-  "direction": "Avenue de Rosny",
-  "stop_id": "28491"
+ "0309:0": {
+  "stop": "Malnoue - Ancien Monastère",
+  "line": "212",
+  "direction": "CROUS",
+  "stop_id": "26846",
+  "line_ref": "C01226"
+ },
+ "0309:1": {
+  "stop": "Malnoue - Ancien Monastère",
+  "line": "312",
+  "direction": "Gare de Noisy - Champs",
+  "stop_id": "26846",
+  "line_ref": "C01279"
  },
  "0309:19": {
   "stop": "Descartes",
   "line": "301",
   "direction": "Gare de Val de Fontenay",
-  "stop_id": "27058"
+  "stop_id": "27058",
+  "line_ref": "C01272"
+ },
+ "0309:2": {
+  "stop": "Église de Gournay",
+  "line": "213",
+  "direction": "Bois de l'Étang - Université",
+  "stop_id": "15619",
+  "line_ref": "C01227"
  },
  "0309:58": {
   "stop": "Fraternité",
   "line": "115",
-  "direction": "Croix de Chavaux - Rouget de Lisle",
-  "stop_id": "26409"
+  "direction": "Château de Vincennes",
+  "stop_id": "26409",
+  "line_ref": "C01144"
  },
  "0309:61": {
   "stop": "Mairie de Montreuil - Rouget de Lisle",
   "line": "115",
-  "direction": "Croix de Chavaux - Rouget de Lisle",
-  "stop_id": "22648"
+  "direction": "Château de Vincennes",
+  "stop_id": "22648",
+  "line_ref": "C01144"
  },
- "030A:8": {
-  "stop": "Les Godardes",
-  "line": "244",
-  "direction": "Rueil-Malmaison <RER>",
-  "stop_id": "24503"
+ "0309:8": {
+  "stop": "Église",
+  "line": "303",
+  "direction": "Avenue de Rosny",
+  "stop_id": "28491",
+  "line_ref": "C01274"
  },
- "030A:49": {
-  "stop": "Saint-Germain-des-Prés",
-  "line": "39",
-  "direction": "Frères Voisin",
-  "stop_id": "37143"
+ "0309:9": {
+  "stop": "Église",
+  "line": "220",
+  "direction": "Bry-Sur-Marne <RER>",
+  "stop_id": "28491",
+  "line_ref": "C01232"
  },
  "030A:54": {
   "stop": "Port Royal - Berthollet",
   "line": "21",
-  "direction": "Saint-Michel - Saint-Germain",
-  "stop_id": "30107"
+  "direction": "Porte de Saint-Ouen - Hôpital Bichat",
+  "stop_id": "30107",
+  "line_ref": "C01073"
  },
  "030A:55": {
   "stop": "Roses",
   "line": "103",
   "direction": "École Vétérinaire de Maisons-Alfort",
-  "stop_id": "39505"
+  "stop_id": "39505",
+  "line_ref": "C01132"
  },
  "030A:56": {
   "stop": "Raymond Jaclard",
   "line": "103",
   "direction": "École Vétérinaire de Maisons-Alfort",
-  "stop_id": "7768"
+  "stop_id": "7768",
+  "line_ref": "C01132"
+ },
+ "030A:8": {
+  "stop": "Les Godardes",
+  "line": "244",
+  "direction": "Rueil-Malmaison <RER>",
+  "stop_id": "24503",
+  "line_ref": "C01240"
  },
  "030C:72": {
   "stop": "Puits La Marlière",
   "line": "268",
-  "direction": "Saint-Denis - Université",
-  "stop_id": "38211"
+  "direction": "Gare de Pierrefitte - Stains <RER>",
+  "stop_id": "38211",
+  "line_ref": "C01251"
  },
  "0311:63": {
   "stop": "Saint-Sulpice",
   "line": "84",
   "direction": "Alsace",
-  "stop_id": "22846"
+  "stop_id": "22846",
+  "line_ref": "C01116"
  },
  "0315:18": {
   "stop": "Souvenir Français",
   "line": "163",
   "direction": "Nanterre - Préfecture <RER>",
-  "stop_id": "27419"
+  "stop_id": "27419",
+  "line_ref": "C01185"
  },
  "0315:29": {
   "stop": "Mairie",
   "line": "128",
   "direction": "Porte d'Orléans",
-  "stop_id": "12270"
+  "stop_id": "12270",
+  "line_ref": "C01157"
+ },
+ "0315:30": {
+  "stop": "Mairie",
+  "line": "192",
+  "direction": "Marché International de Rungis",
+  "stop_id": "12270",
+  "line_ref": "C01213"
  },
  "0315:54": {
   "stop": "Petit Robinson",
   "line": "187",
   "direction": "Porte d'Orléans",
-  "stop_id": "19635"
+  "stop_id": "19635",
+  "line_ref": "C01208"
  },
  "0315:62": {
   "stop": "Cluseret - Hôpital Foch",
   "line": "241",
   "direction": "Porte d'Auteuil - Métro",
-  "stop_id": "24922"
+  "stop_id": "24922",
+  "line_ref": "C01239"
  },
  "0315:63": {
   "stop": "Cluseret - Hôpital Foch",
   "line": "360",
   "direction": "La Défense (voie Perronet Sud)",
-  "stop_id": "24922"
+  "stop_id": "24922",
+  "line_ref": "C01304"
  },
  "0315:64": {
   "stop": "Cluseret - Hôpital Foch",
   "line": "160",
   "direction": "Nanterre - Préfecture <RER>",
-  "stop_id": "24922"
+  "stop_id": "24922",
+  "line_ref": "C01183"
  },
  "0315:70": {
   "stop": "Les Jardins de la Bièvre",
   "line": "187",
   "direction": "Fresnes les Groux",
-  "stop_id": "427507"
+  "stop_id": "427507",
+  "line_ref": "C01208"
  },
  "0318:28": {
   "stop": "Auguste Delaune",
   "line": "162",
   "direction": "Parc Maison Blanche",
-  "stop_id": "8043"
+  "stop_id": "8043",
+  "line_ref": "C01184"
+ },
+ "0318:30": {
+  "stop": "Auguste Delaune",
+  "line": "162",
+  "direction": "Villejuif - Louis Aragon",
+  "stop_id": "8044",
+  "line_ref": "C01184"
  },
  "0318:32": {
   "stop": "Jeanne Vacher",
   "line": "108",
   "direction": "Gare de Joinville-le-Pont",
-  "stop_id": "28041"
+  "stop_id": "28041",
+  "line_ref": "C01137"
  },
  "0318:38": {
   "stop": "Albert 1er",
   "line": "272",
   "direction": "Gare d'Argenteuil",
-  "stop_id": "23990"
+  "stop_id": "23990",
+  "line_ref": "C01254"
+ },
+ "0319:1": {
+  "stop": "Jaurès",
+  "line": "165",
+  "direction": "Porte de Champerret",
+  "stop_id": "492720",
+  "line_ref": "C01187"
  },
  "0319:12": {
   "stop": "Jaurès",
   "line": "140",
   "direction": "Mairie de Saint-Ouen - Dhalenne",
-  "stop_id": "492720"
+  "stop_id": "492720",
+  "line_ref": "C01166"
+ },
+ "0319:18": {
+  "stop": "Rond-Point des Pyramides",
+  "line": "213",
+  "direction": "Gare de Chelles - Gournay",
+  "stop_id": "426682",
+  "line_ref": "C01227"
  },
  "0319:37": {
   "stop": "Kléber - Boissière",
   "line": "82",
-  "direction": "École Militaire",
-  "stop_id": "23496"
+  "direction": "Luxembourg",
+  "stop_id": "23496",
+  "line_ref": "C01114"
  },
  "0319:46": {
   "stop": "Marché",
   "line": "102",
   "direction": "Gare de Rosny - Bois-Perrier",
-  "stop_id": "26375"
+  "stop_id": "26375",
+  "line_ref": "C01131"
  },
  "0319:53": {
   "stop": "Place de Catalogne",
   "line": "88",
   "direction": "Montsouris - Tombe Issoire",
-  "stop_id": "29967"
+  "stop_id": "29967",
+  "line_ref": "C01120"
+ },
+ "031B:3": {
+  "stop": "Saint-Germain - Odéon",
+  "line": "96",
+  "direction": "Gare Montparnasse",
+  "stop_id": "37591",
+  "line_ref": "C01127"
  },
  "031B:4": {
   "stop": "Julien Lacroix",
   "line": "96",
   "direction": "Gare Montparnasse",
-  "stop_id": "37574"
+  "stop_id": "37574",
+  "line_ref": "C01127"
+ },
+ "031C:1": {
+  "stop": "Le Parc",
+  "line": "259",
+  "direction": "Nanterre - Papeteries",
+  "stop_id": "39379",
+  "line_ref": "C02000"
  },
  "031C:23": {
   "stop": "Place de la République",
   "line": "269",
   "direction": "Garges - Sarcelles <RER>",
-  "stop_id": "426436"
+  "stop_id": "426436",
+  "line_ref": "C01252"
  },
  "031C:28": {
   "stop": "Raspail - République",
   "line": "318",
   "direction": "Raymond Queneau - Route de Noisy",
-  "stop_id": "24939"
+  "stop_id": "24939",
+  "line_ref": "C01281"
  },
  "031C:44": {
   "stop": "Petit Noisy",
   "line": "105",
   "direction": "Mairie",
-  "stop_id": "26383"
+  "stop_id": "26383",
+  "line_ref": "C01134"
  },
  "031C:49": {
   "stop": "Inkermann - Bineau",
   "line": "174",
   "direction": "La Défense (voie Perronet Sud)",
-  "stop_id": "25834"
+  "stop_id": "25834",
+  "line_ref": "C01195"
  },
  "031C:59": {
   "stop": "Le Parc",
   "line": "258",
   "direction": "La Défense (voie Perronet Nord)",
-  "stop_id": "39379"
+  "stop_id": "39379",
+  "line_ref": "C01248"
  },
  "031F:1": {
   "stop": "Rue du Fort",
   "line": "169",
   "direction": "Pont de Sèvres",
-  "stop_id": "24360"
+  "stop_id": "24360",
+  "line_ref": "C01190"
  },
  "031F:13": {
   "stop": "Pierre Brossolette - Gabriel Péri",
   "line": "126",
   "direction": "Parc de Saint-Cloud",
-  "stop_id": "24043"
+  "stop_id": "24043",
+  "line_ref": "C01155"
  },
  "031F:14": {
   "stop": "Rue du Fort",
   "line": "323",
   "direction": "Châtillon - Montrouge",
-  "stop_id": "24360"
+  "stop_id": "24360",
+  "line_ref": "C01287"
  },
  "031F:34": {
   "stop": "Chartres",
   "line": "43",
   "direction": "Gare du Nord",
-  "stop_id": "28709"
+  "stop_id": "28709",
+  "line_ref": "C01086"
  },
  "031F:35": {
   "stop": "Chartres",
   "line": "82",
-  "direction": "École Militaire",
-  "stop_id": "28709"
+  "direction": "Luxembourg",
+  "stop_id": "28709",
+  "line_ref": "C01114"
+ },
+ "031F:37": {
+  "stop": "De Pressensé",
+  "line": "144",
+  "direction": "Rueil-Malmaison <RER>",
+  "stop_id": "39494",
+  "line_ref": "C01169"
  },
  "031F:52": {
   "stop": "Rhin et Danube",
   "line": "304",
   "direction": "Les Courtilles",
-  "stop_id": "8070"
+  "stop_id": "8070",
+  "line_ref": "C01275"
  },
  "031F:53": {
   "stop": "Rhin et Danube",
   "line": "378",
   "direction": "Les Courtilles",
-  "stop_id": "8070"
+  "stop_id": "8070",
+  "line_ref": "C01311"
+ },
+ "031F:54": {
+  "stop": "Rhin et Danube",
+  "line": "167",
+  "direction": "Pont de Levallois - Bécon",
+  "stop_id": "8070",
+  "line_ref": "C01189"
  },
  "031F:71": {
   "stop": "Mairie de Noisy-le-Grand - Jean Vaquier",
   "line": "303",
   "direction": "Gare de Noisy-le-Grand - Mont d'Est",
-  "stop_id": "25861"
+  "stop_id": "25861",
+  "line_ref": "C01274"
  },
  "031F:72": {
   "stop": "Mairie de Noisy-le-Grand - Jean Vaquier",
   "line": "220",
   "direction": "Gare de Torcy",
-  "stop_id": "25861"
- },
- "0327:5": {
-  "stop": "Rue des Champs",
-  "line": "165",
-  "direction": "Porte de Champerret",
-  "stop_id": "36820"
- },
- "0327:9": {
-  "stop": "Ville Évrard",
-  "line": "113",
-  "direction": "Mairie",
-  "stop_id": "472118"
+  "stop_id": "25861",
+  "line_ref": "C01232"
  },
  "0327:28": {
   "stop": "Anatole France Métro",
   "line": "174",
   "direction": "Saint-Ouen <RER>",
-  "stop_id": "25827"
+  "stop_id": "25827",
+  "line_ref": "C01195"
  },
  "0327:30": {
   "stop": "Mairie de Levallois",
   "line": "174",
   "direction": "Saint-Ouen <RER>",
-  "stop_id": "25825"
+  "stop_id": "25825",
+  "line_ref": "C01195"
  },
  "0327:32": {
   "stop": "Marjolin",
   "line": "174",
   "direction": "Saint-Ouen <RER>",
-  "stop_id": "25831"
+  "stop_id": "25831",
+  "line_ref": "C01195"
  },
  "0327:33": {
   "stop": "Marjolin",
   "line": "94",
   "direction": "Gare Montparnasse",
-  "stop_id": "25831"
+  "stop_id": "25831",
+  "line_ref": "C01125"
+ },
+ "0327:5": {
+  "stop": "Rue des Champs",
+  "line": "165",
+  "direction": "Porte de Champerret",
+  "stop_id": "36820",
+  "line_ref": "C01187"
+ },
+ "0327:68": {
+  "stop": "Fontenay-sous-Bois RER",
+  "line": "210",
+  "direction": "Villiers-Sur-Marne - le Plessis-Trévise <RER>",
+  "stop_id": "28747",
+  "line_ref": "C01224"
  },
  "0327:69": {
   "stop": "Fontenay-sous-Bois RER",
   "line": "124",
   "direction": "Montreuil-Boissière-Acacia",
-  "stop_id": "28747"
+  "stop_id": "28747",
+  "line_ref": "C01153"
  },
  "0327:73": {
   "stop": "Mairie de Clichy - Métro",
   "line": "174",
   "direction": "Saint-Ouen <RER>",
-  "stop_id": "413117"
+  "stop_id": "413117",
+  "line_ref": "C01195"
  },
- "0337:4": {
-  "stop": "Pont Neuf - Quai des Orfèvres",
-  "line": "27",
-  "direction": "Porte d'Ivry",
-  "stop_id": "30157"
+ "0327:9": {
+  "stop": "Ville Évrard",
+  "line": "113",
+  "direction": "Terre Ciel",
+  "stop_id": "472118",
+  "line_ref": "C01142"
+ },
+ "0337:19": {
+  "stop": "Mairie",
+  "line": "299",
+  "direction": "Porte d'Orléans - Ernest Reyer",
+  "stop_id": "2383",
+  "line_ref": "C01271"
  },
  "0337:48": {
   "stop": "Carrefour de l'Insurrection",
   "line": "126",
   "direction": "Parc de Saint-Cloud",
-  "stop_id": "28714"
+  "stop_id": "28714",
+  "line_ref": "C01155"
  },
  "0337:49": {
   "stop": "Carrefour de l'Insurrection",
   "line": "89",
   "direction": "Porte de France",
-  "stop_id": "28714"
+  "stop_id": "28714",
+  "line_ref": "C01121"
+ },
+ "0337:54": {
+  "stop": "Les Closeaux",
+  "line": "216",
+  "direction": "Marché International de Rungis",
+  "stop_id": "7845",
+  "line_ref": "C01230"
  },
  "0337:55": {
   "stop": "Les Closeaux",
   "line": "131",
   "direction": "Rungis - la Fraternelle <RER>",
-  "stop_id": "7845"
+  "stop_id": "7845",
+  "line_ref": "C01159"
  },
  "0337:62": {
   "stop": "La Boursidière",
   "line": "179",
   "direction": "Pont de Sèvres",
-  "stop_id": "28637"
+  "stop_id": "28637",
+  "line_ref": "C01200"
  },
  "0337:74": {
   "stop": "Stade",
   "line": "275",
   "direction": "La Défense (voie Perronet Nord)",
-  "stop_id": "20440"
+  "stop_id": "20440",
+  "line_ref": "C01256"
+ },
+ "0337:75": {
+  "stop": "Stade",
+  "line": "175",
+  "direction": "Porte de Saint-Cloud",
+  "stop_id": "20440",
+  "line_ref": "C01196"
  },
  "0339:32": {
   "stop": "Vélizy 2",
   "line": "179",
   "direction": "Gare de Robinson",
-  "stop_id": "23178"
+  "stop_id": "23178",
+  "line_ref": "C01200"
+ },
+ "0348:0": {
+  "stop": "Jules Guesde",
+  "line": "394",
+  "direction": "Issy - Val de Seine <RER>",
+  "stop_id": "40415",
+  "line_ref": "C01319"
  },
  "0348:2": {
   "stop": "Groupe Scolaire Brossolette",
   "line": "389",
   "direction": "Hôtel de Ville",
-  "stop_id": "37871"
+  "stop_id": "37871",
+  "line_ref": "C01315"
  },
  "0348:3": {
   "stop": "Albert Roper",
   "line": "396",
   "direction": "Gare de la Croix de Berny",
-  "stop_id": "26832"
+  "stop_id": "26832",
+  "line_ref": "C01321"
  },
  "034E:19": {
   "stop": "Mairie de Clichy",
   "line": "54",
   "direction": "Gabriel Péri - Métro",
-  "stop_id": "24435"
+  "stop_id": "24435",
+  "line_ref": "C01092"
+ },
+ "034E:26": {
+  "stop": "Charonne - Bagnolet",
+  "line": "76",
+  "direction": "Montreuil - Hôpital",
+  "stop_id": "26321",
+  "line_ref": "C01111"
  },
  "034E:35": {
   "stop": "République - Général Leclerc",
   "line": "217",
   "direction": "Hôtel de Ville",
-  "stop_id": "26710"
+  "stop_id": "26710",
+  "line_ref": "C01231"
  },
  "034E:37": {
   "stop": "Edmond Fouinat",
   "line": "104",
   "direction": "École Vétérinaire de Maisons-Alfort",
-  "stop_id": "39337"
+  "stop_id": "39337",
+  "line_ref": "C01133"
  },
  "034E:38": {
   "stop": "Cimetière - Hôtel de Ville",
   "line": "105",
   "direction": "Mairie",
-  "stop_id": "24611"
+  "stop_id": "24611",
+  "line_ref": "C01134"
  },
  "034E:39": {
   "stop": "Petit Noisy",
   "line": "105",
   "direction": "Porte des Lilas",
-  "stop_id": "22417"
+  "stop_id": "22417",
+  "line_ref": "C01134"
+ },
+ "034E:4": {
+  "stop": "Passy - Boulainvilliers",
+  "line": "32",
+  "direction": "Gare de l'Est",
+  "stop_id": "25096",
+  "line_ref": "C01082"
  },
  "034E:41": {
   "stop": "André Laurent",
   "line": "118",
   "direction": "Gare de Val de Fontenay",
-  "stop_id": "27380"
+  "stop_id": "27380",
+  "line_ref": "C01147"
+ },
+ "034E:42": {
+  "stop": "Général de Gaulle",
+  "line": "126",
+  "direction": "Porte d'Orléans",
+  "stop_id": "27738",
+  "line_ref": "C01155"
  },
  "034E:43": {
   "stop": "Général de Gaulle",
   "line": "189",
   "direction": "Georges Pompidou",
-  "stop_id": "27738"
+  "stop_id": "27738",
+  "line_ref": "C01210"
  },
  "034E:51": {
   "stop": "Verdier / Aquapol",
   "line": "128",
   "direction": "Gare de Robinson",
-  "stop_id": "35153"
+  "stop_id": "35153",
+  "line_ref": "C01157"
+ },
+ "034E:54": {
+  "stop": "Henri Regnault",
+  "line": "141",
+  "direction": "La Défense (voie Perronet Sud)",
+  "stop_id": "7910",
+  "line_ref": "C01167"
  },
  "034E:57": {
   "stop": "Pierre Louvrier",
   "line": "189",
   "direction": "Porte de Saint-Cloud - Métro",
-  "stop_id": "37804"
+  "stop_id": "37804",
+  "line_ref": "C01210"
  },
  "034E:59": {
   "stop": "République",
   "line": "189",
   "direction": "Porte de Saint-Cloud - Métro",
-  "stop_id": "27739"
+  "stop_id": "27739",
+  "line_ref": "C01210"
  },
  "034E:60": {
   "stop": "Hugo - Blum",
   "line": "172",
-  "direction": "Mairie",
-  "stop_id": "421256"
+  "direction": "Hôpital Henri Mondor",
+  "stop_id": "421256",
+  "line_ref": "C01193"
  },
  "034E:62": {
   "stop": "Mairie de Courbevoie",
   "line": "175",
   "direction": "Les Bruyères",
-  "stop_id": "18259"
+  "stop_id": "18259",
+  "line_ref": "C01196"
  },
  "034E:66": {
   "stop": "Boulevard Marcel Paul",
   "line": "237",
   "direction": "Gare d'Epinay-Sur-Seine",
-  "stop_id": "25815"
+  "stop_id": "25815",
+  "line_ref": "C01236"
+ },
+ "034E:67": {
+  "stop": "Gallieni",
+  "line": "238",
+  "direction": "Port de Gennevilliers - Centre de Vie",
+  "stop_id": "426950",
+  "line_ref": "C01237"
  },
  "034E:68": {
   "stop": "Croix du Roy",
   "line": "244",
   "direction": "Rueil-Malmaison <RER>",
-  "stop_id": "7934"
+  "stop_id": "7934",
+  "line_ref": "C01240"
  },
  "034E:70": {
   "stop": "Croix du Roy",
   "line": "144",
   "direction": "Rueil-Malmaison <RER>",
-  "stop_id": "7934"
+  "stop_id": "7934",
+  "line_ref": "C01169"
  },
  "034E:73": {
   "stop": "Place Jean Jaurès",
   "line": "241",
   "direction": "Porte d'Auteuil - Métro",
-  "stop_id": "41725"
+  "stop_id": "41725",
+  "line_ref": "C01239"
  },
  "034E:76": {
   "stop": "Le Globe",
   "line": "255",
   "direction": "Les Prévoyants",
-  "stop_id": "28300"
- },
- "0352:3": {
-  "stop": "Mairie - Centre Administratif",
-  "line": "126",
-  "direction": "Parc de Saint-Cloud",
-  "stop_id": "22332"
- },
- "0352:5": {
-  "stop": "Général de Gaulle",
-  "line": "126",
-  "direction": "Parc de Saint-Cloud",
-  "stop_id": "27737"
- },
- "0352:6": {
-  "stop": "Général de Gaulle",
-  "line": "189",
-  "direction": "Porte de Saint-Cloud - Métro",
-  "stop_id": "27737"
+  "stop_id": "28300",
+  "line_ref": "C01246"
  },
  "0352:23": {
   "stop": "Garibaldi",
   "line": "144",
   "direction": "La Défense (voie Perronet Nord)",
-  "stop_id": "34368"
+  "stop_id": "34368",
+  "line_ref": "C01169"
+ },
+ "0352:3": {
+  "stop": "Mairie - Centre Administratif",
+  "line": "126",
+  "direction": "Parc de Saint-Cloud",
+  "stop_id": "22332",
+  "line_ref": "C01155"
  },
  "0352:44": {
   "stop": "Charles Pasqua",
   "line": "390",
   "direction": "Europe Sud",
-  "stop_id": "8147"
+  "stop_id": "8147",
+  "line_ref": "C01316"
  },
  "0352:45": {
   "stop": "Charles Pasqua",
   "line": "395",
   "direction": "Pavé Blanc",
-  "stop_id": "8147"
+  "stop_id": "8147",
+  "line_ref": "C01320"
+ },
+ "0352:5": {
+  "stop": "Général de Gaulle",
+  "line": "126",
+  "direction": "Parc de Saint-Cloud",
+  "stop_id": "27737",
+  "line_ref": "C01155"
+ },
+ "0352:6": {
+  "stop": "Général de Gaulle",
+  "line": "189",
+  "direction": "Porte de Saint-Cloud - Métro",
+  "stop_id": "27737",
+  "line_ref": "C01210"
  },
  "0357:38": {
   "stop": "Carrefour de l'Europe",
   "line": "216",
   "direction": "Marché International de Rungis",
-  "stop_id": "18213"
+  "stop_id": "18213",
+  "line_ref": "C01230"
  },
  "0357:43": {
   "stop": "ZAC les Gâtines - Capitaine Jean d'Hers",
   "line": "292",
   "direction": "Porte de l'Essonne",
-  "stop_id": "22917"
+  "stop_id": "22917",
+  "line_ref": "C01267"
  },
  "0357:44": {
   "stop": "Aristide Briand - Champagne",
   "line": "292",
   "direction": "Porte de l'Essonne",
-  "stop_id": "29768"
+  "stop_id": "29768",
+  "line_ref": "C01267"
+ },
+ "0357:45": {
+  "stop": "Les Fleurs",
+  "line": "292",
+  "direction": "Zac les Gâtines - Capitaine Jean d'Hers",
+  "stop_id": "29772",
+  "line_ref": "C01267"
  },
  "0357:47": {
   "stop": "Aristide Briand - Champagne",
   "line": "292",
   "direction": "Zac les Gâtines - Capitaine Jean d'Hers",
-  "stop_id": "29767"
+  "stop_id": "29767",
+  "line_ref": "C01267"
  },
  "0357:48": {
   "stop": "Croix Blanche",
   "line": "395",
   "direction": "Pavé Blanc",
-  "stop_id": "12961"
+  "stop_id": "12961",
+  "line_ref": "C01320"
  },
  "0357:60": {
   "stop": "Gare de Sarcelles - Saint-Brice",
   "line": "370",
   "direction": "Église / Marché de Saint-Brice",
-  "stop_id": "413360"
+  "stop_id": "413360",
+  "line_ref": "C01309"
  },
  "035A:12": {
   "stop": "Landy - Martre",
   "line": "174",
   "direction": "La Défense (voie Perronet Sud)",
-  "stop_id": "36600"
+  "stop_id": "36600",
+  "line_ref": "C01195"
  },
  "035A:13": {
   "stop": "Landy - Martre",
   "line": "274",
   "direction": "Porte des Ternes - Anny Flore",
-  "stop_id": "36600"
+  "stop_id": "36600",
+  "line_ref": "C01255"
  },
  "035A:14": {
   "stop": "Landy - Martre",
   "line": "341",
   "direction": "Charles de Gaulle - Étoile",
-  "stop_id": "36600"
+  "stop_id": "36600",
+  "line_ref": "C01294"
  }
 }
