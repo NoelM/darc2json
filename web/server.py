@@ -19,7 +19,7 @@ PARIS = ZoneInfo('Europe/Paris')
 STARTED = time.time()
 FREQ_MHZ = RTL_FM[RTL_FM.index('-f') + 1].rstrip('M')
 API_URL = 'https://prim.iledefrance-mobilites.fr/marketplace/stop-monitoring?MonitoringRef=STIF:StopPoint:Q:%s:'
-API_TTL, API_TIMEOUT = 60, 5
+API_TTL, API_TIMEOUT = 120, 5  # IDFM: at most one call per stop every 2 min
 LINE = re.compile(r'(\d\d):(\d\d):(\d\d)\s+p([0-9A-F]{4}) s(\d+)\s+(.{19}) (.{19})\s*$')
 
 lock = threading.Lock()
@@ -94,25 +94,54 @@ def replay_source(path, speed, start):
     return R()
 
 
+FREQS = ('95.6', '101.5', '89.9', '100.7')   # stations known to carry DARC
+retune = threading.Event()
+
+
 def run_chain(args):
-    br = subprocess.Popen([BLOCKREADER, '/dev/stdin'], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
-    procs.append(br)
-    threading.Thread(target=read_blockreader, args=(br.stdout,), daemon=True).start()
-    if args.replay:
-        source = replay_source(args.replay, args.speed, args.start)
-        state.update(mode='replay', speed=args.speed)
-    else:
-        rtl = subprocess.Popen(RTL_FM, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
-        procs.append(rtl)
-        source = rtl.stdout
-        state.update(mode='live')
-    try:
-        feed(source, br.stdin)
-        if not args.replay and not stop_event.is_set():
-            state['error'] = 'rtl_fm stopped (dongle unplugged or busy?)'
-    except Exception as e:
-        state['error'] = repr(e)
+    """Replay: one pass. Live: restart rtl_fm and blockreader on each retune (pages differ between stations)."""
+    while True:
+        br = subprocess.Popen([BLOCKREADER, '/dev/stdin'], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+        procs.append(br)
+        reader = threading.Thread(target=read_blockreader, args=(br.stdout,), daemon=True)
+        reader.start()
+        if args.replay:
+            source = replay_source(args.replay, args.speed, args.start)
+            state.update(mode='replay', speed=args.speed)
+        else:
+            RTL_FM[RTL_FM.index('-f') + 1] = FREQ_MHZ + 'M'
+            rtl = subprocess.Popen(RTL_FM, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
+            procs.append(rtl)
+            source = rtl.stdout
+            state.update(mode='live')
+        try:
+            feed(source, br.stdin)
+        except Exception as e:
+            if not retune.is_set(): state['error'] = repr(e)
+        if args.replay or stop_event.is_set() or not retune.is_set():
+            if not args.replay and not stop_event.is_set():
+                state['error'] = 'rtl_fm stopped (dongle unplugged or busy?)'
+            break
+        # retune: drop this chain and everything decoded from the old station
+        for p in (rtl, br):
+            if p.poll() is None: p.kill()
+            p.wait(); procs.remove(p)
+        reader.join(5)   # no late line from the old station after the clear
+        with lock:
+            slots.clear()
+            state.update(frame_sod=None, error='', last_block=0.0)
+            state['blocks'].clear()
+        retune.clear()
     state['done'] = True
+
+
+def set_freq(f):
+    """Ask the live chain to move to frequency f (one of FREQS)."""
+    global FREQ_MHZ
+    FREQ_MHZ = f
+    retune.set()
+    for p in procs:
+        if p.args == RTL_FM and p.poll() is None: p.kill()   # feed() sees EOF and run_chain restarts
 
 
 def stream_now():
@@ -154,7 +183,7 @@ def api_state():
         recv = dict(mode=state['mode'], blocks_per_s=round(rate, 1), total_blocks=state['total'],
                     last_block_ago=round(now - state['last_block'], 1) if state['last_block'] else None,
                     error=state['error'], finished=state['done'], uptime_s=round(now - STARTED),
-                    freq_mhz=FREQ_MHZ if state['mode'] == 'live' else None,
+                    freq_mhz=FREQ_MHZ if state['mode'] == 'live' else None, freqs=FREQS,
                     slots_received=len(slots),
                     slots_with_times=sum(any('sod' in w for w in s['words']) for s in slots.values()),
                     identified_total=len(stops), identified_received=sum(k in slots for k in stops),
@@ -174,11 +203,11 @@ def norm(s):
 
 api_cache = {}        # stop_id -> (fetched_at, visits list or None on failure)
 api_lock = threading.Lock()
-def stop_visits(stop_id):
+def stop_visits(stop_id, ttl=API_TTL):
     """MonitoredStopVisit list for a stop point, cached API_TTL s (failures too); None if unavailable."""
     with api_lock:
         hit = api_cache.get(stop_id)
-        if hit and time.time() - hit[0] < API_TTL: return hit[1]
+        if hit and time.time() - hit[0] < max(ttl, API_TTL): return hit[1]  # never below API_TTL
         print('api fetch', stop_id, flush=True)
         try:
             req = urllib.request.Request(API_URL % urllib.parse.quote(stop_id, safe=''),
@@ -197,7 +226,7 @@ def first(lst):
     return lst[0]['value'] if lst else ''
 
 
-def compare(keys):
+def compare(keys, ttl=API_TTL):
     """Per watched slot key with a stop_id: the API's next two times on the same clock as the radio's."""
     stops = load_stops()
     with lock:
@@ -209,7 +238,7 @@ def compare(keys):
         e = stops.get(k) or {}
         if not e.get('stop_id'): continue
         if not os.environ.get('IDFM_API_KEY'): out[k] = dict(status='nokey'); continue
-        visits = stop_visits(e['stop_id'])
+        visits = stop_visits(e['stop_id'], ttl)
         if visits is None: out[k] = dict(status='unavailable'); continue
         want = norm(e.get('direction'))
         if not want: out[k] = dict(status='nodirection'); continue
@@ -251,7 +280,8 @@ def edit_stops(key, entry):
         with open(STOPS) as f:
             data = json.load(f)
         if entry is None: data.pop(key, None)
-        else: data[key] = entry
+        else:  # fields the editor does not handle are kept
+            data[key] = {**{f: v for f, v in data.get(key, {}).items() if f in ('freqs', 'line_ref')}, **entry}
         tmp = STOPS + '.tmp'
         with open(tmp, 'w') as f:
             json.dump(data, f, indent=2, ensure_ascii=False); f.write('\n')
@@ -280,7 +310,8 @@ class Handler(BaseHTTPRequestHandler):
         if self.path == '/api/state': self.send(200, api_state())
         elif self.path.startswith('/api/compare?'):
             q = urllib.parse.parse_qs(urllib.parse.urlparse(self.path).query)
-            self.send(200, compare([k for k in ','.join(q.get('keys', [])).split(',') if KEY.match(k)]))
+            ttl = int(q['ttl'][0]) if q.get('ttl', [''])[0].isdigit() else API_TTL
+            self.send(200, compare([k for k in ','.join(q.get('keys', [])).split(',') if KEY.match(k)], ttl))
         elif self.path == '/api/stops': self.send(200, load_stops())
         elif self.path in ('/', '/index.html'):
             with open(os.path.join(HERE, 'index.html'), 'rb') as f: self.send(200, f.read(), 'text/html')
@@ -297,6 +328,15 @@ class Handler(BaseHTTPRequestHandler):
             return self.send(400, {'error': 'body must be an object with "stop" and optional line/direction/stop_id strings'})
         edit_stops(k, e)
         self.send(200, {'ok': True})
+
+    def do_POST(self):
+        if self.path != '/api/freq': return self.send(404, {'error': 'not found'})
+        if state['mode'] != 'live': return self.send(409, {'error': 'only in live mode'})
+        try: f = f"{float(json.loads(self.rfile.read(int(self.headers.get('Content-Length', 0))))['freq_mhz']):g}"
+        except (ValueError, KeyError, TypeError): f = None
+        if f not in FREQS: return self.send(400, {'error': 'freq_mhz must be one of ' + ', '.join(FREQS)})
+        if f != FREQ_MHZ: set_freq(f)
+        self.send(200, {'ok': True, 'freq_mhz': f})
 
     def do_DELETE(self):
         k = self.key()
@@ -320,7 +360,10 @@ def main():
     ap.add_argument('--speed', type=float, default=1.0, help='replay speed factor (default 1 = real time)')
     ap.add_argument('--start', type=float, default=0.0, help='replay start offset in seconds')
     ap.add_argument('--port', type=int, default=8080)
+    ap.add_argument('--freq', default='101.5', help='FM frequency in MHz for live mode (default 101.5; DARC also on 95.6, 89.9, 100.7)')
     args = ap.parse_args()
+    global FREQ_MHZ
+    FREQ_MHZ = f'{float(args.freq):g}'
     signal.signal(signal.SIGINT, shutdown); signal.signal(signal.SIGTERM, shutdown)
     threading.Thread(target=run_chain, args=(args,), daemon=True).start()
     srv = ThreadingHTTPServer(('127.0.0.1', args.port), Handler)

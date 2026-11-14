@@ -4,24 +4,85 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Bus times</title>
 <style>
-:root{--bg:#f3f5f8;--card:#fff;--ink:#1c2430;--dim:#667085;--line:#dde2ea;--accent:#0b66d0;--ok:#127a3e;--bad:#b42318;--warn:#9a6700}
+:root{--bg:#f3f5f8;--card:#fff;--ink:#1c2430;--dim:#667085;--line:#dde2ea;--field:#b8c0cc;--accent:#0b66d0;--tint:#e8f0fb;--ok:#127a3e;--bad:#b42318;--warn:#9a6700;--r:12px;--pad:1.1rem}
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.35 system-ui,-apple-system,sans-serif}
-header{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem 1rem;padding:.8rem clamp(.8rem,3vw,2rem);background:#fff;border-bottom:1px solid var(--line)}
-h1{font-size:1.25rem;margin:0;flex:1 1 auto}
-h2{font-size:1.05rem;margin:0 0 .6rem}
+h1{font-size:1.25rem;margin:0}
+h2{font-size:1.1rem;margin:0}
+p{margin:0}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* top bar and tabs */
+.top{position:sticky;top:0;z-index:7;display:flex;flex-wrap:wrap;align-items:center;gap:.4rem 1.5rem;padding:.55rem clamp(.8rem,3vw,2rem);background:#fff;border-bottom:1px solid var(--line)}
+.top h1{order:1}
+.tabs{order:2;display:flex;gap:.25rem}
+.tabs a{display:flex;align-items:center;gap:.4rem;padding:.45rem .9rem;border-radius:8px;color:var(--dim);font-weight:600;text-decoration:none}
+.tabs a:hover{background:var(--bg)}
+.tabs a[aria-current=page]{background:var(--tint);color:var(--accent)}
+.count{min-width:1.3rem;padding:0 .35rem;border-radius:99px;background:var(--warn);color:#fff;font-size:.75rem;line-height:1.3rem;text-align:center}
+#rx{order:3;margin-left:auto}
+@media(max-width:640px){.tabs{order:4;flex:1 1 100%}.tabs a{flex:1;justify-content:center}#rx{order:2}}
+
 main{padding:clamp(.8rem,3vw,2rem);display:grid;gap:1.5rem;max-width:2200px;margin:auto}
-.pill{display:inline-flex;align-items:center;gap:.4rem;padding:.25rem .7rem;border-radius:99px;font-size:.9rem;background:#e7f6ec;color:var(--ok)}
+.view{display:grid;gap:1.5rem}
+.narrow{max-width:66rem;width:100%;margin:0 auto}
+.sh{display:flex;align-items:baseline;gap:.8rem;margin-bottom:.7rem}
+.sh .dim{margin-left:auto}
+
+.pill{display:inline-flex;align-items:center;gap:.4rem;padding:.25rem .7rem;border-radius:99px;font-size:.9rem;background:#e7f6ec;color:var(--ok);text-decoration:none;cursor:pointer;border:0;font:inherit;font-size:.9rem}
 .pill.bad{background:#fde7e5;color:var(--bad)}.pill.wait{background:#fff4d6;color:var(--warn)}
 .pill::before{content:"";width:.6rem;height:.6rem;border-radius:50%;background:currentColor}
 .dim{color:var(--dim)}.small{font-size:.85rem}
-button,input{font:inherit}
-input{padding:.5rem .6rem;border:1px solid #b8c0cc;border-radius:8px;min-width:0;background:#fff;color:inherit}
-button{padding:.45rem .8rem;border:1px solid var(--accent);background:var(--accent);color:#fff;border-radius:8px;cursor:pointer}
-button.sec{background:#fff;color:var(--accent)}button.x{border-color:var(--line);color:var(--dim);background:#fff;padding:.2rem .6rem}
+.mono{font-family:ui-monospace,Menlo,monospace}
+.ok{color:var(--ok)}.warn{color:var(--warn)}.bad{color:var(--bad)}
+
+/* controls: one look for every input and button */
+button,input,select{font:inherit}
+input,select{min-height:2.5rem;padding:.45rem .65rem;border:1px solid var(--field);border-radius:8px;min-width:0;background:#fff;color:inherit}
+input:disabled,select:disabled{background:var(--bg);color:var(--dim)}
+button{min-height:2.5rem;padding:.45rem .9rem;border:1px solid var(--accent);background:var(--accent);color:#fff;border-radius:8px;cursor:pointer}
+button.sec{background:#fff;color:var(--accent)}
+button.x{min-height:0;border-color:var(--line);color:var(--dim);background:#fff;padding:.2rem .6rem}
 button.danger{border-color:var(--bad);color:var(--bad);background:#fff}
-#q{width:100%;font-size:1.2rem;padding:.8rem 1rem;border-radius:12px}
+button.small{min-height:2rem;padding:.2rem .7rem}
+button:disabled{opacity:.5;cursor:default}
+.msg{font-size:.85rem;color:var(--dim)}.msg:empty{display:none}
+
+/* groups: a titled card holding rows */
+.group{background:var(--card);border:1px solid var(--line);border-radius:var(--r)}
+.gh{padding:.9rem var(--pad) .7rem}
+.gh .lede{margin-top:.2rem;color:var(--dim);font-size:.85rem}
+.gh .sh{margin:0}
+.set{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.4rem 1.5rem;align-items:center;padding:.8rem var(--pad);border-top:1px solid var(--line)}
+.set .lbl>label,.set .lbl>b{display:block;font-weight:600}
+.hint{margin-top:.1rem;color:var(--dim);font-size:.85rem}
+.ctl{display:flex;gap:.5rem;align-items:center;justify-content:flex-end;flex-wrap:wrap}
+.ctl select{width:12rem;max-width:100%}
+.ctl input[type=number]{width:6rem}
+.set>.msg{grid-column:1/-1}
+@media(max-width:560px){.set{grid-template-columns:1fr}.ctl{justify-content:flex-start}}
+.stats{margin:0}
+.stats>div{display:flex;justify-content:space-between;gap:1rem;padding:.55rem var(--pad);border-top:1px solid var(--line)}
+.stats dt{color:var(--dim)}.stats dd{margin:0;text-align:right;font-weight:600;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,26rem),1fr));gap:1.5rem;align-items:start}
+.stack{display:grid;gap:1.5rem}
+
+/* signal meter */
+.meter{padding:.2rem var(--pad) 1rem}
+.big{display:flex;align-items:baseline;gap:.5rem;margin-bottom:.5rem}
+.big b{font-size:2.4rem;line-height:1;font-variant-numeric:tabular-nums}
+.bar{position:relative;height:.6rem;border-radius:99px;background:#e4e7ec;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .6s}
+.bar.wait i{background:#d4a017}.bar.bad i{background:var(--bad)}
+.bar::after{content:"";position:absolute;left:54%;top:0;bottom:0;width:2px;background:#fff}
+.meter .hint{margin-top:.5rem}
+@media(prefers-reduced-motion:reduce){.bar i{transition:none}}
+
+/* stop search and bus cards */
+#q{width:100%;font-size:1.2rem;min-height:3rem;padding:.8rem 1rem;border-radius:12px}
 #results{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,22rem),1fr));gap:.8rem;margin-top:.8rem}
+#results:empty{display:none}
 .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:.8rem 1rem}
 .card h3{margin:0 0 .4rem;font-size:1.05rem;display:flex;gap:.5rem;align-items:baseline;flex-wrap:wrap}
 .card h3 .sp{flex:1}
@@ -34,80 +95,199 @@ button.danger{border-color:var(--bad);color:var(--bad);background:#fff}
 .row .dir{overflow-wrap:anywhere}.row .times{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:.1rem 1.2rem;margin-top:.5rem}.row .times .api{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:0 1.2rem}.api .m{grid-column:1/-1}.dir .pill,.key{position:relative}
 [data-tip]:hover::after,[data-tip]:focus::after{content:attr(data-tip);position:absolute;left:0;top:calc(100% + .3rem);z-index:6;width:max-content;max-width:15rem;padding:.35rem .6rem;border-radius:8px;background:#1d2939;color:#fff;font:.8rem/1.3 system-ui,sans-serif;white-space:normal;box-shadow:0 4px 14px #0003;pointer-events:none}
 .api>span[data-tip]{position:relative}
-.key{display:inline-block;font-size:.7rem;padding:0 .4rem;border-radius:99px;background:#e4e7ec;color:#475467;cursor:help}.mono{font-family:ui-monospace,Menlo,monospace}.dir .pill{cursor:help;font:inherit;font-size:.7rem;padding:0 .4rem;margin-left:.4rem}.dir .pill::before{width:.45rem;height:.45rem}
+.key.fq{margin-left:.3rem;background:#dbe8fb;color:#1f5fa8}.key.fq.off{background:#e4e7ec;color:#98a2b3}
+.key{display:inline-block;font-size:.7rem;padding:0 .4rem;border-radius:99px;background:#e4e7ec;color:#475467;cursor:help}.dir .pill{cursor:help;font:inherit;font-size:.7rem;padding:0 .4rem;margin-left:.4rem}.dir .pill::before{width:.45rem;height:.45rem}
 .t{display:flex;flex-direction:column}.t b{font-size:1.5rem;line-height:1.1}.t span{font-size:.8rem;color:var(--dim)}
 .t.gone b{color:var(--dim);text-decoration:line-through;font-size:1.1rem}
 .t.soon b{color:var(--ok)}
 .note{grid-column:2/4;font-size:.8rem;color:var(--dim)}.note.warn{color:var(--warn)}
 .api{font-size:.8rem;margin-top:.15rem;color:var(--dim)}.api .ok{color:var(--ok)}.api .warn{color:var(--warn)}.api .bad{color:var(--bad)}.api b{font-weight:600}
-.pill{cursor:pointer;border:0;font:inherit;font-size:.9rem}
-header{position:relative}
-#panel{display:none;position:absolute;right:clamp(.8rem,3vw,2rem);top:calc(100% + .4rem);z-index:5;width:min(22rem,calc(100vw - 1.6rem));background:#fff;border:1px solid var(--line);border-radius:12px;padding:.7rem 1rem;box-shadow:0 6px 24px #0002;font-size:.9rem}
-#panel.open{display:block}#panel dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:.25rem .8rem}
-#panel dt{color:var(--dim)}#panel dd{margin:0;text-align:right}
 .board-dim{opacity:.45}
-.banner{padding:.6rem 1rem;border-radius:10px;background:#fde7e5;color:var(--bad);display:none}
-details{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:.7rem 1rem}
-summary{cursor:pointer;font-weight:600}
-.form{display:grid;grid-template-columns:repeat(auto-fit,minmax(10rem,1fr));gap:.6rem;margin:.8rem 0}
-.form label{display:flex;flex-direction:column;font-size:.85rem;color:var(--dim);gap:.2rem}
-.form label.wide{grid-column:span 2}
-@media(max-width:480px){.form label.wide{grid-column:auto}}
-#list{max-height:24rem;overflow-y:auto;margin-top:.6rem}
-.mrow{display:flex;gap:.5rem;align-items:center;padding:.35rem 0;border-top:1px solid var(--line);flex-wrap:wrap}
-.mrow .what{flex:1 1 14rem;min-width:0;overflow-wrap:anywhere}
-.inline{display:flex;gap:.5rem;flex-wrap:wrap;align-items:end}
-.inline input{width:6rem}
+.banner{padding:.6rem 1rem;border-radius:10px;background:#fde7e5;color:var(--bad)}
+.empty{padding:1.5rem 1rem;border:1px dashed var(--field);border-radius:var(--r);color:var(--dim);text-align:center}
+
+/* stop names: list beside editor */
+.split{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:1.5rem;align-items:start}
+@media(max-width:860px){.split{grid-template-columns:1fr}}
+.search{padding:0 var(--pad) .8rem}.search input{width:100%}
+.scroll{max-height:min(60vh,34rem);overflow-y:auto;border-top:1px solid var(--line)}
+.srow{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:.2rem .7rem;align-items:center;padding:.6rem var(--pad);border-top:1px solid var(--line)}
+.scroll>.srow:first-child{border-top:0}
+.srow.sel{background:var(--tint)}
+.srow .what{min-width:0;overflow-wrap:anywhere}
+.srow .sub{display:flex;align-items:center;flex-wrap:wrap;gap:.1rem .2rem;font-size:.85rem;color:var(--dim)}
+.srow .sub .key{margin-left:0}
+.scroll .empty{margin:var(--pad)}
+.editor{position:sticky;top:4.5rem}
+@media(max-width:860px){.editor{position:static}}
+.editor form{display:grid}
+.fs{padding:.8rem var(--pad) 1rem;border-top:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.fs h3{grid-column:1/-1;margin:0;font-size:1rem}
+.f{display:flex;flex-direction:column;gap:.25rem;font-size:.9rem;color:var(--dim);min-width:0}
+.f.full{grid-column:1/-1}
+.f input{width:100%;color:var(--ink)}
+.actions{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;padding:.9rem var(--pad);border-top:1px solid var(--line)}
+.actions .msg{flex:1 1 100%}
+.actions .gap{flex:1}
+.addcode{display:flex;gap:.6rem;align-items:flex-end;flex-wrap:wrap;padding:.8rem var(--pad) 1rem;border-top:1px solid var(--line)}
+.addcode .f{width:8rem}
+.addcode .msg{flex:1 1 100%}
 </style>
-<header>
+<div class="top">
  <h1>🚌 Bus times</h1>
- <div id="rxbox"><button id="rx" class="pill wait" aria-expanded="false" aria-controls="panel">Connecting…</button><div id="panel"></div></div>
-</header>
+ <nav class="tabs" aria-label="Sections">
+  <a href="#board" data-tab="board">Board</a>
+  <a href="#stops" data-tab="stops">Stops<span id="tUnk" class="count" hidden></span></a>
+  <a href="#radio" data-tab="radio">Radio</a>
+ </nav>
+ <a id="rx" class="pill wait" href="#radio">Connecting…</a>
+</div>
 <main>
- <div id="banner" class="banner"></div>
- <section>
-  <input id="q" type="search" autocomplete="off" placeholder="Search stop, line or direction">
-  <div id="results"></div>
- </section>
- <section>
-  <h2>My stops</h2>
-  <div id="board"></div>
- </section>
- <details id="adv">
-  <summary>Add a bus line that is not identified yet</summary>
-  <p class="dim small">The radio signal sends each bus line at each stop under a code: a page (4 characters, like 0015) and a slot number. Some are not matched to a stop name yet. If you know the code, you can follow it here and then give it a name.</p>
-  <div class="inline">
-   <label class="small dim">Page<br><input id="wp" placeholder="0015" maxlength="4"></label>
-   <label class="small dim">Slot<br><input id="ws" placeholder="0" inputmode="numeric"></label>
-   <button onclick="addManual()">Follow</button>
-   <span class="dim small">Currently received but unidentified: <span id="unk">0</span>. Type a code in the search box above to find them.</span>
+ <div id="banner" class="banner" hidden>Cannot reach the server. The times below are old and no longer update.</div>
+
+ <div id="v-board" class="view">
+  <section>
+   <div class="sh"><h2>Find a stop</h2></div>
+   <input id="q" type="search" autocomplete="off" placeholder="Search stop, line or direction" aria-label="Search stop, line or direction">
+   <div id="results"></div>
+  </section>
+  <section>
+   <div class="sh"><h2>My stops</h2><span id="wcount" class="dim small"></span></div>
+   <div id="board"></div>
+  </section>
+ </div>
+
+ <div id="v-stops" class="view narrow" hidden>
+  <div class="split">
+   <section class="group">
+    <div class="gh">
+     <div class="sh"><h2>Stop names</h2><span class="dim small"><span id="n">0</span> known</span></div>
+     <p class="lede">Saved in stops.json and shared with everyone using this app.</p>
+    </div>
+    <div class="search"><input id="mf" type="search" placeholder="Filter by stop, line or direction" aria-label="Filter stop names"></div>
+    <div id="list" class="scroll"></div>
+   </section>
+   <section class="group editor">
+    <div class="gh"><h2 id="etitle">Add a stop name</h2></div>
+    <form id="eform" autocomplete="off">
+     <div class="fs" role="group" aria-labelledby="h-code">
+      <h3 id="h-code">Radio code</h3>
+      <label class="f">Page<input id="ep" class="mono" placeholder="0015" maxlength="4" pattern="[0-9A-Fa-f]{1,4}" required></label>
+      <label class="f">Slot<input id="es" class="mono" placeholder="0" inputmode="numeric" pattern="[0-9]+" required></label>
+     </div>
+     <div class="fs" role="group" aria-labelledby="h-stop">
+      <h3 id="h-stop">Stop</h3>
+      <label class="f full">Stop name<input id="est" required></label>
+      <label class="f">Bus line (optional)<input id="el" placeholder="52"></label>
+      <label class="f">Stop ID (optional)<input id="ei" class="mono"></label>
+      <label class="f full">Direction, towards (optional)<input id="ed"></label>
+     </div>
+     <div class="actions">
+      <button type="submit">Save</button>
+      <button type="button" class="sec" id="eclear">Clear</button>
+      <span class="gap"></span>
+      <button type="button" class="danger" id="edel" hidden>Delete</button>
+      <p id="msg" class="msg" role="status"></p>
+     </div>
+    </form>
+   </section>
   </div>
- </details>
- <details id="editor">
-  <summary>Edit stop names (<span id="n">0</span> known)</summary>
-  <p class="dim small">This list is saved in stops.json and is shared with everyone using this app.</p>
-  <div class="form">
-   <label>Page<input id="ep" placeholder="0015" maxlength="4"></label>
-   <label>Slot<input id="es" placeholder="0" inputmode="numeric"></label>
-   <label class="wide">Stop name (required)<input id="est"></label>
-   <label>Bus line<input id="el" placeholder="52"></label>
-   <label class="wide">Direction (towards)<input id="ed"></label>
-   <label>Stop ID (optional)<input id="ei"></label>
+
+  <section class="group">
+   <div class="gh">
+    <div class="sh"><h2>Lines without a name</h2><span class="dim small"><span id="unk">0</span> received now</span></div>
+    <p class="lede">The radio sends each bus line at each stop under a code: a page of 4 characters (like 0015) and a slot number. These codes are being received but have no stop name yet. Follow one to watch its times, then name it.</p>
+   </div>
+   <div id="unlist" class="scroll"></div>
+   <form id="aform" class="addcode" autocomplete="off">
+    <label class="f">Page<input id="wp" class="mono" placeholder="0015" maxlength="4" pattern="[0-9A-Fa-f]{1,4}" required></label>
+    <label class="f">Slot<input id="ws" class="mono" placeholder="0" inputmode="numeric" pattern="[0-9]+" required></label>
+    <button type="submit">Follow code</button>
+    <p id="amsg" class="msg" role="status"></p>
+   </form>
+  </section>
+ </div>
+
+ <div id="v-radio" class="view narrow" hidden>
+  <div class="cols">
+   <div class="stack">
+    <section class="group">
+     <div class="gh"><h2>Receiver</h2></div>
+     <div class="set">
+      <div class="lbl"><label for="freq">Listening frequency</label><p id="fhint" class="hint">Changing it retunes the receiver for everyone using this app. Times disappear for about 10 s.</p></div>
+      <div class="ctl"><select id="freq" disabled></select></div>
+      <p id="fmsg" class="msg" role="status"></p>
+     </div>
+     <div class="set">
+      <div class="lbl"><b>Source</b></div>
+      <div class="ctl"><span id="r-src">–</span></div>
+     </div>
+    </section>
+    <section class="group">
+     <div class="gh"><h2>Official API</h2><p class="lede">Used to compare the radio times with the official ones.</p></div>
+     <div class="set">
+      <div class="lbl"><label for="every">Check every</label><p class="hint">Seconds, minimum 120.</p></div>
+      <div class="ctl"><input id="every" type="number" min="120" step="10" inputmode="numeric"><span class="dim">s</span></div>
+      <p id="emsg" class="msg" role="status"></p>
+     </div>
+     <div class="set">
+      <div class="lbl"><b>Refresh now</b><p class="hint">Radio times refresh every 3 s. The official API is called again only if its last call is over 2 minutes old.</p></div>
+      <div class="ctl"><button id="refresh" class="sec" type="button">Refresh now</button></div>
+      <p id="smsg" class="msg" role="status"></p>
+     </div>
+     <div class="set">
+      <div class="lbl"><b>API key</b><p class="hint">Set IDFM_API_KEY before starting the server.</p></div>
+      <div class="ctl"><span id="r-api">–</span></div>
+     </div>
+    </section>
+   </div>
+
+   <div class="stack">
+    <section class="group">
+     <div class="gh"><h2>Signal</h2></div>
+     <div class="meter">
+      <div class="big"><b id="sigNum">0</b><span class="dim">of 55.6 blocks per second</span></div>
+      <div id="sigBar" class="bar wait" role="meter" aria-label="Blocks per second" aria-valuemin="0" aria-valuemax="55.6" aria-valuenow="0"><i id="sigFill"></i></div>
+      <p id="sigNote" class="hint"></p>
+     </div>
+     <dl class="stats">
+      <div><dt>Last block</dt><dd id="r-last">–</dd></div>
+      <div><dt>Total blocks</dt><dd id="r-total">–</dd></div>
+      <div><dt>Last error</dt><dd id="r-err">–</dd></div>
+     </dl>
+    </section>
+    <section class="group">
+     <div class="gh"><h2>Clocks</h2></div>
+     <dl class="stats">
+      <div><dt>Stream time</dt><dd id="r-stream">–</dd></div>
+      <div><dt>Computer time</dt><dd id="r-comp">–</dd></div>
+      <div id="row-off"><dt>Difference</dt><dd id="r-off">–</dd></div>
+     </dl>
+    </section>
+    <section class="group">
+     <div class="gh"><h2>Data received</h2></div>
+     <dl class="stats">
+      <div><dt>Slots received</dt><dd id="r-slots">–</dd></div>
+      <div><dt>Slots with times</dt><dd id="r-times">–</dd></div>
+      <div><dt>Named slots received</dt><dd id="r-ident">–</dd></div>
+      <div><dt>Running for</dt><dd id="r-up">–</dd></div>
+     </dl>
+    </section>
+   </div>
   </div>
-  <div class="inline"><button onclick="save()">Save</button><button class="sec" onclick="clearForm()">Clear</button><span id="msg" class="small"></span></div>
-  <input id="mf" type="search" placeholder="Filter this list" style="width:100%;margin-top:.8rem">
-  <div id="list"></div>
- </details>
+ </div>
 </main>
 <script>
 const $=id=>document.getElementById(id);
-let S=null,C={},fetchedAt=0,failed=false,watch=JSON.parse(localStorage.watch||'[]');
+let S=null,C={},fetchedAt=0,failed=false,view='board',watch=JSON.parse(localStorage.watch||'[]');
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>'&#'+c.charCodeAt(0)+';');
-const norm=s=>String(s??'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[-’']/g,' ');
+const norm=s=>String(s??'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().replace(/[-’']/g,' ');
 const keyOf=(p,s)=>p.trim().toUpperCase().padStart(4,'0')+':'+parseInt(s,10);
 const validKey=(p,s)=>/^[0-9a-f]{1,4}$/i.test(p.trim())&&/^\d+$/.test(s.trim());
 const badge=l=>`<span class="badge${l?'':' none'}">${esc(l||'?')}</span>`;
 const dur=m=>m<60?m+' min':Math.floor(m/60)+' h '+String(m%60).padStart(2,'0');
+const setHTML=(el,h)=>{if(el._h!==h){el._h=h;el.innerHTML=h}}; // skip identical renders so tooltips and scroll survive polling
+const put=(id,t,cls)=>{const e=$(id);e.textContent=t;e.className=cls||''};
 
 function apiLine(k,cols){
   const a=C[k];if(!a)return'';
@@ -127,30 +307,13 @@ function fmtTime(c,first){
   if(m<0)return `<div class="t gone"><b>left ${dur(-m)} ago</b><span>was due ${c.local}</span></div>`;
   return `<div class="t${m<=2?' soon':''}"><b>${m<1?'now':dur(m)}</b><span>${c.local}</span></div>`;
 }
+function freqTags(e){const f=(e&&e.freqs)||[],cur=S&&S.receiver&&S.receiver.freq_mhz;
+  return f.map(x=>`<span class="key fq${cur&&x!==cur?' off':''}" tabindex="0" data-tip="Found on ${x} MHz${cur&&x!==cur?' (receiver is on '+cur+' MHz)':''}">${x}</span>`).join('')}
 function agePill(s){const age=s.updated_ago+(Date.now()-fetchedAt)/1000|0;
   return `<span class="pill ${age>600?'bad':''}" tabindex="0" data-tip="From the radio: time since the last update of this line${age>600?' — check the times':''}">${ago(age)}</span>`}
 function ago(s){return s<90?s+' s':s<5400?Math.round(s/60)+' min':Math.round(s/3600)+' h'}
-
 function hms(s){s=Math.round(s);const h=Math.floor(s/3600),m=Math.floor(s%3600/60);return h?h+' h '+m+' min':m?m+' min '+s%60+' s':s+' s'}
-function renderPanel(){
-  const r=S&&S.receiver;if(!r){$('panel').innerHTML='Server not reachable.';return}
-  const row=(a,b,cls)=>`<dt>${a}</dt><dd class="${cls||''}">${b}</dd>`;
-  const off=r.clock_offset_s;
-  $('panel').innerHTML='<dl>'+
-   row('Mode',r.mode==='live'?'Live, '+r.freq_mhz+' MHz':'Replay of a recording')+
-   row('Blocks per second',r.blocks_per_s+' of 55.6 max',r.blocks_per_s<30?'bad':'')+
-   row('Total blocks',r.total_blocks.toLocaleString())+
-   row('Last block',r.last_block_ago==null?'none yet':r.last_block_ago+' s ago')+
-   row('Stream time',r.stream_time_local||'–')+
-   row('Computer time',new Date().toLocaleTimeString('fr-FR',{timeZone:'Europe/Paris'}))+
-   (off==null?'':row('Clock difference',(off>0?'+':'')+off.toFixed(1)+' s'+(Math.abs(off)>15?' — check':''),Math.abs(off)>15?'bad':''))+
-   row('Running for',hms(r.uptime_s))+
-   row('Slots received',r.slots_received)+
-   row('…carrying times',r.slots_with_times)+
-   row('Identified, received',r.identified_received+' of '+r.identified_total)+
-   row('Official API',r.api_available?'configured':'no key, comparison off')+
-   row('Last error',r.error?esc(r.error):'none',r.error?'bad':'')+'</dl>';
-}
+
 function receiverState(){
   const r=S&&S.receiver;
   if(failed||!r)return['bad','Server not reachable'];
@@ -158,7 +321,28 @@ function receiverState(){
   if(r.finished)return['bad','Recording finished'];
   if(!r.blocks_per_s)return['wait','Waiting for radio signal…'];
   if(r.blocks_per_s<30)return['wait','Weak signal (some data may be missing)'];
-  return['','Receiving live data'+(r.mode==='replay'?' (replay)':'')+(r.stream_time_local?' · '+r.stream_time_local.slice(0,5):'')];
+  return['','Receiving live data'+(r.mode==='replay'?' (replay)':'')+(r.stream_time_local?' at '+r.stream_time_local.slice(0,5):'')];
+}
+function renderRadio(){
+  const r=S&&S.receiver;
+  if(!r){put('sigNote','Server not reachable.','bad');return}
+  const bps=r.blocks_per_s,lvl=!bps?'bad':bps<30?'wait':'';
+  $('sigNum').textContent=bps;
+  $('sigBar').className='bar '+lvl;$('sigBar').setAttribute('aria-valuenow',bps);
+  $('sigFill').style.width=Math.min(100,bps/55.6*100)+'%';
+  put('sigNote',!bps?'No radio data is arriving.':bps<30?'Weak signal: some data may be missing.':'Good signal.',lvl==='bad'?'hint bad':lvl?'hint warn':'hint');
+  put('r-src',r.mode==='live'?'Live, '+r.freq_mhz+' MHz':'Replay of a recording');
+  put('r-api',r.api_available?'Configured':'Not set, comparison off',r.api_available?'ok':'dim');
+  put('r-last',r.last_block_ago==null?'none yet':r.last_block_ago+' s ago');
+  put('r-total',r.total_blocks.toLocaleString());
+  put('r-err',r.error||'none',r.error?'bad':'');
+  put('r-stream',r.stream_time_local||'–');
+  put('r-comp',new Date().toLocaleTimeString('fr-FR',{timeZone:'Europe/Paris'}));
+  const off=r.clock_offset_s;$('row-off').hidden=off==null;
+  if(off!=null)put('r-off',(off>0?'+':'')+off.toFixed(1)+' s'+(Math.abs(off)>15?', check':''),Math.abs(off)>15?'bad':'');
+  put('r-slots',r.slots_received);put('r-times',r.slots_with_times);
+  put('r-ident',r.identified_received+' of '+r.identified_total);
+  put('r-up',hms(r.uptime_s));
 }
 
 function entries(){ // all known stops, with live-received flag
@@ -168,7 +352,7 @@ function renderResults(){
   const q=$('q').value, el=$('results');
   if(!S){return}
   const toks=norm(q).split(/\s+/).filter(Boolean);
-  if(!toks.length){el.innerHTML='';return}
+  if(!toks.length){setHTML(el,'');return}
   const groups={};
   entries().filter(e=>toks.every(t=>e.hay.includes(t))).forEach(e=>(groups[e.stop]??=[]).push(e));
   const names=Object.keys(groups).sort((a,b)=>norm(a).localeCompare(norm(b))).slice(0,40);
@@ -177,22 +361,22 @@ function renderResults(){
     const todo=g.filter(e=>!watch.includes(e.k));
     return `<div class="card"><h3>${esc(n)}<span class="sp"></span>`+
      (todo.length?`<button data-add="${todo.map(e=>e.k).join(',')}">${g.length>1?`Add all ${todo.length===g.length?g.length:todo.length} lines`:'Add'}</button>`:`<span class="dim small">added</span>`)+`</h3>`+
-     g.map(e=>`<div class="opt">${badge(e.line)}<span class="what">${e.direction?'towards '+esc(e.direction):'<span class="dim">direction unknown</span>'}</span>`+
+     g.map(e=>`<div class="opt">${badge(e.line)}<span class="what">${e.direction?'towards '+esc(e.direction):'<span class="dim">direction unknown</span>'}${freqTags(e)}</span>`+
        (watch.includes(e.k)?`<span class="dim small">added</span>`:`<button class="sec" data-add="${e.k}">Add</button>`)+`</div>`).join('')+`</div>`;
   }).join('');
   const unk=S.slots.filter(s=>!S.stops[s.key]&&toks.every(t=>norm(s.key).includes(t)));
   if(unk.length)html+=`<div class="card"><h3>Not identified yet</h3>`+unk.slice(0,12).map(s=>`<div class="opt"><span class="what">Unknown bus line <span class="dim small">page ${s.page}, slot ${s.slot}</span></span>`+
     (watch.includes(s.key)?`<span class="dim small">added</span>`:`<button class="sec" data-add="${s.key}">Add</button>`)+`</div>`).join('')+`</div>`;
-  el.innerHTML=html||`<div class="dim">No stop matches “${esc(q)}”. Try fewer letters, or a line number.</div>`;
+  setHTML(el,html||`<div class="empty" style="grid-column:1/-1">No stop matches “${esc(q)}”. Try fewer letters, or a line number.</div>`);
 }
 
 function rowFor(k,by){
   const e=S.stops[k],s=by[k];
   let h=`<div class="row">${badge(e&&e.line)}<div class="dir">${e?(e.direction?'towards <b>'+esc(e.direction)+'</b>':'<span class="dim">direction unknown</span>'):'<b>Unidentified bus line</b>'}`+
-   `<div class="dim small mono"><span class="key" tabindex="0" data-tip="Radio page:slot">${k}</span>${s?agePill(s):''}</div></div><button class="x" data-rm="${k}" title="Remove from my stops" aria-label="Remove">✕</button>`;
+   `<div class="dim small mono"><span class="key" tabindex="0" data-tip="Radio page:slot">${k}</span>${freqTags(e)}${s?agePill(s):''}</div></div><button class="x" data-rm="${k}" title="Remove from my stops" aria-label="Remove from my stops">✕</button>`;
   if(!s)return h+`<div class="note">Waiting for the first update from the radio. A line only appears once its times change, which can take a few minutes.</div></div>`;
   h+=`<div class="times"><div><div class="small dim">Next bus</div>${fmtTime(s.columns[0])}</div><div><div class="small dim">Bus after that</div>${fmtTime(s.columns[1])}</div>${apiLine(k,s.columns)}</div>`;
-  if(!e)h+=`<div class="note"><button class="sec" data-name="${k}">Give it a name</button></div>`;
+  if(!e)h+=`<div class="note"><button class="sec small" data-name="${k}">Give it a name</button></div>`;
   return h+'</div>';
 }
 function renderBoard(){
@@ -201,63 +385,106 @@ function renderBoard(){
   const g={};
   watch.forEach(k=>{const e=S.stops[k];(g[e?e.stop:'Unidentified']??=[]).push(k)});
   const names=Object.keys(g).sort((a,b)=>(a==='Unidentified')-(b==='Unidentified')||norm(a).localeCompare(norm(b)));
-  $('board').innerHTML=names.map(n=>`<div class="card"><h3>${esc(n==='Unidentified'?'Unidentified bus lines':n)}</h3>`+
+  setHTML($('board'),names.map(n=>`<div class="card"><h3>${esc(n==='Unidentified'?'Unidentified bus lines':n)}</h3>`+
     g[n].sort((a,b)=>String((S.stops[a]||{}).line).localeCompare(String((S.stops[b]||{}).line),undefined,{numeric:true})).map(k=>rowFor(k,by)).join('')+'</div>').join('')||
-    '<div class="dim">No stops yet. Search above for a stop name, a line number or a direction, then press Add.</div>';
+    '<div class="empty" style="grid-column:1/-1">No stops yet. Search above for a stop name, a line number or a direction, then press Add.</div>');
   $('board').classList.toggle('board-dim',failed);
+  $('wcount').textContent=watch.length?watch.length+(watch.length>1?' lines':' line'):'';
+}
+
+const typedKey=()=>validKey($('ep').value,$('es').value)?keyOf($('ep').value,$('es').value):null;
+function syncEditor(){
+  const k=typedKey(),exists=!!(S&&k&&S.stops[k]);
+  $('etitle').textContent=exists?'Edit stop name':'Add a stop name';
+  $('edel').hidden=!exists;
 }
 function renderList(){
-  if(!$('editor').open||$('editor').contains(document.activeElement)&&document.activeElement.tagName==='BUTTON')return;
-  const toks=norm($('mf').value).split(/\s+/).filter(Boolean);
-  $('list').innerHTML=entries().filter(e=>toks.every(t=>e.hay.includes(t))).sort((a,b)=>norm(a.stop).localeCompare(norm(b.stop))).map(e=>
-   `<div class="mrow">${badge(e.line)}<span class="what"><b>${esc(e.stop)}</b>${e.direction?' → '+esc(e.direction):''} <span class="dim small">${e.k}</span></span>`+
-   `<button class="sec" data-edit="${e.k}">Edit</button><button class="danger" data-del="${e.k}">Delete</button></div>`).join('');
+  if(!S)return;
+  const toks=norm($('mf').value).split(/\s+/).filter(Boolean),sel=typedKey();
+  const rows=entries().filter(e=>toks.every(t=>e.hay.includes(t))).sort((a,b)=>norm(a.stop).localeCompare(norm(b.stop)));
+  setHTML($('list'),rows.map(e=>
+   `<div class="srow${e.k===sel?' sel':''}">${badge(e.line)}<div class="what"><b>${esc(e.stop)}</b><div class="sub">${e.direction?'towards '+esc(e.direction)+'&nbsp; ':''}<span class="key mono">${e.k}</span>${freqTags(e)}</div></div>`+
+   `<button class="sec small" data-edit="${e.k}">Edit</button></div>`).join('')||`<div class="empty">No stop name matches.</div>`);
+  const unk=S.slots.filter(s=>!S.stops[s.key]);
+  setHTML($('unlist'),unk.map(s=>`<div class="srow">${badge()}<div class="what"><b>Unknown bus line</b><div class="sub"><span class="key mono">${s.key}</span></div></div>`+
+   `<div class="ctl">${watch.includes(s.key)?'<span class="dim small">followed</span>':`<button class="sec small" data-add="${s.key}">Follow</button>`}<button class="sec small" data-name="${s.key}">Name it</button></div></div>`).join('')||`<div class="empty">Every code received right now has a name.</div>`);
 }
 function render(){
-  const[c,t]=receiverState();$('rx').className='pill '+c;$('rx').textContent=t;renderPanel();
-  const b=$('banner');b.style.display=failed?'block':'none';
-  b.textContent='Cannot reach the server. The times below are old and no longer update.';
-  if(!S)return;
-  $('n').textContent=Object.keys(S.stops).length;
-  $('unk').textContent=S.slots.filter(s=>!S.stops[s.key]).length;
-  renderBoard();
-  if(document.activeElement!==$('q'))renderResults();
-  renderList();
+  const[c,t]=receiverState();$('rx').className='pill '+c;$('rx').textContent=t;syncFreq();
+  $('banner').hidden=!failed;
+  if(!S){if(view==='radio')renderRadio();return}
+  const nu=S.slots.filter(s=>!S.stops[s.key]).length;
+  $('n').textContent=Object.keys(S.stops).length;$('unk').textContent=nu;
+  $('tUnk').hidden=!nu;$('tUnk').textContent=nu;
+  if(view==='board'){renderBoard();if(document.activeElement!==$('q'))renderResults()}
+  else if(view==='stops'){syncEditor();renderList()}
+  else renderRadio();
+}
+function route(){
+  const h=location.hash.slice(1);view=['board','stops','radio'].includes(h)?h:'board';
+  for(const n of['board','stops','radio']){
+    $('v-'+n).hidden=n!==view;
+    const a=document.querySelector(`[data-tab="${n}"]`);
+    n===view?a.setAttribute('aria-current','page'):a.removeAttribute('aria-current');
+  }
+  render();
 }
 async function poll(){
   try{S=await (await fetch('/api/state')).json();fetchedAt=Date.now();failed=false}catch(e){failed=true}
   await pollCompare();render();
 }
-async function pollCompare(){
+async function pollCompare(ttl=apiEvery()){
   const ks=watch.filter(k=>S&&S.stops[k]&&S.stops[k].stop_id);
   if(!ks.length||failed){C={};return}
-  try{C=await (await fetch('/api/compare?keys='+ks.join(','))).json()}catch(e){C={}}
+  try{C=await (await fetch('/api/compare?ttl='+ttl+'&keys='+ks.join(','))).json()}catch(e){C={}}
 }
-function setWatch(){localStorage.watch=JSON.stringify(watch);renderBoard();renderResults()}
-function addManual(){
-  if(!validKey($('wp').value,$('ws').value)){alert('Enter a page of up to 4 characters (0-9, A-F) and a slot number.');return}
-  const k=keyOf($('wp').value,$('ws').value);if(!watch.includes(k))watch.push(k);setWatch()}
-function clearForm(){for(const i of['ep','es','est','el','ed','ei'])$(i).value='';$('msg').textContent=''}
-function edit(k){const e=S.stops[k]||{},[p,s]=k.split(':');$('editor').open=true;
+const apiEvery=()=>Math.max(120,+localStorage.apiEvery||120);
+$('every').value=apiEvery();
+$('every').onchange=()=>{const v=Math.round(+$('every').value);if(!(v>=120)){$('every').value=apiEvery();$('emsg').textContent='Minimum is 120 s.';return}
+  localStorage.apiEvery=v;$('emsg').textContent='Saved.'};
+function syncFreq(){const r=S&&S.receiver,el=$('freq');if(!r||document.activeElement===el)return;
+  const fs=r.freqs||[];if(el.options.length!==fs.length)el.innerHTML=fs.map(f=>`<option value="${f}">${f} MHz</option>`).join('');
+  el.disabled=r.mode!=='live';if(r.freq_mhz)el.value=r.freq_mhz;
+  $('fhint').textContent=r.mode==='live'?'Changing it retunes the receiver for everyone using this app. Times disappear for about 10 s.':'The frequency cannot be changed while replaying a recording.'}
+$('freq').onchange=async()=>{const f=$('freq').value;
+  if(!confirm('Switch the receiver to '+f+' MHz? This changes it for everyone using this app, and times disappear for about 10 s.')){syncFreq();return}
+  $('fmsg').textContent='Switching to '+f+' MHz…';
+  const r=await fetch('/api/freq',{method:'POST',body:JSON.stringify({freq_mhz:f})}).catch(()=>null);
+  $('fmsg').textContent=r&&r.ok?'Listening on '+f+' MHz.':'Could not switch: '+(r?(await r.json()).error:'server unreachable');
+  $('freq').blur();poll()};
+$('refresh').onclick=async()=>{$('smsg').textContent='Refreshing…';
+  try{S=await (await fetch('/api/state')).json();fetchedAt=Date.now();failed=false}catch(e){failed=true}
+  await pollCompare(120);render();$('smsg').textContent=failed?'Server unreachable.':'Updated at '+new Date().toLocaleTimeString()};
+function setWatch(){localStorage.watch=JSON.stringify(watch);renderBoard();renderResults();renderList()}
+$('aform').onsubmit=ev=>{ev.preventDefault();
+  if(!validKey($('wp').value,$('ws').value)){$('amsg').textContent='Enter a page of up to 4 characters (0-9, A-F) and a slot number.';return}
+  const k=keyOf($('wp').value,$('ws').value);
+  if(watch.includes(k)){$('amsg').textContent=k+' is already on your board.';return}
+  watch.push(k);setWatch();$('amsg').textContent='Following '+k+'. It is on the Board.'};
+function clearForm(){for(const i of['ep','es','est','el','ed','ei'])$(i).value='';$('msg').textContent='';syncEditor();renderList()}
+function edit(k){const e=S.stops[k]||{},[p,s]=k.split(':');
+  if(view!=='stops'){location.hash='#stops';route()}
   $('ep').value=p;$('es').value=s;$('est').value=e.stop||'';$('el').value=e.line||'';$('ed').value=e.direction||'';$('ei').value=e.stop_id||'';
-  $('est').focus();$('editor').scrollIntoView({behavior:'smooth'})}
-async function save(){
+  $('msg').textContent='';syncEditor();renderList();
+  $('est').focus();$('eform').scrollIntoView({block:'nearest',behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'})}
+$('eform').onsubmit=async ev=>{ev.preventDefault();
   if(!validKey($('ep').value,$('es').value)||!$('est').value.trim()){$('msg').textContent='Page, slot and stop name are required.';return}
   const e={stop:$('est').value.trim()};
   for(const[f,id]of[['line','el'],['direction','ed'],['stop_id','ei']])if($(id).value.trim())e[f]=$(id).value.trim();
   const r=await fetch('/api/stops/'+keyOf($('ep').value,$('es').value),{method:'PUT',body:JSON.stringify(e)});
-  $('msg').textContent=r.ok?'Saved':(await r.json()).error;await poll()}
-async function del(k){if(confirm('Delete the name of '+k+' ('+S.stops[k].stop+')?')){await fetch('/api/stops/'+k,{method:'DELETE'});poll()}}
-$('rx').onclick=()=>{const o=$('panel').classList.toggle('open');$('rx').setAttribute('aria-expanded',o)};
+  $('msg').textContent=r.ok?'Saved.':(await r.json()).error;await poll()};
+$('eclear').onclick=clearForm;
+$('edel').onclick=async()=>{const k=typedKey();if(k&&S.stops[k]&&confirm('Delete the name of '+k+' ('+S.stops[k].stop+')?')){
+  await fetch('/api/stops/'+k,{method:'DELETE'});clearForm();$('msg').textContent='Deleted.';poll()}};
 document.addEventListener('click',ev=>{
-  if(!ev.target.closest('#rxbox'))$('panel').classList.remove('open');
   const b=ev.target.closest('button');if(!b)return;const d=b.dataset;
   if(d.add){d.add.split(',').forEach(k=>watch.includes(k)||watch.push(k));setWatch()}
   else if(d.rm){watch=watch.filter(x=>x!==d.rm);setWatch()}
   else if(d.edit||d.name)edit(d.edit||d.name);
-  else if(d.del)del(d.del);
 });
-$('q').oninput=renderResults;$('mf').oninput=renderList;$('editor').ontoggle=renderList;
-poll();setInterval(poll,3000);setInterval(()=>S&&!failed&&renderBoard(),20000);
+$('q').oninput=renderResults;$('mf').oninput=renderList;
+$('ep').oninput=$('es').oninput=()=>{syncEditor();renderList()};
+window.onhashchange=route;
+route();poll();setInterval(poll,3000);setInterval(()=>S&&!failed&&view==='board'&&renderBoard(),20000);
 </script>
 </html>
