@@ -36,6 +36,12 @@ button.danger{border-color:var(--bad);color:var(--bad);background:#fff}
 .t.gone b{color:var(--dim);text-decoration:line-through;font-size:1.1rem}
 .t.soon b{color:var(--ok)}
 .note{grid-column:2/4;font-size:.8rem;color:var(--dim)}.note.warn{color:var(--warn)}
+.api{font-size:.8rem;margin-top:.15rem;color:var(--dim)}.api .ok{color:var(--ok)}.api .bad{color:var(--bad)}.api b{font-weight:600}
+.pill{cursor:pointer;border:0;font:inherit;font-size:.9rem}
+header{position:relative}
+#panel{display:none;position:absolute;right:clamp(.8rem,3vw,2rem);top:calc(100% + .4rem);z-index:5;width:min(22rem,calc(100vw - 1.6rem));background:#fff;border:1px solid var(--line);border-radius:12px;padding:.7rem 1rem;box-shadow:0 6px 24px #0002;font-size:.9rem}
+#panel.open{display:block}#panel dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:.25rem .8rem}
+#panel dt{color:var(--dim)}#panel dd{margin:0;text-align:right}
 .board-dim{opacity:.45}
 .banner{padding:.6rem 1rem;border-radius:10px;background:#fde7e5;color:var(--bad);display:none}
 details{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:.7rem 1rem}
@@ -52,7 +58,7 @@ summary{cursor:pointer;font-weight:600}
 </style>
 <header>
  <h1>🚌 Bus times</h1>
- <span id="rx" class="pill wait">Connecting…</span>
+ <div id="rxbox"><button id="rx" class="pill wait" aria-expanded="false" aria-controls="panel">Connecting…</button><div id="panel"></div></div>
 </header>
 <main>
  <div id="banner" class="banner"></div>
@@ -92,7 +98,7 @@ summary{cursor:pointer;font-weight:600}
 </main>
 <script>
 const $=id=>document.getElementById(id);
-let S=null,fetchedAt=0,failed=false,watch=JSON.parse(localStorage.watch||'[]');
+let S=null,C={},fetchedAt=0,failed=false,watch=JSON.parse(localStorage.watch||'[]');
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>'&#'+c.charCodeAt(0)+';');
 const norm=s=>String(s??'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[-’']/g,' ');
 const keyOf=(p,s)=>p.trim().toUpperCase().padStart(4,'0')+':'+parseInt(s,10);
@@ -100,6 +106,17 @@ const validKey=(p,s)=>/^[0-9a-f]{1,4}$/i.test(p.trim())&&/^\d+$/.test(s.trim());
 const badge=l=>`<span class="badge${l?'':' none'}">${esc(l||'?')}</span>`;
 const dur=m=>m<60?m+' min':Math.floor(m/60)+' h '+String(m%60).padStart(2,'0');
 
+function apiLine(k,cols){
+  const a=C[k];if(!a)return'';
+  if(a.status!=='ok')return `<div class="api">${{none:'API: no matching bus',nokey:'API comparison unavailable',nodirection:'API: no direction to match'}[a.status]||'API unavailable'}</div>`;
+  const parts=[0,1].map(i=>{
+    const t=a.times[i],c=cols[i];if(!t)return'–';
+    const d=c.seconds===undefined?null:t.seconds-c.seconds,ok=d!==null&&Math.abs(d)<=60;
+    const diff=d===null?'':ok?' ✓':` ✗ ${d>0?'+':'−'}${dur(Math.round(Math.abs(d)/60))}`;
+    return `<span class="${d===null?'':ok?'ok':'bad'}" title="${t.local}"><b>${t.minutes<1?'now':dur(t.minutes)}</b>${diff}</span>`;
+  });
+  return `<div class="api" title="${a.ambiguous?'Several lines share this direction':'Official API times'}">API ${parts.join(' · ')}${a.ambiguous?' ?':''}</div>`;
+}
 function fmtTime(c,first){
   if(c.empty)return `<div class="t"><b class="dim">–</b><span>no bus announced for now</span></div>`;
   if(c.status)return `<div class="t"><b class="dim">?</b><span>no time given right now (status code ${esc(c.status)}, meaning unknown)</span></div>`;
@@ -109,6 +126,26 @@ function fmtTime(c,first){
 }
 function ago(s){return s<90?s+' s':s<5400?Math.round(s/60)+' min':Math.round(s/3600)+' h'}
 
+function hms(s){s=Math.round(s);const h=Math.floor(s/3600),m=Math.floor(s%3600/60);return h?h+' h '+m+' min':m?m+' min '+s%60+' s':s+' s'}
+function renderPanel(){
+  const r=S&&S.receiver;if(!r){$('panel').innerHTML='Server not reachable.';return}
+  const row=(a,b,cls)=>`<dt>${a}</dt><dd class="${cls||''}">${b}</dd>`;
+  const off=r.clock_offset_s;
+  $('panel').innerHTML='<dl>'+
+   row('Mode',r.mode==='live'?'Live, '+r.freq_mhz+' MHz':'Replay of a recording')+
+   row('Blocks per second',r.blocks_per_s+' of 55.6 max',r.blocks_per_s<30?'bad':'')+
+   row('Total blocks',r.total_blocks.toLocaleString())+
+   row('Last block',r.last_block_ago==null?'none yet':r.last_block_ago+' s ago')+
+   row('Stream time',r.stream_time_local||'–')+
+   row('Computer time',new Date().toLocaleTimeString('fr-FR',{timeZone:'Europe/Paris'}))+
+   (off==null?'':row('Clock difference',(off>0?'+':'')+off.toFixed(1)+' s'+(Math.abs(off)>15?' — check':''),Math.abs(off)>15?'bad':''))+
+   row('Running for',hms(r.uptime_s))+
+   row('Slots received',r.slots_received)+
+   row('…carrying times',r.slots_with_times)+
+   row('Identified, received',r.identified_received+' of '+r.identified_total)+
+   row('Official API',r.api_available?'configured':'no key, comparison off')+
+   row('Last error',r.error?esc(r.error):'none',r.error?'bad':'')+'</dl>';
+}
 function receiverState(){
   const r=S&&S.receiver;
   if(failed||!r)return['bad','Server not reachable'];
@@ -149,9 +186,9 @@ function rowFor(k,by){
   let h=`<div class="row">${badge(e&&e.line)}<div class="dir">${e?(e.direction?'towards <b>'+esc(e.direction)+'</b>':'<span class="dim">direction unknown</span>'):'<b>Unidentified bus line</b>'}`+
    `<div class="dim small">${k.replace(':',' · slot ')}</div></div><button class="x" data-rm="${k}" title="Remove from my stops" aria-label="Remove">✕</button>`;
   if(!s)return h+`<div class="note">Waiting for the first update from the radio. A line only appears once its times change, which can take a few minutes.</div></div>`;
-  h+=`<div class="times"><div><div class="small dim">Next bus</div>${fmtTime(s.columns[0])}</div><div><div class="small dim">Bus after that</div>${fmtTime(s.columns[1])}</div></div>`;
+  h+=`<div class="times"><div><div class="small dim">Next bus</div>${fmtTime(s.columns[0])}</div><div><div class="small dim">Bus after that</div>${fmtTime(s.columns[1])}</div></div>${apiLine(k,s.columns)}`;
   const age=s.updated_ago+(Date.now()-fetchedAt)/1000|0;
-  h+=age>600?`<div class="note warn">Not refreshed for ${ago(age)} — check the times.</div>`:`<div class="note">Last change received ${ago(age)} ago</div>`;
+  h+=`<div class="note"><span class="pill ${age>600?'bad':''}" title="From the radio: time since the last update of this line${age>600?' — check the times':''}">${ago(age)}</span></div>`;
   if(!e)h+=`<div class="note"><button class="sec" data-name="${k}">Give it a name</button></div>`;
   return h+'</div>';
 }
@@ -174,7 +211,7 @@ function renderList(){
    `<button class="sec" data-edit="${e.k}">Edit</button><button class="danger" data-del="${e.k}">Delete</button></div>`).join('');
 }
 function render(){
-  const[c,t]=receiverState();$('rx').className='pill '+c;$('rx').textContent=t;
+  const[c,t]=receiverState();$('rx').className='pill '+c;$('rx').textContent=t;renderPanel();
   const b=$('banner');b.style.display=failed?'block':'none';
   b.textContent='Cannot reach the server. The times below are old and no longer update.';
   if(!S)return;
@@ -186,7 +223,12 @@ function render(){
 }
 async function poll(){
   try{S=await (await fetch('/api/state')).json();fetchedAt=Date.now();failed=false}catch(e){failed=true}
-  render();
+  await pollCompare();render();
+}
+async function pollCompare(){
+  const ks=watch.filter(k=>S&&S.stops[k]&&S.stops[k].stop_id);
+  if(!ks.length||failed){C={};return}
+  try{C=await (await fetch('/api/compare?keys='+ks.join(','))).json()}catch(e){C={}}
 }
 function setWatch(){localStorage.watch=JSON.stringify(watch);renderBoard();renderResults()}
 function addManual(){
@@ -203,7 +245,9 @@ async function save(){
   const r=await fetch('/api/stops/'+keyOf($('ep').value,$('es').value),{method:'PUT',body:JSON.stringify(e)});
   $('msg').textContent=r.ok?'Saved':(await r.json()).error;await poll()}
 async function del(k){if(confirm('Delete the name of '+k+' ('+S.stops[k].stop+')?')){await fetch('/api/stops/'+k,{method:'DELETE'});poll()}}
+$('rx').onclick=()=>{const o=$('panel').classList.toggle('open');$('rx').setAttribute('aria-expanded',o)};
 document.addEventListener('click',ev=>{
+  if(!ev.target.closest('#rxbox'))$('panel').classList.remove('open');
   const b=ev.target.closest('button');if(!b)return;const d=b.dataset;
   if(d.add){d.add.split(',').forEach(k=>watch.includes(k)||watch.push(k));setWatch()}
   else if(d.rm){watch=watch.filter(x=>x!==d.rm);setWatch()}
