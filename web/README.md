@@ -32,6 +32,7 @@ Display lag is about 5–8 s (4 s segments). Stop with Ctrl-C.
 `GET /api/state` (receiver status, all slots, stops), `GET /api/stops`, `PUT /api/stops/PPPP:S` (JSON body),
 `DELETE /api/stops/PPPP:S`. `POST /api/freq` with `{"freq_mhz": "95.6"}` retunes the live receiver (Radio tab in the page):
 it restarts `rtl_fm` and `blockreader` and clears the received slots, since pages differ between stations. Watched slots are kept in the browser (localStorage).
+`POST /api/api-enabled` with `{"enabled": false}` turns every IDFM API call off (button on the Board page; kept in `web/settings.json`, not committed).
 `GET /api/compare?keys=PPPP:S,...` returns the IDFM real-time API's next two times for those slots that have a `stop_id`.
 It needs the environment variable `IDFM_API_KEY` (set before starting the server; the key stays on the server). Without it the
 app works and shows the comparison as unavailable. Each stop point is fetched at most once per 2 min (or the interval set in the Radio tab, never less), only for stops on a board.

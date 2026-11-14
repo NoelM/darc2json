@@ -43,6 +43,11 @@ input,select{min-height:2.5rem;padding:.45rem .65rem;border:1px solid var(--fiel
 input:disabled,select:disabled{background:var(--bg);color:var(--dim)}
 button{min-height:2.5rem;padding:.45rem .9rem;border:1px solid var(--accent);background:var(--accent);color:#fff;border-radius:8px;cursor:pointer}
 button.sec{background:#fff;color:var(--accent)}
+.switch{margin-left:auto;align-self:center;display:inline-flex;align-items:center;gap:.45rem;font-size:.85rem;line-height:1;color:var(--dim);cursor:pointer;user-select:none}
+.switch input{appearance:none;-webkit-appearance:none;margin:0;padding:0;min-height:0;flex:none;width:2em;height:1em;border:1px solid var(--field);border-radius:2em;cursor:pointer;
+ background:radial-gradient(circle at 25% 50%,var(--field) .32em,transparent .34em) #fff}
+.switch input:checked{background:radial-gradient(circle at 75% 50%,#fff .32em,transparent .34em) var(--accent);border-color:var(--accent)}
+.switch input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 button.x{min-height:0;border-color:var(--line);color:var(--dim);background:#fff;padding:.2rem .6rem}
 button.danger{border-color:var(--bad);color:var(--bad);background:#fff}
 button.small{min-height:2rem;padding:.2rem .7rem}
@@ -152,7 +157,7 @@ button:disabled{opacity:.5;cursor:default}
    <div id="results"></div>
   </section>
   <section>
-   <div class="sh"><h2>My stops</h2><span id="wcount" class="dim small"></span></div>
+   <div class="sh"><h2>My stops</h2><span id="wcount" class="dim small"></span><label class="switch" title="Official IDFM times shown under the radio times. Off stops every call to the IDFM API, for everyone using this app. Radio times are not affected."><input id="apiSw" type="checkbox" role="switch" checked>IDFM data</label></div>
    <div id="board"></div>
   </section>
  </div>
@@ -332,7 +337,7 @@ function renderRadio(){
   $('sigFill').style.width=Math.min(100,bps/55.6*100)+'%';
   put('sigNote',!bps?'No radio data is arriving.':bps<30?'Weak signal: some data may be missing.':'Good signal.',lvl==='bad'?'hint bad':lvl?'hint warn':'hint');
   put('r-src',r.mode==='live'?'Live, '+r.freq_mhz+' MHz':'Replay of a recording');
-  put('r-api',r.api_available?'Configured':'Not set, comparison off',r.api_available?'ok':'dim');
+  put('r-api',!r.api_available?'Not set, comparison off':r.api_enabled===false?'Turned off on the Board':'Configured',r.api_available&&r.api_enabled!==false?'ok':'dim');
   put('r-last',r.last_block_ago==null?'none yet':r.last_block_ago+' s ago');
   put('r-total',r.total_blocks.toLocaleString());
   put('r-err',r.error||'none',r.error?'bad':'');
@@ -410,7 +415,7 @@ function renderList(){
    `<div class="ctl">${watch.includes(s.key)?'<span class="dim small">followed</span>':`<button class="sec small" data-add="${s.key}">Follow</button>`}<button class="sec small" data-name="${s.key}">Name it</button></div></div>`).join('')||`<div class="empty">Every code received right now has a name.</div>`);
 }
 function render(){
-  const[c,t]=receiverState();$('rx').className='pill '+c;$('rx').textContent=t;syncFreq();
+  const[c,t]=receiverState();$('rx').className='pill '+c;$('rx').textContent=t;syncFreq();syncApi();
   $('banner').hidden=!failed;
   if(!S){if(view==='radio')renderRadio();return}
   const nu=S.slots.filter(s=>!S.stops[s.key]).length;
@@ -435,13 +440,17 @@ async function poll(){
 }
 async function pollCompare(ttl=apiEvery()){
   const ks=watch.filter(k=>S&&S.stops[k]&&S.stops[k].stop_id);
-  if(!ks.length||failed){C={};return}
+  if(!ks.length||failed||S.receiver.api_enabled===false){C={};return}
   try{C=await (await fetch('/api/compare?ttl='+ttl+'&keys='+ks.join(','))).json()}catch(e){C={}}
 }
 const apiEvery=()=>Math.max(120,+localStorage.apiEvery||120);
 $('every').value=apiEvery();
 $('every').onchange=()=>{const v=Math.round(+$('every').value);if(!(v>=120)){$('every').value=apiEvery();$('emsg').textContent='Minimum is 120 s.';return}
   localStorage.apiEvery=v;$('emsg').textContent='Saved.'};
+function syncApi(){if(S)$('apiSw').checked=S.receiver.api_enabled!==false}
+$('apiSw').onchange=async()=>{const on=$('apiSw').checked;
+  try{await fetch('/api/api-enabled',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({enabled:on})})}catch(e){}
+  await poll()};
 function syncFreq(){const r=S&&S.receiver,el=$('freq');if(!r||document.activeElement===el)return;
   const fs=r.freqs||[];if(el.options.length!==fs.length)el.innerHTML=fs.map(f=>`<option value="${f}">${f} MHz</option>`).join('');
   el.disabled=r.mode!=='live';if(r.freq_mhz)el.value=r.freq_mhz;

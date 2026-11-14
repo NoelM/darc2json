@@ -11,6 +11,20 @@ import darcrx
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 STOPS = os.path.join(HERE, 'stops.json')
+SETTINGS = os.path.join(HERE, 'settings.json')   # local switches, not committed
+
+
+def api_enabled():
+    """Official API on/off switch from the Board page; on unless turned off."""
+    try:
+        with open(SETTINGS) as f: return json.load(f).get('api_enabled', True) is not False
+    except (OSError, ValueError):
+        return True
+
+
+def set_api_enabled(on):
+    with open(SETTINGS + '.tmp', 'w') as f: json.dump({'api_enabled': bool(on)}, f)
+    os.replace(SETTINGS + '.tmp', SETTINGS)
 BLOCKREADER = os.path.join(HERE, '..', 'blockreader', 'blockreader')
 RTL_FM = 'rtl_fm -M fm -l 0 -A std -p 0 -s 228k -g 19 -F 9 -f 101.5M'.split()
 FS = darcrx.FS
@@ -187,7 +201,7 @@ def api_state():
                     slots_received=len(slots),
                     slots_with_times=sum(any('sod' in w for w in s['words']) for s in slots.values()),
                     identified_total=len(stops), identified_received=sum(k in slots for k in stops),
-                    api_available=bool(os.environ.get('IDFM_API_KEY')))
+                    api_available=bool(os.environ.get('IDFM_API_KEY')), api_enabled=api_enabled())
         if state['mode'] == 'live' and state['frame_sod'] is not None:
             # stream clock of the last decoded frame minus our clock when it arrived (includes ~5-8 s pipeline lag)
             recv['clock_offset_s'] = wrap(state['frame_sod'] - state['frame_wall'] % 86400)
@@ -206,6 +220,7 @@ api_lock = threading.Lock()
 def stop_visits(stop_id, ttl=API_TTL):
     """MonitoredStopVisit list for a stop point, cached API_TTL s (failures too); None if unavailable."""
     with api_lock:
+        if not api_enabled(): return None   # checked under the lock: no call can start once it is off
         hit = api_cache.get(stop_id)
         if hit and time.time() - hit[0] < max(ttl, API_TTL): return hit[1]  # never below API_TTL
         print('api fetch', stop_id, flush=True)
@@ -234,9 +249,11 @@ def compare(keys, ttl=API_TTL):
         now = time.time()
         stream_wall = now + wrap(sn - now % 86400) if sn is not None else now
     out = {}
+    on = api_enabled()
     for k in keys:
         e = stops.get(k) or {}
         if not e.get('stop_id'): continue
+        if not on: out[k] = dict(status='off'); continue
         if not os.environ.get('IDFM_API_KEY'): out[k] = dict(status='nokey'); continue
         visits = stop_visits(e['stop_id'], ttl)
         if visits is None: out[k] = dict(status='unavailable'); continue
@@ -330,6 +347,12 @@ class Handler(BaseHTTPRequestHandler):
         self.send(200, {'ok': True})
 
     def do_POST(self):
+        if self.path == '/api/api-enabled':
+            try: on = json.loads(self.rfile.read(int(self.headers.get('Content-Length', 0))))['enabled']
+            except (ValueError, KeyError, TypeError): on = None
+            if not isinstance(on, bool): return self.send(400, {'error': 'body must be {"enabled": true|false}'})
+            set_api_enabled(on)
+            return self.send(200, {'ok': True, 'api_enabled': on})
         if self.path != '/api/freq': return self.send(404, {'error': 'not found'})
         if state['mode'] != 'live': return self.send(409, {'error': 'only in live mode'})
         try: f = f"{float(json.loads(self.rfile.read(int(self.headers.get('Content-Length', 0))))['freq_mhz']):g}"
