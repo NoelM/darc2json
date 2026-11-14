@@ -18,7 +18,10 @@ Scripts used to tie each (page, slot) of the DARC arrival boards to a bus line a
 4. Match. `arrets.csv` is the IDFM stop reference (dataset "arrets" on
    data.iledefrance-mobilites.fr, CSV export with `;`):
 
-       python3 match.py boards.txt api arrets.csv all 15
+       python3 match.py --freq 101.5 boards.txt api arrets.csv all 15
+
+   `--freq` records the frequency in each entry's `freqs` list. To merge into the current mapping
+   (a pair found again on another frequency keeps both): `python3 revalidate.py ../web/stops.json stops.json merged.json`
 
 `stops.json` and `matches_101500k.txt` are the result for 101.5 MHz (370 slots).
 

@@ -20,4 +20,8 @@ for k in changed: print(f"  changed {k:8} was {d(cur[k])}\n  {'':16} now {d(new[
 for k in evicted: print(f"  evicted {k:8} {d(cur[k])}  (agreed {audit[k]['hits']}/{audit[k]['tried']})")
 for k in added: print(f"  new     {k:8} {d(new[k])}")
 merged = {k: v for k, v in {**cur, **new}.items() if k not in evicted}
+# a pair confirmed on another frequency keeps every frequency it was found on
+for k in ok:
+    fs = sorted(set(cur[k].get('freqs', [])) | set(new[k].get('freqs', [])), key=float)
+    if fs: merged[k] = {**merged[k], 'freqs': fs}
 json.dump(dict(sorted(merged.items())), open(sys.argv[3], 'w'), ensure_ascii=False, indent=1)

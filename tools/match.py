@@ -1,5 +1,6 @@
 # Match DARC (page, slot) boards against IDFM estimated-timetable polls.
-# usage: match.py blockreader_output.txt api_dir arrets.csv [paris|all] [tolerance_s] [current_mapping.json]
+# usage: match.py [--freq MHZ] blockreader_output.txt api_dir arrets.csv [paris|all] [tolerance_s] [current_mapping.json]
+#   --freq: FM frequency of the recording, stored in each entry's "freqs" list
 #   arrets.csv: IDFM stop reference (data.iledefrance-mobilites.fr, dataset "arrets", ';' separated)
 #   paris (default): only bus stops whose commune is Paris; all: every bus stop
 # Prints the matches and writes them to stops.json in the current directory.
@@ -8,6 +9,9 @@
 # Score of a (slot, stop+line) pair = number of distinct vehicle journeys of that stop+line
 # whose expected time the slot showed (as next or following) within the tolerance.
 import sys, re, gzip, csv, glob, collections, bisect
+FREQ = None
+if '--freq' in sys.argv:
+    i = sys.argv.index('--freq'); FREQ = f'{float(sys.argv[i + 1]):g}'; del sys.argv[i:i + 2]
 PARIS = (sys.argv[4] if len(sys.argv) > 4 else 'paris') == 'paris'
 TOL = int(sys.argv[5]) if len(sys.argv) > 5 else 30
 stops = {r['arrid']: (r['arrname'], r['arrtown'], r['arrpostalregion'])
@@ -49,7 +53,7 @@ for p in sorted(glob.glob(sys.argv[2] + '/*.csv.gz')):
         ts.sort()
         if len(ts) >= 2: bucket[ts[0]//10].append((ts[0], ts[1], key))
     for slot, o in obs.items():
-        i = bisect.bisect_right(o, (T + 20, 1 << 30, 0)) - 1
+        i = bisect.bisect_right(o, T + 20, key=lambda r: r[0]) - 1
         if i < 0: continue
         _, e1, e2 = o[i]
         if e1 is None or e2 is None or e1 < T - 60: continue
@@ -74,7 +78,8 @@ for slot, k, n, n2, tr, h in sorted(ok):
 
 # Mapping for the web app: {"PPPP:S": {"stop", "line", "direction", "stop_id"}}
 import json
-out = {f"{slot[0]}:{slot[1]}": {"stop": stop_of(k[0])[0], "line": meta[k][0], "direction": meta[k][1], "stop_id": k[0].split(':')[3], "line_ref": k[1].split(':')[3]}
+out = {f"{slot[0]}:{slot[1]}": {"stop": stop_of(k[0])[0], "line": meta[k][0], "direction": meta[k][1], "stop_id": k[0].split(':')[3], "line_ref": k[1].split(':')[3],
+                                **({"freqs": [FREQ]} if FREQ else {})}
        for slot, k, n, n2, tr, h in sorted(ok)}
 json.dump(out, open('stops.json', 'w'), ensure_ascii=False, indent=1)
 
