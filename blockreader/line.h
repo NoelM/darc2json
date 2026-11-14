@@ -8,13 +8,16 @@
 struct Line
 {
     uint64_t timestamp;
-    uint8_t  bic;
+    uint16_t bic;
     uint8_t  logicChannel;
     uint8_t  decodeIndicator;
     uint8_t  subChannel;
 
     uint8_t  lineId;
+
     uint8_t  blockSync;
+    uint8_t  blockId;
+    uint8_t  blockSubId;
 
     uint8_t* raw;
 };

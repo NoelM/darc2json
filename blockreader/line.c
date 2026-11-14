@@ -22,7 +22,7 @@ int decodeLine(struct Line* line, char* raw) {
     // Short Message Channel, SMCh, 0x9
     // Long Message Channel,  LMCh, 0xA
     // Block Message Channel, BMCh, 0xB
-    line->logicChannel    =  raw[10] & 0b00001111;
+    line->logicChannel =  raw[10] & 0b00001111;
 
     // BMCh, 4 bits codes the Decode Indicator
     // "Set to 1 for real time information"
@@ -34,20 +34,25 @@ int decodeLine(struct Line* line, char* raw) {
     // 4  : Synchronous Frame Message
     // 5-6: Reserved
     // 7  : Reserved for Future Extension (RFE)
-    line->subChannel      = (raw[10] & 0b11100000) >> 5;
+    line->subChannel = (raw[10] & 0b11100000) >> 5;
 
     // Application Specifications
     // _not part of DARC specifications_
     // 
     // Data block are sent, each block is made of multiple lines.
     // Each line is prefixed with a counter, 
-    // and a sync bit which indicates the begining of the frame
+    // and a sync bit which indicates the begining of a block
 
-    // 0:6 (7) bits code a Local Counter, to identify lines of a frame   
-    line->lineId    =  raw[11] & 0b01111111;
+    // 0:6 (7) bits code a line counter, to identify missing lines of a block
+    line->lineId =  raw[11] & 0b01111111;
 
-    // 7th bit codes a sync bit
-    line->blockSync       = (raw[11] & 0b10000000) != 0;
+    // 7th bit codes a block sync bit
+    line->blockSync = (raw[11] & 0b10000000) != 0;
+
+    if (line->blockSync) {
+        line->blockId    = raw[12];
+        line->blockSubId = raw[13];
+    }
 
     memcpy(line->raw, raw, LINE_LEN);
 
@@ -55,12 +60,16 @@ int decodeLine(struct Line* line, char* raw) {
 }
 
 int sprintHeader(struct Line* line, char* buffer) {
-    return sprintf(buffer, "%12lld [%1d] [%1X %1X %1X] %3d %c ", 
-        line->timestamp, 
-        BicFor(line->bic)+1, 
-        line->logicChannel,
-        line->decodeIndicator, 
-        line->subChannel, 
+    //return sprintf(buffer, "%12lld [%1d] [%1X %1X %1X] %3d %c ", 
+    //    line->timestamp, 
+    //    BicFor(line->bic)+1, 
+    //    line->logicChannel,
+    //    line->decodeIndicator, 
+    //    line->subChannel, 
+    //    line->lineId, 
+    //    line->blockSync ? 'A' : ' ');
+
+    return sprintf(buffer, "[%3d] [%c] ", 
         line->lineId, 
         line->blockSync ? 'A' : ' ');
 }
