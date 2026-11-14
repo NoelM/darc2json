@@ -31,12 +31,12 @@ button.danger{border-color:var(--bad);color:var(--bad);background:#fff}
 .badge.none{background:#98a2b3}
 #board{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,24rem),1fr));gap:1rem;align-items:start}
 .row{display:grid;grid-template-columns:auto 1fr auto;gap:.2rem .7rem;padding:.6rem 0;border-top:1px solid var(--line);align-items:start}
-.row .dir{overflow-wrap:anywhere}.row .times{grid-column:2/4;display:flex;gap:1.2rem;flex-wrap:wrap}
+.row .dir{overflow-wrap:anywhere}.row .times{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:.1rem 1.2rem;margin-top:.5rem}.row .times .api{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:0 1.2rem}.api .m{grid-column:1/-1}.key{display:inline-block;font-size:.7rem;padding:0 .4rem;border-radius:99px;background:#e4e7ec;color:#475467;cursor:help}.mono{font-family:ui-monospace,Menlo,monospace}.dir .pill{cursor:help;font:inherit;font-size:.7rem;padding:0 .4rem;margin-left:.4rem}.dir .pill::before{width:.45rem;height:.45rem}
 .t{display:flex;flex-direction:column}.t b{font-size:1.5rem;line-height:1.1}.t span{font-size:.8rem;color:var(--dim)}
 .t.gone b{color:var(--dim);text-decoration:line-through;font-size:1.1rem}
 .t.soon b{color:var(--ok)}
 .note{grid-column:2/4;font-size:.8rem;color:var(--dim)}.note.warn{color:var(--warn)}
-.api{font-size:.8rem;margin-top:.15rem;color:var(--dim)}.api .ok{color:var(--ok)}.api .bad{color:var(--bad)}.api b{font-weight:600}
+.api{font-size:.8rem;margin-top:.15rem;color:var(--dim)}.api .ok{color:var(--ok)}.api .warn{color:var(--warn)}.api .bad{color:var(--bad)}.api b{font-weight:600}
 .pill{cursor:pointer;border:0;font:inherit;font-size:.9rem}
 header{position:relative}
 #panel{display:none;position:absolute;right:clamp(.8rem,3vw,2rem);top:calc(100% + .4rem);z-index:5;width:min(22rem,calc(100vw - 1.6rem));background:#fff;border:1px solid var(--line);border-radius:12px;padding:.7rem 1rem;box-shadow:0 6px 24px #0002;font-size:.9rem}
@@ -108,14 +108,14 @@ const dur=m=>m<60?m+' min':Math.floor(m/60)+' h '+String(m%60).padStart(2,'0');
 
 function apiLine(k,cols){
   const a=C[k];if(!a)return'';
-  if(a.status!=='ok')return `<div class="api">${{none:'API: no matching bus',nokey:'API comparison unavailable',nodirection:'API: no direction to match'}[a.status]||'API unavailable'}</div>`;
+  if(a.status!=='ok')return `<div class="api"><span class="m">${{none:'API: no matching bus',nokey:'API comparison unavailable',nodirection:'API: no direction to match'}[a.status]||'API unavailable'}</span></div>`;
   const parts=[0,1].map(i=>{
-    const t=a.times[i],c=cols[i];if(!t)return'–';
+    const t=a.times[i],c=cols[i];if(!t)return '<span>API –</span>';
     const d=c.seconds===undefined?null:t.seconds-c.seconds,ok=d!==null&&Math.abs(d)<=60;
     const diff=d===null?'':ok?' ✓':` ✗ ${d>0?'+':'−'}${dur(Math.round(Math.abs(d)/60))}`;
-    return `<span class="${d===null?'':ok?'ok':'bad'}" title="${t.local}"><b>${t.minutes<1?'now':dur(t.minutes)}</b>${diff}</span>`;
+    return `<span class="${d===null?'':ok?'ok':Math.abs(d)<120?'warn':'bad'}" title="${t.local}">API <b>${t.minutes<1?'now':dur(t.minutes)}</b>${diff}${a.ambiguous&&!i?' ?':''}</span>`;
   });
-  return `<div class="api" title="${a.ambiguous?'Several lines share this direction':'Official API times'}">API ${parts.join(' · ')}${a.ambiguous?' ?':''}</div>`;
+  return `<div class="api" title="${a.ambiguous?'Several lines share this direction':'Official API times'}">${parts.join('')}</div>`;
 }
 function fmtTime(c,first){
   if(c.empty)return `<div class="t"><b class="dim">–</b><span>no bus announced for now</span></div>`;
@@ -124,6 +124,8 @@ function fmtTime(c,first){
   if(m<0)return `<div class="t gone"><b>left ${dur(-m)} ago</b><span>was due ${c.local}</span></div>`;
   return `<div class="t${m<=2?' soon':''}"><b>${m<1?'now':dur(m)}</b><span>${c.local}</span></div>`;
 }
+function agePill(s){const age=s.updated_ago+(Date.now()-fetchedAt)/1000|0;
+  return `<span class="pill ${age>600?'bad':''}" title="From the radio: time since the last update of this line${age>600?' — check the times':''}">${ago(age)}</span>`}
 function ago(s){return s<90?s+' s':s<5400?Math.round(s/60)+' min':Math.round(s/3600)+' h'}
 
 function hms(s){s=Math.round(s);const h=Math.floor(s/3600),m=Math.floor(s%3600/60);return h?h+' h '+m+' min':m?m+' min '+s%60+' s':s+' s'}
@@ -184,11 +186,9 @@ function renderResults(){
 function rowFor(k,by){
   const e=S.stops[k],s=by[k];
   let h=`<div class="row">${badge(e&&e.line)}<div class="dir">${e?(e.direction?'towards <b>'+esc(e.direction)+'</b>':'<span class="dim">direction unknown</span>'):'<b>Unidentified bus line</b>'}`+
-   `<div class="dim small">${k.replace(':',' · slot ')}</div></div><button class="x" data-rm="${k}" title="Remove from my stops" aria-label="Remove">✕</button>`;
+   `<div class="dim small mono"><span class="key" title="Radio page:slot">${k}</span>${s?agePill(s):''}</div></div><button class="x" data-rm="${k}" title="Remove from my stops" aria-label="Remove">✕</button>`;
   if(!s)return h+`<div class="note">Waiting for the first update from the radio. A line only appears once its times change, which can take a few minutes.</div></div>`;
-  h+=`<div class="times"><div><div class="small dim">Next bus</div>${fmtTime(s.columns[0])}</div><div><div class="small dim">Bus after that</div>${fmtTime(s.columns[1])}</div></div>${apiLine(k,s.columns)}`;
-  const age=s.updated_ago+(Date.now()-fetchedAt)/1000|0;
-  h+=`<div class="note"><span class="pill ${age>600?'bad':''}" title="From the radio: time since the last update of this line${age>600?' — check the times':''}">${ago(age)}</span></div>`;
+  h+=`<div class="times"><div><div class="small dim">Next bus</div>${fmtTime(s.columns[0])}</div><div><div class="small dim">Bus after that</div>${fmtTime(s.columns[1])}</div>${apiLine(k,s.columns)}</div>`;
   if(!e)h+=`<div class="note"><button class="sec" data-name="${k}">Give it a name</button></div>`;
   return h+'</div>';
 }
