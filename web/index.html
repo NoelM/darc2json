@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bus times</title>
+<style>
+:root{--bg:#f3f5f8;--card:#fff;--ink:#1c2430;--dim:#667085;--line:#dde2ea;--accent:#0b66d0;--ok:#127a3e;--bad:#b42318;--warn:#9a6700}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.35 system-ui,-apple-system,sans-serif}
+header{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem 1rem;padding:.8rem clamp(.8rem,3vw,2rem);background:#fff;border-bottom:1px solid var(--line)}
+h1{font-size:1.25rem;margin:0;flex:1 1 auto}
+h2{font-size:1.05rem;margin:0 0 .6rem}
+main{padding:clamp(.8rem,3vw,2rem);display:grid;gap:1.5rem;max-width:2200px;margin:auto}
+.pill{display:inline-flex;align-items:center;gap:.4rem;padding:.25rem .7rem;border-radius:99px;font-size:.9rem;background:#e7f6ec;color:var(--ok)}
+.pill.bad{background:#fde7e5;color:var(--bad)}.pill.wait{background:#fff4d6;color:var(--warn)}
+.pill::before{content:"";width:.6rem;height:.6rem;border-radius:50%;background:currentColor}
+.dim{color:var(--dim)}.small{font-size:.85rem}
+button,input{font:inherit}
+input{padding:.5rem .6rem;border:1px solid #b8c0cc;border-radius:8px;min-width:0;background:#fff;color:inherit}
+button{padding:.45rem .8rem;border:1px solid var(--accent);background:var(--accent);color:#fff;border-radius:8px;cursor:pointer}
+button.sec{background:#fff;color:var(--accent)}button.x{border-color:var(--line);color:var(--dim);background:#fff;padding:.2rem .6rem}
+button.danger{border-color:var(--bad);color:var(--bad);background:#fff}
+#q{width:100%;font-size:1.2rem;padding:.8rem 1rem;border-radius:12px}
+#results{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,22rem),1fr));gap:.8rem;margin-top:.8rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:.8rem 1rem}
+.card h3{margin:0 0 .4rem;font-size:1.05rem;display:flex;gap:.5rem;align-items:baseline;flex-wrap:wrap}
+.card h3 .sp{flex:1}
+.opt{display:flex;gap:.6rem;align-items:center;padding:.35rem 0;border-top:1px solid var(--line)}
+.opt .what{flex:1;min-width:0;overflow-wrap:anywhere}
+.badge{display:inline-block;min-width:2.4rem;text-align:center;padding:.1rem .5rem;border-radius:6px;background:#1f5fa8;color:#fff;font-weight:700}
+.badge.none{background:#98a2b3}
+#board{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,24rem),1fr));gap:1rem;align-items:start}
+.row{display:grid;grid-template-columns:auto 1fr auto;gap:.2rem .7rem;padding:.6rem 0;border-top:1px solid var(--line);align-items:start}
+.row .dir{overflow-wrap:anywhere}.row .times{grid-column:2/4;display:flex;gap:1.2rem;flex-wrap:wrap}
+.t{display:flex;flex-direction:column}.t b{font-size:1.5rem;line-height:1.1}.t span{font-size:.8rem;color:var(--dim)}
+.t.gone b{color:var(--dim);text-decoration:line-through;font-size:1.1rem}
+.t.soon b{color:var(--ok)}
+.note{grid-column:2/4;font-size:.8rem;color:var(--dim)}.note.warn{color:var(--warn)}
+.board-dim{opacity:.45}
+.banner{padding:.6rem 1rem;border-radius:10px;background:#fde7e5;color:var(--bad);display:none}
+details{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:.7rem 1rem}
+summary{cursor:pointer;font-weight:600}
+.form{display:grid;grid-template-columns:repeat(auto-fit,minmax(10rem,1fr));gap:.6rem;margin:.8rem 0}
+.form label{display:flex;flex-direction:column;font-size:.85rem;color:var(--dim);gap:.2rem}
+.form label.wide{grid-column:span 2}
+@media(max-width:480px){.form label.wide{grid-column:auto}}
+#list{max-height:24rem;overflow-y:auto;margin-top:.6rem}
+.mrow{display:flex;gap:.5rem;align-items:center;padding:.35rem 0;border-top:1px solid var(--line);flex-wrap:wrap}
+.mrow .what{flex:1 1 14rem;min-width:0;overflow-wrap:anywhere}
+.inline{display:flex;gap:.5rem;flex-wrap:wrap;align-items:end}
+.inline input{width:6rem}
+</style>
+<header>
+ <h1>🚌 Bus times</h1>
+ <span id="rx" class="pill wait">Connecting…</span>
+</header>
+<main>
+ <div id="banner" class="banner"></div>
+ <section>
+  <input id="q" type="search" autocomplete="off" placeholder="Search stop, line or direction">
+  <div id="results"></div>
+ </section>
+ <section>
+  <h2>My stops</h2>
+  <div id="board"></div>
+ </section>
+ <details id="adv">
+  <summary>Add a bus line that is not identified yet</summary>
+  <p class="dim small">The radio signal sends each bus line at each stop under a code: a page (4 characters, like 0015) and a slot number. Some are not matched to a stop name yet. If you know the code, you can follow it here and then give it a name.</p>
+  <div class="inline">
+   <label class="small dim">Page<br><input id="wp" placeholder="0015" maxlength="4"></label>
+   <label class="small dim">Slot<br><input id="ws" placeholder="0" inputmode="numeric"></label>
+   <button onclick="addManual()">Follow</button>
+   <span class="dim small">Currently received but unidentified: <span id="unk">0</span>. Type a code in the search box above to find them.</span>
+  </div>
+ </details>
+ <details id="editor">
+  <summary>Edit stop names (<span id="n">0</span> known)</summary>
+  <p class="dim small">This list is saved in stops.json and is shared with everyone using this app.</p>
+  <div class="form">
+   <label>Page<input id="ep" placeholder="0015" maxlength="4"></label>
+   <label>Slot<input id="es" placeholder="0" inputmode="numeric"></label>
+   <label class="wide">Stop name (required)<input id="est"></label>
+   <label>Bus line<input id="el" placeholder="52"></label>
+   <label class="wide">Direction (towards)<input id="ed"></label>
+   <label>Stop ID (optional)<input id="ei"></label>
+  </div>
+  <div class="inline"><button onclick="save()">Save</button><button class="sec" onclick="clearForm()">Clear</button><span id="msg" class="small"></span></div>
+  <input id="mf" type="search" placeholder="Filter this list" style="width:100%;margin-top:.8rem">
+  <div id="list"></div>
+ </details>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+let S=null,fetchedAt=0,failed=false,watch=JSON.parse(localStorage.watch||'[]');
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>'&#'+c.charCodeAt(0)+';');
+const norm=s=>String(s??'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[-’']/g,' ');
+const keyOf=(p,s)=>p.trim().toUpperCase().padStart(4,'0')+':'+parseInt(s,10);
+const validKey=(p,s)=>/^[0-9a-f]{1,4}$/i.test(p.trim())&&/^\d+$/.test(s.trim());
+const badge=l=>`<span class="badge${l?'':' none'}">${esc(l||'?')}</span>`;
+const dur=m=>m<60?m+' min':Math.floor(m/60)+' h '+String(m%60).padStart(2,'0');
+
+function fmtTime(c,first){
+  if(c.empty)return `<div class="t"><b class="dim">–</b><span>no bus announced for now</span></div>`;
+  if(c.status)return `<div class="t"><b class="dim">?</b><span>no time given right now (status code ${esc(c.status)}, meaning unknown)</span></div>`;
+  const m=c.minutes;
+  if(m<0)return `<div class="t gone"><b>left ${dur(-m)} ago</b><span>was due ${c.local}</span></div>`;
+  return `<div class="t${m<=2?' soon':''}"><b>${m<1?'now':dur(m)}</b><span>${c.local}</span></div>`;
+}
+function ago(s){return s<90?s+' s':s<5400?Math.round(s/60)+' min':Math.round(s/3600)+' h'}
+
+function receiverState(){
+  const r=S&&S.receiver;
+  if(failed||!r)return['bad','Server not reachable'];
+  if(r.error)return['bad','Radio problem: '+r.error];
+  if(r.finished)return['bad','Recording finished'];
+  if(!r.blocks_per_s)return['wait','Waiting for radio signal…'];
+  if(r.blocks_per_s<30)return['wait','Weak signal (some data may be missing)'];
+  return['','Receiving live data'+(r.mode==='replay'?' (replay)':'')+(r.stream_time_local?' · '+r.stream_time_local.slice(0,5):'')];
+}
+
+function entries(){ // all known stops, with live-received flag
+  return Object.entries(S.stops).map(([k,e])=>({k,...e,hay:norm([e.stop,e.line,e.direction,k].join(' '))}));
+}
+function renderResults(){
+  const q=$('q').value, el=$('results');
+  if(!S){return}
+  const toks=norm(q).split(/\s+/).filter(Boolean);
+  if(!toks.length){el.innerHTML='';return}
+  const groups={};
+  entries().filter(e=>toks.every(t=>e.hay.includes(t))).forEach(e=>(groups[e.stop]??=[]).push(e));
+  const names=Object.keys(groups).sort((a,b)=>norm(a).localeCompare(norm(b))).slice(0,40);
+  let html=names.map(n=>{
+    const g=groups[n].sort((a,b)=>String(a.line).localeCompare(String(b.line),undefined,{numeric:true}));
+    const todo=g.filter(e=>!watch.includes(e.k));
+    return `<div class="card"><h3>${esc(n)}<span class="sp"></span>`+
+     (todo.length?`<button data-add="${todo.map(e=>e.k).join(',')}">${g.length>1?`Add all ${todo.length===g.length?g.length:todo.length} lines`:'Add'}</button>`:`<span class="dim small">added</span>`)+`</h3>`+
+     g.map(e=>`<div class="opt">${badge(e.line)}<span class="what">${e.direction?'towards '+esc(e.direction):'<span class="dim">direction unknown</span>'}</span>`+
+       (watch.includes(e.k)?`<span class="dim small">added</span>`:`<button class="sec" data-add="${e.k}">Add</button>`)+`</div>`).join('')+`</div>`;
+  }).join('');
+  const unk=S.slots.filter(s=>!S.stops[s.key]&&toks.every(t=>norm(s.key).includes(t)));
+  if(unk.length)html+=`<div class="card"><h3>Not identified yet</h3>`+unk.slice(0,12).map(s=>`<div class="opt"><span class="what">Unknown bus line <span class="dim small">page ${s.page}, slot ${s.slot}</span></span>`+
+    (watch.includes(s.key)?`<span class="dim small">added</span>`:`<button class="sec" data-add="${s.key}">Add</button>`)+`</div>`).join('')+`</div>`;
+  el.innerHTML=html||`<div class="dim">No stop matches “${esc(q)}”. Try fewer letters, or a line number.</div>`;
+}
+
+function rowFor(k,by){
+  const e=S.stops[k],s=by[k];
+  let h=`<div class="row">${badge(e&&e.line)}<div class="dir">${e?(e.direction?'towards <b>'+esc(e.direction)+'</b>':'<span class="dim">direction unknown</span>'):'<b>Unidentified bus line</b>'}`+
+   `<div class="dim small">${k.replace(':',' · slot ')}</div></div><button class="x" data-rm="${k}" title="Remove from my stops" aria-label="Remove">✕</button>`;
+  if(!s)return h+`<div class="note">Waiting for the first update from the radio. A line only appears once its times change, which can take a few minutes.</div></div>`;
+  h+=`<div class="times"><div><div class="small dim">Next bus</div>${fmtTime(s.columns[0])}</div><div><div class="small dim">Bus after that</div>${fmtTime(s.columns[1])}</div></div>`;
+  const age=s.updated_ago+(Date.now()-fetchedAt)/1000|0;
+  h+=age>600?`<div class="note warn">Not refreshed for ${ago(age)} — check the times.</div>`:`<div class="note">Last change received ${ago(age)} ago</div>`;
+  if(!e)h+=`<div class="note"><button class="sec" data-name="${k}">Give it a name</button></div>`;
+  return h+'</div>';
+}
+function renderBoard(){
+  if(!S)return;
+  const by={};S.slots.forEach(s=>by[s.key]=s);
+  const g={};
+  watch.forEach(k=>{const e=S.stops[k];(g[e?e.stop:'Unidentified']??=[]).push(k)});
+  const names=Object.keys(g).sort((a,b)=>(a==='Unidentified')-(b==='Unidentified')||norm(a).localeCompare(norm(b)));
+  $('board').innerHTML=names.map(n=>`<div class="card"><h3>${esc(n==='Unidentified'?'Unidentified bus lines':n)}</h3>`+
+    g[n].sort((a,b)=>String((S.stops[a]||{}).line).localeCompare(String((S.stops[b]||{}).line),undefined,{numeric:true})).map(k=>rowFor(k,by)).join('')+'</div>').join('')||
+    '<div class="dim">No stops yet. Search above for a stop name, a line number or a direction, then press Add.</div>';
+  $('board').classList.toggle('board-dim',failed);
+}
+function renderList(){
+  if(!$('editor').open||$('editor').contains(document.activeElement)&&document.activeElement.tagName==='BUTTON')return;
+  const toks=norm($('mf').value).split(/\s+/).filter(Boolean);
+  $('list').innerHTML=entries().filter(e=>toks.every(t=>e.hay.includes(t))).sort((a,b)=>norm(a.stop).localeCompare(norm(b.stop))).map(e=>
+   `<div class="mrow">${badge(e.line)}<span class="what"><b>${esc(e.stop)}</b>${e.direction?' → '+esc(e.direction):''} <span class="dim small">${e.k}</span></span>`+
+   `<button class="sec" data-edit="${e.k}">Edit</button><button class="danger" data-del="${e.k}">Delete</button></div>`).join('');
+}
+function render(){
+  const[c,t]=receiverState();$('rx').className='pill '+c;$('rx').textContent=t;
+  const b=$('banner');b.style.display=failed?'block':'none';
+  b.textContent='Cannot reach the server. The times below are old and no longer update.';
+  if(!S)return;
+  $('n').textContent=Object.keys(S.stops).length;
+  $('unk').textContent=S.slots.filter(s=>!S.stops[s.key]).length;
+  renderBoard();
+  if(document.activeElement!==$('q'))renderResults();
+  renderList();
+}
+async function poll(){
+  try{S=await (await fetch('/api/state')).json();fetchedAt=Date.now();failed=false}catch(e){failed=true}
+  render();
+}
+function setWatch(){localStorage.watch=JSON.stringify(watch);renderBoard();renderResults()}
+function addManual(){
+  if(!validKey($('wp').value,$('ws').value)){alert('Enter a page of up to 4 characters (0-9, A-F) and a slot number.');return}
+  const k=keyOf($('wp').value,$('ws').value);if(!watch.includes(k))watch.push(k);setWatch()}
+function clearForm(){for(const i of['ep','es','est','el','ed','ei'])$(i).value='';$('msg').textContent=''}
+function edit(k){const e=S.stops[k]||{},[p,s]=k.split(':');$('editor').open=true;
+  $('ep').value=p;$('es').value=s;$('est').value=e.stop||'';$('el').value=e.line||'';$('ed').value=e.direction||'';$('ei').value=e.stop_id||'';
+  $('est').focus();$('editor').scrollIntoView({behavior:'smooth'})}
+async function save(){
+  if(!validKey($('ep').value,$('es').value)||!$('est').value.trim()){$('msg').textContent='Page, slot and stop name are required.';return}
+  const e={stop:$('est').value.trim()};
+  for(const[f,id]of[['line','el'],['direction','ed'],['stop_id','ei']])if($(id).value.trim())e[f]=$(id).value.trim();
+  const r=await fetch('/api/stops/'+keyOf($('ep').value,$('es').value),{method:'PUT',body:JSON.stringify(e)});
+  $('msg').textContent=r.ok?'Saved':(await r.json()).error;await poll()}
+async function del(k){if(confirm('Delete the name of '+k+' ('+S.stops[k].stop+')?')){await fetch('/api/stops/'+k,{method:'DELETE'});poll()}}
+document.addEventListener('click',ev=>{
+  const b=ev.target.closest('button');if(!b)return;const d=b.dataset;
+  if(d.add){d.add.split(',').forEach(k=>watch.includes(k)||watch.push(k));setWatch()}
+  else if(d.rm){watch=watch.filter(x=>x!==d.rm);setWatch()}
+  else if(d.edit||d.name)edit(d.edit||d.name);
+  else if(d.del)del(d.del);
+});
+$('q').oninput=renderResults;$('mf').oninput=renderList;$('editor').ontoggle=renderList;
+poll();setInterval(poll,3000);setInterval(()=>S&&!failed&&renderBoard(),20000);
+</script>
+</html>
